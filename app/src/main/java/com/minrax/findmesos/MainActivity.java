@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkPermissionsNew();
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
         // Get the location manager
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             buildAlertMessageNoGps();
         }
         // Check if permission is granted
-        checkPermissionsNew();
         setLocation();
         setLocationMapThroughGoogleAPI();
     }
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void checkPermissionsNew() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Request permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
     }
     public void setLocation() {
