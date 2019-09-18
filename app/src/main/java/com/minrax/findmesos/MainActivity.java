@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermissionsNew();
+        while (checkPermissionsNew() == false) {
+            checkPermissionsNew();
+        }
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
         // Get the location manager
@@ -116,13 +118,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        }
 //        //END permission requests
 //    }
-    protected void checkPermissionsNew() {
+    protected boolean checkPermissionsNew() {
+        boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Request permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            isPermission = false;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            isPermission = true;
         }
+        return isPermission;
     }
-    public void setLocation() {
+    protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
         if (location != null) {
@@ -143,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //request location updates if permission Ok
         locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
     }
-    public String returnRawLocation() {
+    protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format separated by "43.383525,23.4576457", used by the send SMS, copy and other functions.
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
         return "NULL";
     }
-    public String getPreferenceValue(String key) {
+    protected String getPreferenceValue(String key) {
         SharedPreferences settings = getSharedPreferences("Settings",0);
         String str = settings.getString(key,"");
         return str;
