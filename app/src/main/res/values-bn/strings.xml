@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Find Me SOS</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="gps_not_found_message">আপনি কি জিপিএস সক্ষম করতে চান?</string>
+    <string name="gps_not_found_title">দেখে মনে হচ্ছে জিপিএস অক্ষম করা আছে ...</string>
+    <string name="no">কোন</string>
+    <string name="refresh">সতেজ করা</string>
+    <string name="latitude">অক্ষাংশ:</string>
+    <string name="longitude">দ্রাঘিমাংশ:</string>
+    <string name="broadcast_location">এসএমএস</string>
+    <string name="copy_loc">লোকাল কপি করুন</string>
+    <string name="sms_message">"এটি আমার অবস্থানের একটি লিঙ্ক:"</string>
+    <string name="email">ভাগ</string>
+    <string name="settings">সেটিংস:</string>
+    <string name="smsnumber_settings">এসএমএস পাঠাতে ফোন নম্বর (গুলি):</string>
+    <string name="_359875875487"> 359875875487</string>
+    <string name="number3">তৃতীয় নম্বর</string>
+    <string name="number2">দ্বিতীয় নম্বর ...</string>
+    <string name="mail_address_to_send_mails_to">মেলগুলি প্রেরণের জন্য ইমেল ঠিকানা:</string>
+    <string name="custom_sms_message_field">স্থানাঙ্ক প্রেরণ করার সময় কাস্টম এসএমএস বার্তা যুক্ত করতে হবে:</string>
+    <string name="sample_sms_message_hint">উদাহরণ: এসওএস, এটি আমার অবস্থান: / অথবা / আমি এখন কোথায় আছি দেখুন:</string>
+    <string name="save_settings_button_text">SETTINGS সংরক্ষণ করুন এবং প্রধান অ্যাপ্লিকেশন এ যান</string>
+    <string name="dissable_provider">অক্ষম অবস্থান সরবরাহকারী</string>
+    <string name="loc_provider_initialized">অবস্থান সরবরাহকারী শুরু হয়েছে, সর্বশেষ অবস্থান লোড হচ্ছে ...</string>
+    <string name="loc_not_available_field">অবস্থান উপলভ্য নয়, জিপিএস চেক করুন</string>
+    <string name="oops_loc_not_available_msg">ওহো, মনে হচ্ছে অবস্থান উপলব্ধ নয় ...</string>
+    <string name="loc_copies_msg">ক্লিপবোর্ডে অবস্থান অনুলিপি করা হয়েছে ...</string>
+    <string name="sharing_intent_title">সঙ্গে ভাগ:</string>
+    <string name="resume_location">পুনরায় অবস্থান শুরু হচ্ছে ...</string>
+    <string name="pause_location">অবস্থান বিরতি দিচ্ছে ...</string>
+    <string name="on_provider_enabled_method">সক্ষম হয়েছে নতুন অবস্থান সরবরাহকারী</string>
+    <string name="emailfield">mail@something.com</string>
+</resources>

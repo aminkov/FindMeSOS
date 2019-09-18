@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">என்னைக் கண்டுபிடி SOS</string>
+    <string name="yes">ஆம்</string>
+    <string name="gps_not_found_message">ஜி.பி.எஸ்ஸை இயக்க விரும்புகிறீர்களா?</string>
+    <string name="gps_not_found_title">ஜி.பி.எஸ் முடக்கப்பட்டதாக தெரிகிறது ...</string>
+    <string name="no">இல்லை</string>
+    <string name="refresh">புதுப்பிப்பு</string>
+    <string name="latitude">அட்சரேகை:</string>
+    <string name="longitude">அட்சரேகை:</string>
+    <string name="broadcast_location">எஸ்எம்எஸ்</string>
+    <string name="copy_loc">நகலை நகலெடுக்கவும்</string>
+    <string name="sms_message">"இது எனது இருப்பிடத்திற்கான இணைப்பு:"</string>
+    <string name="email">பகிர்</string>
+    <string name="settings">அமைப்புகள்:</string>
+    <string name="smsnumber_settings">எஸ்எம்எஸ் அனுப்ப தொலைபேசி எண் (கள்):</string>
+    <string name="_359875875487"> 359875875487</string>
+    <string name="number3">மூன்றாவது எண்</string>
+    <string name="number2">இரண்டாவது எண் ...</string>
+    <string name="emailfield">mail@something.in</string>
+    <string name="mail_address_to_send_mails_to">அஞ்சல்களை அனுப்ப மின்னஞ்சல் முகவரி:</string>
+    <string name="custom_sms_message_field">ஆயங்களை அனுப்பும்போது சேர்க்க வேண்டிய தனிப்பயன் எஸ்எம்எஸ் செய்தி:</string>
+    <string name="sample_sms_message_hint">எஸ்எம்எஸ் அனுப்பும்போது இந்த செய்தி பயன்படுத்தப்படும், எடுத்துக்காட்டாக: எஸ்ஓஎஸ், இது எனது இருப்பிடம்: அல்லது நான் இப்போது எங்கே இருக்கிறேன் என்று பாருங்கள்:</string>
+    <string name="save_settings_button_text">அமைப்புகளைச் சேமித்து முதன்மை APP க்குச் செல்லவும்</string>
+    <string name="dissable_provider">முடக்கப்பட்ட இருப்பிட வழங்குநர்</string>
+    <string name="loc_provider_initialized">இருப்பிட வழங்குநர் தொடங்கப்பட்டது, சமீபத்திய இருப்பிடத்தை ஏற்றுகிறது ...</string>
+    <string name="loc_not_available_field">இடம் கிடைக்கவில்லை, ஜி.பி.எஸ்</string>
+    <string name="oops_loc_not_available_msg">அச்சச்சோ, இருப்பிடம் கிடைக்கவில்லை என்று தெரிகிறது ...</string>
+    <string name="loc_copies_msg">இடம் கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது ...</string>
+    <string name="sharing_intent_title">பங்கு:</string>
+    <string name="resume_location">இருப்பிடத்தை மீண்டும் தொடங்குகிறது ...</string>
+    <string name="pause_location">இருப்பிடத்தை இடைநிறுத்துகிறது ...</string>
+    <string name="on_provider_enabled_method">புதிய இருப்பிட வழங்குநரை இயக்கப்பட்டது</string>
+</resources>

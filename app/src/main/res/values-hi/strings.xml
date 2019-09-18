@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">मुझे एसओएस खोजें</string>
+    <string name="yes">हाँ</string>
+    <string name="gps_not_found_message">क्या आप GPS सक्षम करना चाहते हैं?</string>
+    <string name="gps_not_found_title">लगता है GPS अक्षम है ...</string>
+    <string name="no">नहीं</string>
+    <string name="refresh">ताज़ा करना</string>
+    <string name="latitude">अक्षांश:</string>
+    <string name="longitude">देशांतर:</string>
+    <string name="broadcast_location">एसएमएस</string>
+    <string name="copy_loc">नियंत्रण रेखा</string>
+    <string name="sms_message">"यह मेरे स्थान की एक कड़ी है:"</string>
+    <string name="email">शेयर</string>
+    <string name="settings">समायोजन:</string>
+    <string name="smsnumber_settings">एसएमएस भेजने के लिए फ़ोन नंबर:</string>
+    <string name="_359875875487"> 359875875487</string>
+    <string name="number3">तीसरा नंबर</string>
+    <string name="number2">दूसरा नंबर ...</string>
+    <string name="emailfield">mail@something.in</string>
+    <string name="mail_address_to_send_mails_to">मेल भेजने के लिए ई-मेल पता:</string>
+    <string name="custom_sms_message_field">निर्देश भेजते समय कस्टम एसएमएस संदेश जोड़ा जाना:</string>
+    <string name="sample_sms_message_hint">एसएमएस भेजते समय इस संदेश का उपयोग किया जाएगा, उदाहरण के लिए: एसओएस, यह मेरा स्थान है: या देखें कि मैं अभी कहां हूं:</string>
+    <string name="save_settings_button_text">SETTINGS सहेजें और मुख्य एपीपी पर जाएं</string>
+    <string name="dissable_provider">विकलांग स्थान प्रदाता</string>
+    <string name="loc_provider_initialized">स्थान प्रदाता आरंभिक, नवीनतम स्थान लोड हो रहा है ...</string>
+    <string name="loc_not_available_field">स्थान उपलब्ध नहीं है, GPS की जाँच करें</string>
+    <string name="oops_loc_not_available_msg">ओह, लगता है कि स्थान उपलब्ध नहीं है ...</string>
+    <string name="loc_copies_msg">क्लिपबोर्ड पर कॉपी किया गया स्थान ...</string>
+    <string name="sharing_intent_title">के साथ शेयर करें:</string>
+    <string name="resume_location">स्थान फिर से शुरू हो रहा है ...</string>
+    <string name="pause_location">स्थान रोका जा रहा है ...</string>
+    <string name="on_provider_enabled_method">सक्षम नया स्थान प्रदाता</string>
+</resources>

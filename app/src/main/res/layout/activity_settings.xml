@@ -1,0 +1,199 @@
+<ScrollView android:id="@+id/scrollView"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<TableLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    >
+
+        <TableRow
+            android:id="@+id/firstRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+                <TextView
+                    android:id="@+id/settingstitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/settings"
+                    android:textAlignment="center"
+                    android:textColor="#ffbf00"
+                    android:textSize="36sp" />
+        </TableRow>
+        <TableRow
+            android:id="@+id/secondRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start"
+                    android:text="@string/smsnumber_settings"
+                    android:textColor="#ffbf00"
+                    android:textSize="20sp" />
+
+        </TableRow>
+        <TableRow
+        android:id="@+id/thirdfirstRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+            android:layout_marginTop="5dp"
+            >
+
+                <EditText
+                    android:id="@+id/phonenumber1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="0"
+                    android:inputType="phone"
+                    android:autofillHints="Phone number"
+                    android:background="#ffbf00"
+                    android:hint="@string/_359875875487"
+                    android:textSize="22sp"/>
+        </TableRow>
+        <TableRow
+            android:id="@+id/thirdsecondRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+                <EditText
+                    android:id="@+id/phonenumber2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="0"
+                    android:inputType="phone"
+                    android:autofillHints="Phone number 2"
+                    android:background="#ffbf00"
+                    android:hint="@string/number2"
+                    android:textSize="22sp"/>
+        </TableRow>
+        <TableRow
+            android:id="@+id/thirdthirdRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+                <EditText
+                    android:id="@+id/phonenumber3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="0"
+                    android:inputType="phone"
+                    android:autofillHints="Phone number 3"
+                    android:background="#ffbf00"
+                    android:hint="@string/number3"
+                    android:textSize="22sp"/>
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/fourthRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/mail_address_to_send_mails_to"
+                    android:gravity="start"
+                    android:textColor="#ffbf00"
+                    android:textSize="20sp" />
+                </TableRow>
+        <TableRow
+            android:id="@+id/fifthRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+                <EditText
+                    android:id="@+id/sendtoemail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="0"
+                    android:inputType="textEmailAddress"
+                    android:autofillHints="E-mail Address"
+                    android:background="#ffbf00"
+                    android:hint="@string/emailfield"
+                    android:textSize="22sp"/>
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/sixthRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/custom_sms_message_field"
+            android:gravity="start"
+            android:textColor="#ffbf00"
+            android:textSize="20sp" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:id="@+id/seventhRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+                <EditText
+                    android:id="@+id/smsMessage"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:minLines="6"
+                android:gravity="top|left"
+                android:maxLines="10"
+                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:scrollbars="vertical"
+                android:hint="@string/sample_sms_message_hint"
+                android:background="#ffbf00"
+                android:textSize="22sp"
+                    android:autofillHints="" />
+
+
+        </TableRow>
+        <TableRow
+            android:id="@+id/lastRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+                <Button
+                    android:id="@+id/savesettings"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/round_button"
+                    android:gravity="center"
+                    android:onClick="goToMainApp"
+                    android:text="@string/save_settings_button_text"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+        </TableRow>
+</TableLayout>
+
+</ScrollView>

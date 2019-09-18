@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Find Me SOS</string>
+    <string name="yes">SI</string>
+    <string name="gps_not_found_message">¿Quieres habilitar el GPS?</string>
+    <string name="gps_not_found_title">Parece que el GPS está deshabilitado ...</string>
+    <string name="no">NO</string>
+    <string name="refresh">Actualizar</string>
+    <string name="latitude">Latitud:</string>
+    <string name="longitude">Longitud:</string>
+    <string name="broadcast_location">SMS</string>
+    <string name="copy_loc">Copiar loc</string>
+    <string name="sms_message">"Este es un enlace a mi ubicación:"</string>
+    <string name="email">compartir</string>
+    <string name="settings">Configuraciones:</string>
+    <string name="smsnumber_settings">Número (s) de teléfono para enviar SMS a:</string>
+    <string name="_359875875487"> 359875875487</string>
+    <string name="number3">Tercer numero</string>
+    <string name="number2">Segundo número ...</string>
+    <string name="emailfield">mail@something.es</string>
+    <string name="mail_address_to_send_mails_to">Dirección de correo electrónico para enviar correos a:</string>
+    <string name="custom_sms_message_field">Mensaje SMS personalizado para agregar al enviar coordenadas:</string>
+    <string name="sample_sms_message_hint">Ejemplo: SOS, esta es mi ubicación: / o / Vea dónde estoy ahora:</string>
+    <string name="save_settings_button_text">Guarde la configuración y vaya a la aplicación principal</string>
+    <string name="dissable_provider">Proveedor de ubicación deshabilitado</string>
+    <string name="loc_provider_initialized">Proveedor de ubicación inicializado, cargando la última ubicación ...</string>
+    <string name="loc_not_available_field">Ubicación no disponible, consultar GPS</string>
+    <string name="oops_loc_not_available_msg">Vaya, parece que la ubicación no está disponible ...</string>
+    <string name="loc_copies_msg">Ubicación copiada al portapapeles ...</string>
+    <string name="sharing_intent_title">Compartir con:</string>
+    <string name="resume_location">Reanudando ubicación ...</string>
+    <string name="pause_location">Pausando ubicación ...</string>
+    <string name="on_provider_enabled_method">Habilitado nuevo proveedor de ubicación</string>
+</resources>

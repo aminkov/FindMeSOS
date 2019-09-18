@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Find Me SOS</string>
+    <string name="broadcast_location">SMS</string>
+    <string name="copy_loc">Копирай</string>
+    <string name="email">Споделяне</string>
+    <string name="gps_not_found_message">Искате ли да активирате GPS?</string>
+    <string name="gps_not_found_title">Изглежда GPS е деактивиран...</string>
+    <string name="latitude">Ширина:</string>
+    <string name="longitude">Дължина:</string>
+    <string name="no">Не</string>
+    <string name="refresh">Опресни</string>
+    <string name="sms_message">"Това е линк към моята локация: "</string>
+    <string name="yes">ДА</string>
+    <string name="emailfield">mail@something.com</string>
+    <string name="dissable_provider">Деактивиран GPS</string>
+    <string name="loc_provider_initialized">Определяне на местоположението...</string>
+    <string name="loc_not_available_field">Локацията не е налична...</string>
+    <string name="oops_loc_not_available_msg">Опа, изглежда локацията не работи...</string>
+    <string name="loc_copies_msg">Готово :) Локацията е копирана...</string>
+    <string name="_359875875487">+359875875487</string>
+    <string name="mail_address_to_send_mails_to">E-mail по подразбиране за пращане на локация</string>
+    <string name="number2">втори номер...</string>
+    <string name="number3">трети номер...</string>
+    <string name="sample_sms_message_hint">Примерно: \"Здрасти, аз съм ето тук: \" (след двуеточието автоматично ще се добавя локацията)</string>
+    <string name="save_settings_button_text">Запазване и затваряне</string>
+    <string name="settings">Настройки:</string>
+    <string name="smsnumber_settings">Телефонен номер по подразбиране за изпращане на локация...</string>
+    <string name="custom_sms_message_field">Текст добавян към локация при пращане:</string>
+    <string name="sharing_intent_title">Сподели чрез:</string>
+    <string name="resume_location">Активиране на локализацията...</string>
+    <string name="pause_location">Спиране на локализиране...</string>
+    <string name="on_provider_enabled_method">Локализиране активирано</string>
+</resources>
