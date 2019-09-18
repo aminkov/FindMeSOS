@@ -24,7 +24,7 @@
     <string name="number3">трети номер...</string>
     <string name="sample_sms_message_hint">Примерно: \"Здрасти, аз съм ето тук: \" (след двуеточието автоматично ще се добавя локацията)</string>
     <string name="save_settings_button_text">Запазване и затваряне</string>
-    <string name="settings">Настройки:</string>
+    <string name="settings">Н а с т р о й к и :</string>
     <string name="smsnumber_settings">Телефонен номер по подразбиране за изпращане на локация...</string>
     <string name="custom_sms_message_field">Текст добавян към локация при пращане:</string>
     <string name="sharing_intent_title">Сподели чрез:</string>

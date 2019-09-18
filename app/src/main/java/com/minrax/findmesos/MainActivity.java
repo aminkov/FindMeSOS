@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
     }
     public void setLocationMapThroughGoogleAPI() {
-        if(checkIfInternetConnection()) {
+        if(checkIfInternetConnection() == true) {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
         String URL = "https://maps.googleapis.com/maps/api/staticmap?center="+location.getLatitude()+","+location.getLongitude()+"&zoom=15&size=300x230&maptype=roadmap&markers=color:red%7Clabel:L%7C"+location.getLatitude()+","+location.getLongitude()+"&key="+APIKEY;
