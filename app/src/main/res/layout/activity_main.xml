@@ -85,16 +85,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_vertical"
             >
         <TextView
             android:id="@+id/textview1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAlignment="textStart"
-            android:layout_gravity="start"
+            android:gravity="center"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -102,9 +99,9 @@
         <TextView
             android:id="@+id/textview2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_gravity="end"
+            android:gravity="center"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -122,7 +119,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/round_button"
+            android:background="@drawable/rectangle_button"
             android:gravity="center"
             android:onClick="refreshLocationButton"
             android:text="@string/refresh"
@@ -144,7 +141,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/round_button"
+            android:background="@drawable/rectangle_button"
             android:gravity="center"
             android:onClick="copyLocationToClipboard"
             android:text="@string/copy_loc"
@@ -173,7 +170,6 @@
     <LinearLayout
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_gravity="center_horizontal"
         android:gravity="center"
         >
 
@@ -185,6 +181,7 @@
             android:textAlignment="center"
             android:onClick="shareLocationButton"
             android:text="@string/email"
+            android:textSize="20sp"
             android:textColor="#000000"
             android:textStyle="bold" />
 
