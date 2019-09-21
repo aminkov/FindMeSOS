@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
     }
     public void shareLocationButton(View view) {
-
+        //Commented code needs storage permission //TODO - check how to share image without storage permissions
 //        ImageView mapView = findViewById(R.id.mapview);
 //        if (null!=mapView.getDrawable()) {
 //            Drawable mDrawable = mapView.getDrawable();
@@ -276,11 +276,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //            //if drawable empty
 //        }
         Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("text");
-            i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
-            i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
-            startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
+        i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+        i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
+        startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
     }
     public void refreshLocationButton(View view) {
         checkAndPromptIfGPSIsDisabled();
