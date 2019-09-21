@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locManager;
     private static final long LOCATION_REFRESH_TIME = 0;
     private static final long LOCATION_REFRESH_DISTANCE = 0;
-    private static final String APIKEY = "AIzaSyDipuynz7RexUFaLzaRfEXNOXEMWKLDnqo";
+    private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
     //TODO - do something about the constant Toast messages that appear without stopping on some devices
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
