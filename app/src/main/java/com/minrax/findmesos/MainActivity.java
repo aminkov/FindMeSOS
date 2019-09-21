@@ -10,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.LocationProvider;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -17,6 +20,7 @@ import android.os.Bundle;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private TextView latitudeField;
@@ -189,8 +194,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
     }
     public void shareLocationButton(View view) {
+        String URL = "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&zoom=15&size=300x230&maptype=roadmap&markers=color:red%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
+        ImageView mapView = findViewById(R.id.mapview);
+        Drawable mDrawable = mapView.getDrawable();
+        Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+        mBitmap, "Location", null);
         Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("text/plain");
+        i.setType("image/*");
+        i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
         i.putExtra(Intent.EXTRA_SUBJECT, "My location");
         i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
