@@ -24,7 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
 import com.squareup.picasso.Picasso;
-
+// adding a new comment to test merging
 public class MainActivity extends AppCompatActivity implements LocationListener {
     public TextView latitudeField;
     public TextView longitudeField;
