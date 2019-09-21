@@ -56,20 +56,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setLocationMapThroughGoogleAPI();
     }
     //All other methods go here
-    public void copyLocationToClipboard(View view) {
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-            String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("My location", coordinates);
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(getApplicationContext(), getString(R.string.loc_copies_msg), Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
-            checkAndPromptIfGPSIsDisabled();
-            setLocation();
-        }
-    }
     private void checkAndPromptIfGPSIsDisabled() {
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -136,16 +122,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         SharedPreferences settings = getSharedPreferences("Settings",0);
         return settings.getString(key,"");
     }
-    public void sendSMS(View view) {
-        String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("smsto:"+getPreferenceValue("p1")));
-        // This ensures only SMS apps respond
-        intent.putExtra("sms_body", message);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
     private String formatLatitude(double latitude) {
         //returns formatted longitude with the following format: N 40°42'46.02132"
         StringBuilder builder = new StringBuilder();
@@ -181,36 +157,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         builder.append(longitudeSplit[2]);
         builder.append("\"");
         return builder.toString();
-    }
-    public void launchGMaps(View view) {
-        //opens Google Maps with current lat and long
-        String label = "My location";
-        String uriBegin = "geo:" + returnRawLocation();
-        String query = returnRawLocation() + "(" + label + ")";
-        String encodedQuery = Uri.encode(query);
-        String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
-        Uri uri = Uri.parse(uriString);
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
-    public void shareLocationButton(View view) {
-        ImageView mapView = findViewById(R.id.mapview);
-        Drawable mDrawable = mapView.getDrawable();
-        Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(),
-        mBitmap, "Location", null);
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("image/*");
-        i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
-        i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-        i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
-        startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
-    }
-    public void refreshLocationButton(View view) {
-        checkAndPromptIfGPSIsDisabled();
-        setLocation();
-        setLocationMapThroughGoogleAPI();
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -261,25 +207,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 Toast.LENGTH_SHORT).show();
         locManager.removeUpdates(this);
     }
-    public void goToSettings(View view) {
-        Intent intent = new Intent(MainActivity.this, Settings.class);
-        startActivity(intent);
-    }
     private void setLocationMapThroughGoogleAPI() {
         if(checkIfInternetConnection()) {
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-        String URL = createGoogleMapsAPIURL();
-        ImageView mapview = findViewById(R.id.mapview);
-        Picasso.with(this).load(URL).into(mapview);
+            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                String URL = createGoogleMapsAPIURL();
+                ImageView mapview = findViewById(R.id.mapview);
+                Picasso.with(this).load(URL).into(mapview);
             }
         } else {
             Toast.makeText(getApplicationContext(), "No connection to the Internet, map will not show...", Toast.LENGTH_LONG).show();
         }
     }
     private boolean checkIfInternetConnection() {
-            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
     private String createGoogleMapsAPIURL() {
         String SIZE = "300x230";
@@ -288,6 +230,76 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         String MAP_MARKER_COLOR = "Red";
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
+    }
+    //Button functions
+    public void goToSettings(View view) {
+        Intent intent = new Intent(MainActivity.this, Settings.class);
+        startActivity(intent);
+    }
+    public void sendSMS(View view) {
+        String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:"+getPreferenceValue("p1")));
+        // This ensures only SMS apps respond
+        intent.putExtra("sms_body", message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+    public void launchGMaps(View view) {
+        //opens Google Maps with current lat and long
+        String label = "My location";
+        String uriBegin = "geo:" + returnRawLocation();
+        String query = returnRawLocation() + "(" + label + ")";
+        String encodedQuery = Uri.encode(query);
+        String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
+        Uri uri = Uri.parse(uriString);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
+    public void shareLocationButton(View view) {
+
+//        ImageView mapView = findViewById(R.id.mapview);
+//        if (null!=mapView.getDrawable()) {
+//            Drawable mDrawable = mapView.getDrawable();
+//            Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
+//            String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+//                    mBitmap, "Location", null);
+//            Intent i = new Intent(Intent.ACTION_SEND);
+//            i.setType("image/*");
+//            i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+//            i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
+//            i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+//            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+//            startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+//        } else {
+//            //if drawable empty
+//        }
+        Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
+            i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+            startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+    }
+    public void refreshLocationButton(View view) {
+        checkAndPromptIfGPSIsDisabled();
+        setLocation();
+        setLocationMapThroughGoogleAPI();
+    }
+    public void copyLocationToClipboard(View view) {
+        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (location != null) {
+            String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("My location", coordinates);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getApplicationContext(), getString(R.string.loc_copies_msg), Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
+            checkAndPromptIfGPSIsDisabled();
+            setLocation();
+        }
     }
 }
 
