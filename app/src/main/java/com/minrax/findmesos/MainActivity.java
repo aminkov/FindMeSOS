@@ -78,46 +78,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
-//    protected void checkPermissions() {
-//        //check if working with a toast message
-//        Toast toast = Toast.makeText(getApplicationContext(), "checking permissions...", Toast.LENGTH_LONG);
-//        toast.show();
-//        //START Request for permissions
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-//                && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-//            // Permission is not granted
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                    Manifest.permission.ACCESS_FINE_LOCATION)
-//                    &&
-//                    ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                            Manifest.permission.ACCESS_COARSE_LOCATION)
-//                    &&
-//                    ActivityCompat.shouldShowRequestPermissionRationale(this,
-//                            Manifest.permission.INTERNET)
-//            ) {
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//            } else {
-//                // No explanation needed; request the permission
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                        1);
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-//                        1);
-//                ActivityCompat.requestPermissions(this,
-//                        new String[]{Manifest.permission.INTERNET},
-//                        1);
-//                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-//                // app-defined int constant. The callback method gets the
-//                // result of the request.
-//            }
-//        } else {
-//            // Permission has already been granted
-//        }
-//        //END permission requests
-//    }
+    
     protected boolean checkPermissionsNew() {
         boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -268,7 +229,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onResume() {
         super.onResume();
         Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
-        //checkPermissions();
         setLocation();
     }
     @Override
