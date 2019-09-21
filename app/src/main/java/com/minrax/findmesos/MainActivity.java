@@ -26,9 +26,9 @@ import android.location.LocationListener;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
-    public TextView latitudeField;
-    public TextView longitudeField;
-    public LocationManager locManager;
+    private TextView latitudeField;
+    private TextView longitudeField;
+    private LocationManager locManager;
     private static final long LOCATION_REFRESH_TIME = 0;
     private static final long LOCATION_REFRESH_DISTANCE = 0;
     private static final String APIKEY = "AIzaSyDipuynz7RexUFaLzaRfEXNOXEMWKLDnqo";
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
     }
-    public void setLocationMapThroughGoogleAPI() {
+    private void setLocationMapThroughGoogleAPI() {
         if(checkIfInternetConnection() == true) {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {

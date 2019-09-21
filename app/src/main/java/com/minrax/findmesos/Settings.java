@@ -20,19 +20,19 @@ import androidx.appcompat.app.AppCompatActivity;
             saveSettingsValues();
         }
 
-        public String getPreferenceValue(String key) {
+        private String getPreferenceValue(String key) {
             SharedPreferences settings = this.getSharedPreferences("Settings", 0);
             String str = settings.getString(key, "");
             return str;
         }
 
-        public void writeToPreference(String key, String thePreference) {
+        private void writeToPreference(String key, String thePreference) {
             SharedPreferences.Editor editor = this.getSharedPreferences("Settings", 0).edit();
             editor.putString(key, thePreference);
             editor.commit();
         }
 
-        public void saveSettingsValues() {
+        private void saveSettingsValues() {
             EditText phone1 = findViewById(R.id.phonenumber1);
             EditText phone2 = findViewById(R.id.phonenumber2);
             EditText phone3 = findViewById(R.id.phonenumber3);
@@ -50,7 +50,7 @@ import androidx.appcompat.app.AppCompatActivity;
             writeToPreference("smsMessage", strSMSMessage);
         }
 
-        public void loadSavedSettings() {
+        private void loadSavedSettings() {
             EditText phone1 = findViewById(R.id.phonenumber1);
             EditText phone2 = findViewById(R.id.phonenumber2);
             EditText phone3 = findViewById(R.id.phonenumber3);
