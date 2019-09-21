@@ -8,3 +8,4 @@ Quick location sharing app to share your location with family and friends. No In
 * Optimized for low bandwidth locations
 * Saves battery power
 * Very easy to set up and use
+https://businessideaslab.com/find-me-sos-privacy-policy/
