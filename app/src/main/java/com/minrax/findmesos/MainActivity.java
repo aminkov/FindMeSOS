@@ -67,18 +67,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
     private void buildAlertMessageNoGps() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.gps_not_found_title)  // GPS not found
-                .setMessage(R.string.gps_not_found_message) // Want to enable?
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton(R.string.no, null)
-                .show();
+        AlertDialog.Builder gpsPrompt = new AlertDialog.Builder(this);
+        gpsPrompt.setTitle(R.string.gps_not_found_title);  // GPS not found
+        gpsPrompt.setMessage(R.string.gps_not_found_message); // Want to enable?
+        gpsPrompt.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+        gpsPrompt.setNegativeButton(R.string.no, null);
+        gpsPrompt.show();
     }
-    
+
     protected boolean checkPermissionsNew() {
         boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
