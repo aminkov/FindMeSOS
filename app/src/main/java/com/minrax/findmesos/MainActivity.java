@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
     }
     public void shareLocationButton(View view) {
-        String URL = "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&zoom=15&size=300x230&maptype=roadmap&markers=color:red%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
         ImageView mapView = findViewById(R.id.mapview);
         Drawable mDrawable = mapView.getDrawable();
         Bitmap mBitmap = ((BitmapDrawable)mDrawable).getBitmap();
@@ -270,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if(checkIfInternetConnection()) {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
-        String URL = "https://maps.googleapis.com/maps/api/staticmap?center="+location.getLatitude()+","+location.getLongitude()+"&zoom=15&size=300x230&maptype=roadmap&markers=color:red%7Clabel:L%7C"+location.getLatitude()+","+location.getLongitude()+"&key="+APIKEY;
+        String URL = createGoogleMapsAPIURL();
         ImageView mapview = findViewById(R.id.mapview);
         Picasso.with(this).load(URL).into(mapview);
             }
@@ -281,6 +280,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private boolean checkIfInternetConnection() {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+    private String createGoogleMapsAPIURL() {
+        String SIZE = "300x230";
+        int ZOOM = 15;
+        String MAPTYPE = "roadmap";
+        String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
+        String MAP_MARKER_COLOR = "Red";
+        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
     }
 }
 
