@@ -22,8 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
         private String getPreferenceValue(String key) {
             SharedPreferences settings = this.getSharedPreferences("Settings", 0);
-            String str = settings.getString(key, "");
-            return str;
+            return settings.getString(key, "");
         }
 
         private void writeToPreference(String key, String thePreference) {

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        while (checkPermissionsNew() == false) {
+        while (!checkPermissionsNew()) {
             checkPermissionsNew();
         }
         latitudeField = findViewById(R.id.textview1);
@@ -45,9 +45,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Get the location manager
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check if GPS is enabled and prompt user to enable if it's not
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-        }
+        checkAndPromptIfGPSIsDisabled();
         // Check if permission is granted
         setLocation();
         setLocationMapThroughGoogleAPI();
@@ -63,22 +61,31 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), getString(R.string.loc_copies_msg), Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
+            checkAndPromptIfGPSIsDisabled();
             setLocation();
         }
     }
-    private void buildAlertMessageNoGps() {
-        AlertDialog.Builder gpsPrompt = new AlertDialog.Builder(this);
-        gpsPrompt.setTitle(R.string.gps_not_found_title);  // GPS not found
-        gpsPrompt.setMessage(R.string.gps_not_found_message); // Want to enable?
-        gpsPrompt.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        });
-        gpsPrompt.setNegativeButton(R.string.no, null);
-        gpsPrompt.show();
+    private void checkAndPromptIfGPSIsDisabled() {
+        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(R.string.gps_not_found_title); // GPS not found
+            builder.setMessage(R.string.gps_not_found_message); // Want to enable?
+            builder.setCancelable(true);
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            dialog.dismiss();
+                        }
+                    });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            dialog.dismiss();
+                        }
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+        }
     }
-
     protected boolean checkPermissionsNew() {
         boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -94,19 +101,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
         if (location != null) {
-            Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_LONG).show();
             latitudeField.setText(formatLatitude(location.getLatitude()));
             longitudeField.setText(formatLongitude(location.getLongitude()));
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
             latitudeField.setText(getString(R.string.loc_not_available_field));
             longitudeField.setText(getString(R.string.loc_not_available_field));
-            if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                buildAlertMessageNoGps();
-            } else {
-                //Try getting location again
-                locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
         }
         //request location updates if permission Ok
         locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
@@ -120,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             double lon = location.getLongitude();
             return lat + "," + lon;
         } else {
+            checkAndPromptIfGPSIsDisabled();
             setLocation();
             //Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
         }
@@ -127,8 +129,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     protected String getPreferenceValue(String key) {
         SharedPreferences settings = getSharedPreferences("Settings",0);
-        String str = settings.getString(key,"");
-        return str;
+        return settings.getString(key,"");
     }
     public void sendSMS(View view) {
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
     }
     public void refreshLocationButton(View view) {
+        checkAndPromptIfGPSIsDisabled();
         setLocation();
         setLocationMapThroughGoogleAPI();
     }
@@ -253,7 +255,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
     }
     private void setLocationMapThroughGoogleAPI() {
-        if(checkIfInternetConnection() == true) {
+        if(checkIfInternetConnection()) {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
         String URL = "https://maps.googleapis.com/maps/api/staticmap?center="+location.getLatitude()+","+location.getLongitude()+"&zoom=15&size=300x230&maptype=roadmap&markers=color:red%7Clabel:L%7C"+location.getLatitude()+","+location.getLongitude()+"&key="+APIKEY;
