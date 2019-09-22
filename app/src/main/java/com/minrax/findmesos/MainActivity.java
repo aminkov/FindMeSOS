@@ -10,9 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.LocationProvider;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -20,15 +17,23 @@ import android.os.Bundle;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private TextView latitudeField;
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
         //request location updates if permission Ok
         locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
+        getElevationGoogleAPI();
     }
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format separated by "43.383525,23.4576457", used by the send SMS, copy and other functions.
@@ -301,5 +307,32 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             setLocation();
         }
     }
+    private void getElevationGoogleAPI() {
+        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation()+"&key="+APIKEY;
+        RequestQueue localRequestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                TextView elevationTextView = findViewById(R.id.elevationGM);
+                try {
+                    JSONArray jArr = response.getJSONArray("results");
+                    double elevation = jArr.getJSONObject(0).getDouble("elevation");
+                    int roundedElevation = (int) elevation;
+                    elevationTextView.setText(roundedElevation+" m");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    elevationTextView.setText("JSONArray is doing dirty tricks again...");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                TextView elevationTextView = findViewById(R.id.elevationGM);
+                elevationTextView.setText("Error event, no response ");
+            }
+        });
+        // Access the RequestQueue through your singleton class.
+        localRequestQueue.add(jReq);
+        }
 }
 

@@ -148,6 +148,22 @@
         android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/elevationGM"
+            android:layout_width="wrap_content"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:text="GM"
+            android:textColor="#ffd700" />
+
+        <TextView
+            android:id="@+id/elevationGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="78dp"
+            android:layout_weight="1"
+            android:text="GPS"
+            android:textColor="#ffd700" />
     </LinearLayout>
 
     <LinearLayout
