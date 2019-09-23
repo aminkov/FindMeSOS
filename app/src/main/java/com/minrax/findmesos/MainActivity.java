@@ -102,9 +102,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             longitudeField.setText(formatLongitude(location.getLongitude()));
 
 
-            TextView elevationTextView2 = findViewById(R.id.elevationGPS);
+            TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
-           elevationTextView2.setText(a+" m /gps");
+           elevationTextView2.setText(a+" m");
 
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
@@ -319,12 +319,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                TextView elevationTextView = findViewById(R.id.elevationGM);
+                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
                 try {
                     JSONArray jArr = response.getJSONArray("results");
                     double elevation = jArr.getJSONObject(0).getDouble("elevation");
                     int roundedElevation = (int) elevation;
-                    elevationTextView.setText(roundedElevation+" m /map");
+                    elevationTextView.setText(roundedElevation+" m");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     elevationTextView.setText("JSONArray is doing dirty tricks again...");
@@ -333,7 +333,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                TextView elevationTextView = findViewById(R.id.elevationGM);
+                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
                 elevationTextView.setText("Error event, no response ");
             }
         });

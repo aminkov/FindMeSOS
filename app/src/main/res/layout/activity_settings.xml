@@ -1,4 +1,5 @@
-<ScrollView android:id="@+id/scrollView"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true"
@@ -13,23 +14,35 @@
     android:paddingRight="10dp"
     android:shrinkColumns="0"
     >
+        <TableRow
+            android:id="@+id/zeroRow"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center">
 
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:gravity="center"
+                    android:src="@drawable/l2" />
+        </TableRow>
         <TableRow
             android:id="@+id/firstRow"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="35dp"
             android:gravity="center">
 
                 <TextView
                     android:id="@+id/settingstitle"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="10dp"
-                    android:gravity="center"
                     android:text="@string/settings"
                     android:textAlignment="center"
                     android:textColor="#ffbf00"
-                    android:textSize="32sp" />
+                    android:textSize="24sp"
+                    app:fontFamily="sans-serif-smallcaps" />
         </TableRow>
         <TableRow
             android:id="@+id/secondRow"

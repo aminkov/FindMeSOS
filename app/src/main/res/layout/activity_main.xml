@@ -11,19 +11,19 @@
         android:layout_height="wrap_content"
         android:background="@android:color/black"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:gravity="top">
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/logo_sos" />
+            app:srcCompat="@drawable/l2" />
         <ImageView
             android:id="@+id/settings_icon"
             android:layout_width="wrap_content"
@@ -36,10 +36,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="260dp"
         android:gravity="top">
         <ImageView
-            android:layout_height="253dp"
+            android:layout_height="260dp"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:id="@+id/mapview" />
@@ -47,7 +47,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:text="@string/latitude"
             android:textColor="#ffd700"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold|italic" />
         <TextView
             android:id="@+id/textview5"
@@ -68,13 +68,13 @@
             android:gravity="center"
             android:text="@string/longitude"
             android:textColor="#ffd700"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold|italic" />
     </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="25dp">
         <TextView
             android:id="@+id/textview1"
             android:layout_width="0dp"
@@ -93,6 +93,49 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp">
+            <TextView
+                android:id="@+id/tvalttitmap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center|top"
+                android:textColor="#ffd700"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="Elevation(Map):"/>
+            <TextView
+                android:id="@+id/tvaltvalmap"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:gravity="center|top"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvalttitgps"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:gravity="center|top"
+                android:textColor="#ffd700"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="Elevation(GPS):"/>
+            <TextView
+                android:id="@+id/tvaltvalgps"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.6"
+                android:gravity="center|top"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     <LinearLayout
@@ -131,15 +174,27 @@
             android:text="@string/copy_loc"
             android:textColor="#000000"
             android:textStyle="bold" />
-
     </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center">
+        </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="100dp"
         android:gravity="center">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:clickable="true" />
     <Button
         android:id="@+id/text"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
+        android:layout_weight="1"
         android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:onClick="sendSMS"
@@ -148,32 +203,16 @@
         android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/elevationGM"
-            android:layout_width="wrap_content"
-            android:layout_height="78dp"
-            android:layout_weight="1"
-            android:text="GM"
-            android:textColor="#ffd700" />
-
-        <TextView
-            android:id="@+id/elevationGPS"
-            android:layout_width="wrap_content"
-            android:layout_height="78dp"
-            android:layout_weight="1"
-            android:text="GPS"
-            android:textColor="#ffd700" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:gravity="center">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:clickable="true" />
         <Button
             android:id="@+id/email"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
             android:background="@drawable/round_button"
             android:textAlignment="center"
             android:onClick="shareLocationButton"
@@ -181,6 +220,11 @@
             android:textSize="20sp"
             android:textColor="#000000"
             android:textStyle="bold" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:clickable="true" />
     </LinearLayout>
     </TableLayout>
 </ScrollView>
