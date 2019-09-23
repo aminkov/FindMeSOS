@@ -18,11 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="top">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_weight="1"
+            android:clickable="false"
+            android:contentDescription="@string/logo_find_me_sos"
             app:srcCompat="@drawable/l2" />
         <ImageView
             android:id="@+id/settings_icon"
@@ -31,18 +34,22 @@
             android:layout_weight="0"
             android:clickable="true"
             android:onClick="goToSettings"
-            app:srcCompat="@drawable/settings" />
+            app:srcCompat="@drawable/settings"
+            android:contentDescription="@string/go_to_settings_button"
+            android:focusable="true" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:gravity="top">
+
         <ImageView
+            android:id="@+id/mapview"
+            android:layout_width="0dp"
             android:layout_height="260dp"
-            android:layout_width="match_parent"
             android:layout_weight="1"
-            android:id="@+id/mapview" />
+            android:contentDescription="@string/map_of_current_location" />
     </LinearLayout>
 
     <LinearLayout
@@ -104,11 +111,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:gravity="right"
+                android:gravity="end"
                 android:textColor="#ffd700"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:text="Elevation(Map):"/>
+                android:text="@string/elevation_map"/>
             <TextView
                 android:id="@+id/tvaltvalmap"
                 android:layout_width="0dp"
@@ -123,11 +130,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:gravity="right"
+                android:gravity="end"
                 android:textColor="#ffd700"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:text="Elevation(GPS):"/>
+                android:text="@string/elevation_gps"/>
             <TextView
                 android:id="@+id/tvaltvalgps"
                 android:layout_width="0dp"
@@ -156,14 +163,17 @@
             android:text="@string/refresh"
             android:textColor="#000000"
             android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:clickable="true"
+            android:contentDescription="@string/go_to_google_maps_button"
             android:onClick="launchGMaps"
-            app:srcCompat="@drawable/maps_logo" />
+            app:srcCompat="@drawable/maps_logo"
+            android:focusable="true" />
         <Button
             android:id="@+id/copy"
             android:layout_width="0dp"
@@ -179,20 +189,17 @@
     </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center">
-        </LinearLayout>
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+            android:layout_marginTop="40dp"
         android:gravity="center">
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:clickable="true" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:contentDescription="foo" />
     <Button
         android:id="@+id/text"
         android:layout_width="80dp"
@@ -200,16 +207,18 @@
         android:layout_height="100dp"
         android:background="@drawable/round_button"
         android:onClick="sendSMS"
-        android:text="SMS"
+        android:text="@string/sms"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:clickable="true" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false"
+                android:contentDescription="foo" />
         <Button
             android:id="@+id/email"
             android:layout_width="80dp"
@@ -222,11 +231,12 @@
             android:textSize="24sp"
             android:textColor="#000000"
             android:textStyle="bold" />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:clickable="true" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:clickable="false" />
     </LinearLayout>
     </TableLayout>
 </ScrollView>

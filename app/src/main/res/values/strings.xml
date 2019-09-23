@@ -30,4 +30,11 @@
     <string name="resume_location">Resuming location...</string>
     <string name="pause_location">Pausing location...</string>
     <string name="on_provider_enabled_method">Enabled new location provider</string>
+    <string name="elevation_map">Elevation(Map):</string>
+    <string name="elevation_gps">Elevation(GPS):</string>
+    <string name="sms">SMS</string>
+    <string name="logo_find_me_sos">Logo Find Me SOS</string>
+    <string name="go_to_settings_button">Go to settings button</string>
+    <string name="map_of_current_location">Map of current location</string>
+    <string name="go_to_google_maps_button">Go to Google Maps button</string>
 </resources>
