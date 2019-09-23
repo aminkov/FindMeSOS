@@ -59,17 +59,18 @@
             android:text="@string/latitude"
             android:textColor="#ffd700"
             android:textSize="20sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textview5"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:text="@string/longitude"
             android:textColor="#ffd700"
             android:textSize="20sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
     </LinearLayout>
 
         <LinearLayout
@@ -103,7 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:gravity="center|top"
+                android:gravity="right"
                 android:textColor="#ffd700"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -122,7 +123,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:gravity="center|top"
+                android:gravity="right"
                 android:textColor="#ffd700"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -142,6 +143,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal">
+
         <Button
             android:id="@+id/refreshLoc"
             android:layout_width="0dp"
@@ -201,7 +203,7 @@
         android:text="SMS"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="32sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
         <ImageView
             android:layout_width="0dp"
@@ -217,7 +219,7 @@
             android:textAlignment="center"
             android:onClick="shareLocationButton"
             android:text="@string/email"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textColor="#000000"
             android:textStyle="bold" />
         <ImageView
