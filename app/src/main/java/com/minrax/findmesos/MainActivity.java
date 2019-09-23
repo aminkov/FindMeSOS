@@ -122,7 +122,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             //Toast.makeText(getApplicationContext(), "Location provider initialized, returning location...", Toast.LENGTH_LONG).show();
             double lat = location.getLatitude();
             double lon = location.getLongitude();
-            return lat + "," + lon;
+            String lonstr = String.valueOf(lon);
+            String latstr = String.valueOf(lat);
+            if (lonstr.length() >= 9) {lonstr = lonstr.substring(0, 9);}
+            if (latstr.length() >= 9) {latstr = latstr.substring(0, 9);}
+            return latstr + "," + lonstr;
         } else {
             checkAndPromptIfGPSIsDisabled();
             setLocation();
