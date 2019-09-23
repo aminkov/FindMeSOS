@@ -100,6 +100,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             //Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_LONG).show();
             latitudeField.setText(formatLatitude(location.getLatitude()));
             longitudeField.setText(formatLongitude(location.getLongitude()));
+
+
+            TextView elevationTextView2 = findViewById(R.id.elevationGPS);
+            int a = (int) location.getAltitude();
+           elevationTextView2.setText(a+" m /gps");
+
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
             latitudeField.setText(getString(R.string.loc_not_available_field));
@@ -318,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     JSONArray jArr = response.getJSONArray("results");
                     double elevation = jArr.getJSONObject(0).getDouble("elevation");
                     int roundedElevation = (int) elevation;
-                    elevationTextView.setText(roundedElevation+" m");
+                    elevationTextView.setText(roundedElevation+" m /map");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     elevationTextView.setText("JSONArray is doing dirty tricks again...");
