@@ -31,4 +31,6 @@
     <string name="resume_location">Активиране на локализацията...</string>
     <string name="pause_location">Спиране на локализиране...</string>
     <string name="on_provider_enabled_method">Локализиране активирано</string>
+    <string name="elevation_gps">надморска височина(gps):</string>
+    <string name="elevation_map">надморска височина(карта):</string>
 </resources>

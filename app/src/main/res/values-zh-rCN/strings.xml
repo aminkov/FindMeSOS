@@ -31,4 +31,6 @@
     <string name="resume_location">恢復位置......</string>
     <string name="pause_location">暫停位置......</string>
     <string name="on_provider_enabled_method">啟用新的位置提供程序</string>
+    <string name="elevation_gps">高度(gps)</string>
+    <string name="elevation_map">高度(map)</string>
 </resources>

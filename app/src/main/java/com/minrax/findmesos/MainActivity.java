@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         builder.append("'");
         builder.append(latitudeSplit[2]);
         builder.append("\"");
-        return builder.toString();
+        return builder.toString().substring(0, 12);
     }
     private String formatLongitude(double longitude) {
         //returns formatted longitude with the following format:  W 74°0'21.38868"
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         builder.append("'");
         builder.append(longitudeSplit[2]);
         builder.append("\"");
-        return builder.toString();
+        return builder.toString().substring(0, 12);
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -193,18 +193,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
                 Log.d("Lovstion", "Status Changed: Out of Service");
-                Toast.makeText(this, "Status Changed: Out of Service",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Status Changed: Out of Service",
+//                        Toast.LENGTH_SHORT).show();
                 break;
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
                 Log.d("Location", "Status Changed: Temporarily Unavailable");
-                Toast.makeText(this, "Status Changed: Temporarily Unavailable",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Status Changed: Temporarily Unavailable",
+//                        Toast.LENGTH_SHORT).show();
                 break;
             case LocationProvider.AVAILABLE:
                 Log.d("Location", "Yuupee...:  Status Changed: Location Available");
-                Toast.makeText(this, "Status Changed: Available",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Status Changed: Available",
+//                        Toast.LENGTH_SHORT).show();
                 break;
         }
     }

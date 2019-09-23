@@ -31,4 +31,6 @@
     <string name="resume_location">Reanudando ubicación ...</string>
     <string name="pause_location">Pausando ubicación ...</string>
     <string name="on_provider_enabled_method">Habilitado nuevo proveedor de ubicación</string>
+    <string name="elevation_gps">Altitud(gps)</string>
+    <string name="elevation_map">Altitud(map)</string>
 </resources>

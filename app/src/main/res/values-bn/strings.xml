@@ -31,4 +31,6 @@
     <string name="pause_location">অবস্থান বিরতি দিচ্ছে ...</string>
     <string name="on_provider_enabled_method">সক্ষম হয়েছে নতুন অবস্থান সরবরাহকারী</string>
     <string name="emailfield">mail@something.com</string>
+    <string name="elevation_gps">উচ্চতা(gps)</string>
+    <string name="elevation_map">উচ্চতা(map)</string>
 </resources>

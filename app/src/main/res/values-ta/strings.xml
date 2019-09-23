@@ -31,4 +31,6 @@
     <string name="resume_location">இருப்பிடத்தை மீண்டும் தொடங்குகிறது ...</string>
     <string name="pause_location">இருப்பிடத்தை இடைநிறுத்துகிறது ...</string>
     <string name="on_provider_enabled_method">புதிய இருப்பிட வழங்குநரை இயக்கப்பட்டது</string>
+    <string name="elevation_gps">உயரத்தில்(gps)</string>
+    <string name="elevation_map">உயரத்தில்(map)</string>
 </resources>

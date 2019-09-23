@@ -31,4 +31,6 @@
     <string name="resume_location">स्थान फिर से शुरू हो रहा है ...</string>
     <string name="pause_location">स्थान रोका जा रहा है ...</string>
     <string name="on_provider_enabled_method">सक्षम नया स्थान प्रदाता</string>
+    <string name="elevation_gps">ऊंचाई(gps)</string>
+    <string name="elevation_map">ऊंचाई(map)</string>
 </resources>

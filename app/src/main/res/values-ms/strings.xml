@@ -31,4 +31,6 @@
     <string name="pause_location">Menjeda lokasi ...</string>
     <string name="on_provider_enabled_method">Dihidupkan pembekal lokasi baru</string>
     <string name="emailfield">mail@something.com</string>
+    <string name="elevation_gps">ketinggian(gps)</string>
+    <string name="elevation_map">ketinggian(map)</string>
 </resources>
