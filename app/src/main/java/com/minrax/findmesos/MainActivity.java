@@ -116,21 +116,28 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         getElevationGoogleAPI();
     }
     protected String returnRawLocation() {
-        //Returns Latitude and Longitude in string format separated by "43.383525,23.4576457", used by the send SMS, copy and other functions.
+        //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
-            //Toast.makeText(getApplicationContext(), "Location provider initialized, returning location...", Toast.LENGTH_LONG).show();
             double lat = location.getLatitude();
             double lon = location.getLongitude();
-            String lonstr = String.valueOf(lon);
-            String latstr = String.valueOf(lat);
-            if (lonstr.length() >= 9) {lonstr = lonstr.substring(0, 9);}
-            if (latstr.length() >= 9) {latstr = latstr.substring(0, 9);}
+            //get coordinates after the decimal pointer:  -123.[ 123456789012 ]
+            String latstrright = String.valueOf(lat).substring(String.valueOf(lat).indexOf(".")+1);
+            String lonstrright = String.valueOf(lon).substring(String.valueOf(lon).indexOf(".")+1);
+            //shorten the decimal part to 5 symbols and lose the rest - [ 12345.... ]
+            if (latstrright.length() > 5) {latstrright = latstrright.substring(0, 5);}
+            if (lonstrright.length() > 5) {lonstrright = lonstrright.substring(0, 5);}
+            //get the coordinates before the decimal delimiter: [ -123 ].123456789012
+            String latstrleft = String.valueOf(lat).substring(0, String.valueOf(lat).indexOf("."));
+            String lonstrleft = String.valueOf(lon).substring(0, String.valueOf(lon).indexOf("."));
+            //combine left and right parts and get coordinates with accuracy of up to 5 symbols: [ -123 ] + [ 12345 ] = -123.12345
+            String lonstr = lonstrleft+"."+lonstrright;
+            String latstr = latstrleft+"."+latstrright;
+            //return latitude and longitude with 5 symbols accuracy in the form: [ -123.12345,123.12345 ]
             return latstr + "," + lonstr;
         } else {
             checkAndPromptIfGPSIsDisabled();
             setLocation();
-            //Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
         }
         return "NULL";
     }
