@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView latitudeField;
     private TextView longitudeField;
     private LocationManager locManager;
-    private static final long LOCATION_REFRESH_TIME = 0;
-    private static final long LOCATION_REFRESH_DISTANCE = 0;
+    private static final long LOCATION_REFRESH_TIME = 2000;
+    private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
     //TODO - do something about the constant Toast messages that appear without stopping on some devices
     //On create method goes here
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
         if (location != null) {
-            //Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
             latitudeField.setText(formatLatitude(location.getLatitude()));
             longitudeField.setText(formatLongitude(location.getLongitude()));
 
@@ -193,8 +193,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
                 Log.d("Lovstion", "Status Changed: Out of Service");
-//                Toast.makeText(this, "Status Changed: Out of Service",
-//                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Status Changed: Out of Service",
+                        Toast.LENGTH_SHORT).show();
                 break;
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
                 Log.d("Location", "Status Changed: Temporarily Unavailable");
@@ -210,14 +210,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     protected void onResume() {
         super.onResume();
-        Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
         setLocation();
     }
     @Override
     protected void onPause() {
         /* Remove the locationlistener updates when Activity is paused */
         super.onPause();
-        Toast.makeText(getApplicationContext(), getString(R.string.pause_location), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), getString(R.string.pause_location), Toast.LENGTH_LONG).show();
         locManager.removeUpdates(this);
     }
     public void onProviderEnabled(String provider) {
