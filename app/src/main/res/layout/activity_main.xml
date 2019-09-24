@@ -160,6 +160,8 @@
             android:background="@drawable/rectangle_button"
             android:gravity="center"
             android:onClick="refreshLocationButton"
+            android:shadowColor="#006D2626"
+            android:soundEffectsEnabled="false"
             android:text="@string/refresh"
             android:textColor="#000000"
             android:textStyle="bold" />
@@ -174,6 +176,7 @@
             android:onClick="launchGMaps"
             app:srcCompat="@drawable/maps_logo"
             android:focusable="true" />
+
         <Button
             android:id="@+id/copy"
             android:layout_width="0dp"
