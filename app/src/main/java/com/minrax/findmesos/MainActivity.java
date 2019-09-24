@@ -26,7 +26,6 @@ import android.location.LocationListener;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,24 +38,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private TextView latitudeField;
     private TextView longitudeField;
     private LocationManager locManager;
-    private static final long LOCATION_REFRESH_TIME = 2000;
+    private static final long LOCATION_REFRESH_TIME = 3000;
     private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
-    //TODO - do something about the constant Toast messages that appear without stopping on some devices
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Check if permission is granted
         while (!checkPermissionsNew()) {
             checkPermissionsNew();
         }
+        //Initialize location fields
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
         // Get the location manager
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check if GPS is enabled and prompt user to enable if it's not
         checkAndPromptIfGPSIsDisabled();
-        // Check if permission is granted
+        //if all OK, set location
         setLocation();
         setLocationMapThroughGoogleAPI();
     }
@@ -117,30 +117,38 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (location != null) {
-            double lat = location.getLatitude();
-            double lon = location.getLongitude();
-            //get coordinates after the decimal pointer:  -123.[ 123456789012 ]
-            String latstrright = String.valueOf(lat).substring(String.valueOf(lat).indexOf(".")+1);
-            String lonstrright = String.valueOf(lon).substring(String.valueOf(lon).indexOf(".")+1);
-            //shorten the decimal part to 5 symbols and lose the rest - [ 12345.... ]
-            if (latstrright.length() > 5) {latstrright = latstrright.substring(0, 5);}
-            if (lonstrright.length() > 5) {lonstrright = lonstrright.substring(0, 5);}
-            //get the coordinates before the decimal delimiter: [ -123 ].123456789012
-            String latstrleft = String.valueOf(lat).substring(0, String.valueOf(lat).indexOf("."));
-            String lonstrleft = String.valueOf(lon).substring(0, String.valueOf(lon).indexOf("."));
-            //combine left and right parts and get coordinates with accuracy of up to 5 symbols: [ -123 ] + [ 12345 ] = -123.12345
-            String lonstr = lonstrleft+"."+lonstrright;
-            String latstr = latstrleft+"."+latstrright;
-            //return latitude and longitude with 5 symbols accuracy in the form: [ -123.12345,123.12345 ]
-            return latstr + "," + lonstr;
+
+        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            //TODO think what to do here and if you need it at all...
         } else {
-            checkAndPromptIfGPSIsDisabled();
-            setLocation();
+            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                double lat = location.getLatitude();
+                double lon = location.getLongitude();
+                //get coordinates after the decimal pointer:  -123.[ 123456789012 ]
+                String latstrright = String.valueOf(lat).substring(String.valueOf(lat).indexOf(".") + 1);
+                String lonstrright = String.valueOf(lon).substring(String.valueOf(lon).indexOf(".") + 1);
+                //shorten the decimal part to 5 symbols and lose the rest - [ 12345.... ]
+                if (latstrright.length() > 5) {
+                    latstrright = latstrright.substring(0, 5);
+                }
+                if (lonstrright.length() > 5) {
+                    lonstrright = lonstrright.substring(0, 5);
+                }
+                //get the coordinates before the decimal delimiter: [ -123 ].123456789012
+                String latstrleft = String.valueOf(lat).substring(0, String.valueOf(lat).indexOf("."));
+                String lonstrleft = String.valueOf(lon).substring(0, String.valueOf(lon).indexOf("."));
+                //combine left and right parts and get coordinates with accuracy of up to 5 symbols: [ -123 ] + [ 12345 ] = -123.12345
+                String lonstr = lonstrleft + "." + lonstrright;
+                String latstr = latstrleft + "." + latstrright;
+                //return latitude and longitude with 5 symbols accuracy in the form: [ -123.12345,123.12345 ]
+                return latstr + "," + lonstr;
+                //return "42.64941,23.37352";
+            }
         }
         return "NULL";
     }
+
     protected String getPreferenceValue(String key) {
         SharedPreferences settings = getSharedPreferences("Settings",0);
         return settings.getString(key,"");
@@ -221,12 +229,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locManager.removeUpdates(this);
     }
     public void onProviderEnabled(String provider) {
-        Toast.makeText(this, getString(R.string.on_provider_enabled_method) + provider,
+        Toast.makeText(this, getString(R.string.on_provider_enabled_method) +" "+ provider,
                 Toast.LENGTH_SHORT).show();
         //setLocation();
     }
     public void onProviderDisabled(String provider) {
-        Toast.makeText(this, getString(R.string.dissable_provider) + provider,
+        Toast.makeText(this, getString(R.string.dissable_provider) +" "+ provider,
                 Toast.LENGTH_SHORT).show();
         locManager.removeUpdates(this);
     }
