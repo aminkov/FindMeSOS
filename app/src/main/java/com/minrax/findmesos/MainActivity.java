@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
            elevationTextView2.setText(a+" m");
 
         } else {
-            Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_SHORT).show();
             latitudeField.setText(getString(R.string.loc_not_available_field));
             longitudeField.setText(getString(R.string.loc_not_available_field));
         }
