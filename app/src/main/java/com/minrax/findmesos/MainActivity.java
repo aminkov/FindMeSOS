@@ -17,8 +17,10 @@ import android.os.Bundle;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,12 +37,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
+    private static final long REFRESH_BUTTON_CLICK_INTERVAL = 3000;
     private TextView latitudeField;
     private TextView longitudeField;
     private LocationManager locManager;
     private static final long LOCATION_REFRESH_TIME = 3000;
     private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
+    private static long mLastRefreshClickTime;
+
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -313,11 +318,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
         startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
     }
+
     public void refreshLocationButton(View view) {
-        checkAndPromptIfGPSIsDisabled();
-        setLocation();
-        setLocationMapThroughGoogleAPI();
-    }
+
+        if (SystemClock.elapsedRealtime() - mLastRefreshClickTime > REFRESH_BUTTON_CLICK_INTERVAL) {
+            checkAndPromptIfGPSIsDisabled();
+            setLocation();
+            setLocationMapThroughGoogleAPI();
+        } else {
+            Toast.makeText(getApplicationContext(), getString(R.string.crazy_clicking), Toast.LENGTH_SHORT).show();
+        }
+        mLastRefreshClickTime = SystemClock.elapsedRealtime();
+      }
+
     public void copyLocationToClipboard(View view) {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {

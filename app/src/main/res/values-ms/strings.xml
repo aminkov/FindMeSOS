@@ -33,4 +33,5 @@
     <string name="emailfield">mail@something.com</string>
     <string name="elevation_gps">ketinggian(gps)</string>
     <string name="elevation_map">ketinggian(map)</string>
+    <string name="crazy_clicking">Anda klik seperti gila, sila tunggu 3 saat sebelum mengklik semula!</string>
 </resources>

@@ -33,4 +33,5 @@
     <string name="on_provider_enabled_method">啟用新的位置提供程序</string>
     <string name="elevation_gps">高度(gps)</string>
     <string name="elevation_map">高度(map)</string>
+    <string name="crazy_clicking">您瘋狂地點擊，請等待3秒鐘，然後再次點擊！</string>
 </resources>

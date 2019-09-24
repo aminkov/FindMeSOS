@@ -33,4 +33,5 @@
     <string name="emailfield">mail@something.com</string>
     <string name="elevation_gps">высота над моря(gps)</string>
     <string name="elevation_map">высота над моря(map)</string>
+    <string name="crazy_clicking">Вы нажимаете как сумасшедший, пожалуйста, подождите 3 секунды, прежде чем нажать снова!</string>
 </resources>

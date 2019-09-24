@@ -33,4 +33,5 @@
     <string name="on_provider_enabled_method">सक्षम नया स्थान प्रदाता</string>
     <string name="elevation_gps">ऊंचाई(gps)</string>
     <string name="elevation_map">ऊंचाई(map)</string>
+    <string name="crazy_clicking">आप पागलों की तरह क्लिक करते हैं, कृपया, फिर से क्लिक करने से पहले 3 सेकंड के लिए प्रतीक्षा करें!</string>
 </resources>

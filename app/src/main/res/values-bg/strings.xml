@@ -33,4 +33,5 @@
     <string name="on_provider_enabled_method">Локализиране активирано</string>
     <string name="elevation_gps">надморска височина(gps):</string>
     <string name="elevation_map">надморска височина(карта):</string>
+    <string name="crazy_clicking">Кликаш лудо :)! Изчаквай поне 3 секунди между кликовете...</string>
 </resources>
