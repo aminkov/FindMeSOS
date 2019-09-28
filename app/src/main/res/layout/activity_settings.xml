@@ -13,6 +13,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:shrinkColumns="0"
+    android:stretchColumns="1"
     >
         <TableRow
             android:id="@+id/zeroRow"
@@ -103,16 +104,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             >
-                <EditText
-                    android:id="@+id/phonenumber3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="0"
-                    android:inputType="phone"
-                    android:background="#ffbf00"
-                    android:hint="@string/number3"
-                    android:textSize="18sp"
-                    android:importantForAutofill="no" />
 
         </TableRow>
         <TableRow
@@ -185,8 +176,7 @@
                 android:scrollbars="vertical"
                 android:hint="@string/sample_sms_message_hint"
                 android:background="#ffbf00"
-                android:textSize="18sp"
-                    android:importantForAutofill="no" />
+                android:textSize="18sp" android:importantForAutofill="no" />
 
 
         </TableRow>
@@ -194,36 +184,34 @@
             android:id="@+id/eightRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
+            android:gravity="center|center_vertical"
             >
 
 
                 <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="Type of map:"
-                    android:gravity="center"
-                    android:textColor="#ffbf00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Map type:"
+                    android:textColor="#ffbf00"
                     android:textSize="18sp" />
-
-
         </TableRow>
 
         <TableRow
             android:id="@+id/ninhtRow"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
                 <ToggleButton
                     android:id="@+id/maptypeswitch"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@drawable/toggle_selector"
                     android:checked="false"
-                    android:text="Map type"
+                    android:text="Map settings"
                     android:textOff="Map"
                     android:textOn="Satellite" />
         </TableRow>
@@ -247,5 +235,6 @@
 
         </TableRow>
 </TableLayout>
+
 
 </ScrollView>

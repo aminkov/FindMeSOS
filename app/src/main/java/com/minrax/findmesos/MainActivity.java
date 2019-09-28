@@ -261,12 +261,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     private String createGoogleMapsAPIURL() {
         String SIZE = "300x230";
-        int ZOOM = 18;
+        int ZOOM;
         String MAPTYPE;
-        String SCALE = "4";
+        String SCALE;
         String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         String MAP_MARKER_COLOR = "Red";
-        if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite";} else {MAPTYPE = "roadmap";}
+        if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite"; SCALE="4"; ZOOM=18;} else {MAPTYPE = "roadmap"; SCALE="1"; ZOOM=16;}
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
     }
     //Button functions
