@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
     private String createGoogleMapsAPIURL() {
-        String SIZE = "300x230";
+        String SIZE = "350x280";
         int ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));
         String MAPTYPE;
         String SCALE;
