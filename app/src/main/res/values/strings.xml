@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Find Me SOS</string>
     <string name="yes">YES</string>
     <string name="gps_not_found_message">Do you want to enable GPS?</string>
     <string name="gps_not_found_title">Seems GPS is disabled...</string>
@@ -38,4 +37,5 @@
     <string name="map_of_current_location" translatable="false">Map of current location</string>
     <string name="go_to_google_maps_button" translatable="false">Go to Google Maps button</string>
     <string name="crazy_clicking">You click like crazy, please, wait for 3 secs before clicking again!</string>
+    <string name="app_name">Find Me SOS -Share My Location With A Button Click</string>
 </resources>

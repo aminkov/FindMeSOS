@@ -181,7 +181,7 @@
                 android:gravity="top|start"
                 android:maxLines="10"
                 android:layout_height="wrap_content"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:scrollbars="vertical"
                 android:hint="@string/sample_sms_message_hint"
                 android:background="#ffbf00"
@@ -189,6 +189,43 @@
                     android:importantForAutofill="no" />
 
 
+        </TableRow>
+        <TableRow
+            android:id="@+id/eightRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            >
+
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="Type of map:"
+                    android:gravity="center"
+                    android:textColor="#ffbf00"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/ninhtRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+                <ToggleButton
+                    android:id="@+id/maptypeswitch"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="Map type"
+                    android:textOff="Map"
+                    android:textOn="Satellite" />
         </TableRow>
         <TableRow
             android:id="@+id/lastRow"

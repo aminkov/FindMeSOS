@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Find Me SOS</string>
+    <string name="app_name">Find Me SOS -Share My Location With A Button Click</string>
     <string name="yes">হ্যাঁ</string>
     <string name="gps_not_found_message">আপনি কি জিপিএস সক্ষম করতে চান?</string>
     <string name="gps_not_found_title">দেখে মনে হচ্ছে জিপিএস অক্ষম করা আছে ...</string>

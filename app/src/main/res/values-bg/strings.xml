@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Find Me SOS</string>
+    <string name="app_name">Find Me SOS - Сподели локацията си с един клик</string>
     <string name="broadcast_location">SMS</string>
     <string name="copy_loc">Копирай</string>
     <string name="email">Споделяне</string>
@@ -33,5 +33,5 @@
     <string name="on_provider_enabled_method">Локализиране активирано</string>
     <string name="elevation_gps">надморска височина(gps):</string>
     <string name="elevation_map">надморска височина(карта):</string>
-    <string name="crazy_clicking">Кликаш лудо :)! Изчаквай поне 3 секунди между кликовете...</string>
+    <string name="crazy_clicking">Кликаш много лудо, изчаквай поне 3 секунди между кликовете...</string>
 </resources>

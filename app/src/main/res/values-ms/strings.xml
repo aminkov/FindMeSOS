@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Find Me SOS</string>
+    <string name="app_name">Find Me SOS -Share My Location With A Button Click</string>
     <string name="yes">YA</string>
     <string name="gps_not_found_message">Adakah anda ingin mendayakan GPS?</string>
     <string name="gps_not_found_title">Nampaknya GPS tidak berfungsi ...</string>
