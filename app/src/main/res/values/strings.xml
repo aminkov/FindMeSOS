@@ -29,8 +29,8 @@
     <string name="resume_location">Resuming location...</string>
     <string name="pause_location">Pausing location...</string>
     <string name="on_provider_enabled_method">Enabled new location provider</string>
-    <string name="elevation_map">Elevation(Map):</string>
-    <string name="elevation_gps">Elevation(GPS):</string>
+    <string name="elevation_map">"Elevation(Map): "</string>
+    <string name="elevation_gps">"Elevation(GPS): "</string>
     <string name="sms" translatable="false">SMS</string>
     <string name="logo_find_me_sos" translatable="false">Logo Find Me SOS</string>
     <string name="go_to_settings_button" translatable="false">Go to settings button</string>
