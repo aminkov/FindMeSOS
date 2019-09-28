@@ -260,14 +260,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
     private String createGoogleMapsAPIURL() {
-        String SIZE = "350x280";
+        String MAP_SIZE = "350x280";
         int ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));
-        String MAPTYPE;
-        String SCALE;
-        String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
-        String MAP_MARKER_COLOR = "Red";
+        final String MAPTYPE;
+        final String SCALE;
+        final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
+        final String MAP_MARKER_COLOR = "Red";
         if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
+        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
     }
     //Button functions
     public void goToSettings(View view) {
