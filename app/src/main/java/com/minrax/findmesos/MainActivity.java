@@ -37,7 +37,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
-    private static final long REFRESH_BUTTON_CLICK_INTERVAL = 3000;
+    private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
     private TextView latitudeField;
     private TextView longitudeField;
     private LocationManager locManager;
