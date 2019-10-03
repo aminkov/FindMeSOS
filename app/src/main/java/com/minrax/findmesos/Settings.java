@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
         public void goToMainApp(View view) {
             Intent intent = new Intent(Settings.this, MainActivity.class);
-            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s2);
             mp.start();
             startActivity(intent);
             saveSettingsValues();

@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
         mp.start();
     }
     public void sendSMS(View view) {
