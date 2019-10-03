@@ -1,4 +1,5 @@
 package com.minrax.findmesos;
+import android.media.MediaPlayer;
 import android.widget.EditText;
 import android.content.SharedPreferences;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
         public void goToMainApp(View view) {
             Intent intent = new Intent(Settings.this, MainActivity.class);
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+            mp.start();
             startActivity(intent);
             saveSettingsValues();
         }

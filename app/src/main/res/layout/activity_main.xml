@@ -35,7 +35,7 @@
             android:contentDescription="@string/go_to_settings_button"
             android:focusable="true"
             android:onClick="goToSettings"
-            app:srcCompat="@drawable/settings" />
+            app:srcCompat="@drawable/settings_pressed_unpressed" />
     </LinearLayout>
 
     <LinearLayout
