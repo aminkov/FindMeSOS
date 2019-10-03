@@ -57,33 +57,18 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/textview3"
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/latitude"
             android:textColor="#ffd700"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textview5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/longitude"
-            android:textColor="#ffd700"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25dp">
         <TextView
             android:id="@+id/textview1"
             android:layout_width="0dp"
@@ -91,6 +76,17 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="@string/longitude"
+            android:textColor="#ffd700"
             android:textSize="18sp"
             android:textStyle="bold" />
         <TextView
@@ -102,7 +98,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
-        </LinearLayout>
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
