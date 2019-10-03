@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="top">
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="290dp"
@@ -27,7 +26,6 @@
             android:clickable="false"
             android:contentDescription="@string/logo_find_me_sos"
             app:srcCompat="@drawable/l2" />
-
         <ImageView
             android:id="@+id/settings_icon"
             android:layout_width="wrap_content"
@@ -44,7 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:gravity="top">
-
         <ImageView
             android:id="@+id/mapview"
             android:layout_width="match_parent"
@@ -78,7 +75,6 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/textview5"
             android:layout_width="0dp"
@@ -143,7 +139,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -178,7 +173,6 @@
         android:layout_height="120dp"
         android:layout_marginTop="20dp"
         android:gravity="center">
-
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,7 +184,6 @@
                 android:scaleType="fitCenter"
                 android:paddingLeft="20dp"
                 />
-
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +195,6 @@
                 android:scaleType="fitCenter"
                 android:paddingRight="20dp"
                 />
-
     </LinearLayout>
     </TableLayout>
 </ScrollView>
