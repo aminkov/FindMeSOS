@@ -90,8 +90,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
             //Map ZOOM field
             SeekBar mapzoom = findViewById(R.id.mapZoomSlider);
-            Integer mapZoomValue = Integer.parseInt(getPreferenceValue("mapzoom"));
-            if (mapZoomValue == null) {mapZoomValue=16;} else {mapZoomValue=Integer.parseInt(getPreferenceValue("mapzoom"));}
+            Integer mapZoomValue;
+            if (getPreferenceValue("mapzoom") == "") { mapZoomValue = 16;} else {mapZoomValue = Integer.parseInt(getPreferenceValue("mapzoom"));}
             mapzoom.setProgress(mapZoomValue);
             TextView MapZoomTitleBox = findViewById(R.id.mapzoomtitle);
             MapZoomTitleBox.setText("Map ZOOM: " + mapZoomValue);
