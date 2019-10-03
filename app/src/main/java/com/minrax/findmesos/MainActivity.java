@@ -261,7 +261,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     private String createGoogleMapsAPIURL() {
         String MAP_SIZE = "350x280";
-        int ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));
+        //Integer ZOOM =16;
+        if (getPreferenceValue("mapzoom") == null) { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
+        Integer ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));
+        //if (ZOOM == null) { ZOOM = 16;}
         final String MAPTYPE;
         final String SCALE;
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
