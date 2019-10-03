@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationProvider;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
     private static long mLastRefreshClickTime;
+
 
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +276,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        mp.start();
     }
     public void sendSMS(View view) {
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
@@ -283,6 +287,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         intent.putExtra("sms_body", message);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+            mp.start();
         }
     }
     public void launchGMaps(View view) {
@@ -295,6 +301,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Uri uri = Uri.parse(uriString);
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
         startActivity(intent);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        mp.start();
     }
     public void shareLocationButton(View view) {
         //Commented code needs storage permission //TODO - check how to share image without storage permissions
@@ -314,6 +322,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        } else {
 //            //if drawable empty
 //        }
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        mp.start();
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
@@ -323,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     public void refreshLocationButton(View view) {
-
         if (SystemClock.elapsedRealtime() - mLastRefreshClickTime > REFRESH_BUTTON_CLICK_INTERVAL) {
             checkAndPromptIfGPSIsDisabled();
             setLocation();
@@ -332,9 +341,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), getString(R.string.crazy_clicking), Toast.LENGTH_SHORT).show();
         }
         mLastRefreshClickTime = SystemClock.elapsedRealtime();
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        mp.start();
       }
 
     public void copyLocationToClipboard(View view) {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
+        mp.start();
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
