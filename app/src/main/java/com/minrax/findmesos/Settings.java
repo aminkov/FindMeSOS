@@ -21,8 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
         public void goToMainApp(View view) {
             Intent intent = new Intent(Settings.this, MainActivity.class);
-            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s2);
-            mp.start();
+            PalySoundIfOn();
             startActivity(intent);
             saveSettingsValues();
         }
@@ -30,6 +29,13 @@ import androidx.appcompat.app.AppCompatActivity;
         private String getPreferenceValue(String key) {
             SharedPreferences settings = this.getSharedPreferences("Settings", 0);
             return settings.getString(key, "");
+        }
+
+        private void PalySoundIfOn() {
+            if (getPreferenceValue("soundStatus") == "true") {
+                final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
+                mp.start();
+            }
         }
 
         private void writeToPreference(String key, String thePreference) {
@@ -69,6 +75,11 @@ import androidx.appcompat.app.AppCompatActivity;
             SeekBar mapzoom = findViewById(R.id.mapZoomSlider);
             String mapzoomvalue = String.valueOf(mapzoom.getProgress());
             writeToPreference("mapzoom", mapzoomvalue);
+
+            //Sound On / OFF
+            ToggleButton sound = findViewById(R.id.soundonoff);
+            String soundon = String.valueOf(sound.isChecked());
+            writeToPreference("soundStatus", soundon);
         }
 
         private void loadSavedSettings() {
@@ -98,5 +109,9 @@ import androidx.appcompat.app.AppCompatActivity;
             mapzoom.setProgress(mapZoomValue);
             TextView MapZoomTitleBox = findViewById(R.id.mapzoomtitle);
             MapZoomTitleBox.setText("Map ZOOM: " + mapZoomValue);
+
+            //Sound On / OFF
+            ToggleButton sound = findViewById(R.id.soundonoff);
+            sound.setChecked(Boolean.parseBoolean(getPreferenceValue("soundStatus")));
         }
     }

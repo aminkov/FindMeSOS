@@ -38,8 +38,7 @@
                 <TextView
                     android:id="@+id/settingstitle"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="30dp"
                     android:text="@string/settings"
                     android:textAlignment="center"
                     android:textColor="#ffbf00"
@@ -248,6 +247,40 @@
                     android:progressDrawable="@drawable/custom_progress"
                     android:background="#ffbf00"
                     android:thumb="@mipmap/ic_launcher_round"/>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/twelvehtRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_vertical"
+            >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Button sound ON / OFF:"
+                    android:textColor="#ffbf00"
+                    android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/thirteenthRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+                <ToggleButton
+                    android:id="@+id/soundonoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="true"
+                    android:text="Sound?"
+                    android:textOff="OFF"
+                    android:textOn="ON" />
         </TableRow>
 
         <TableRow

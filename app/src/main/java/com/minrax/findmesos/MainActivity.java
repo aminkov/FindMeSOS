@@ -21,7 +21,6 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -262,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
     private String createGoogleMapsAPIURL() {
-        String MAP_SIZE = "400x280";
+        String MAP_SIZE = "380x280";
         Integer ZOOM;
         if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
         final String MAPTYPE;
@@ -272,12 +271,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
     }
+
+    private void PalySoundIfOn() {
+        if (getPreferenceValue("soundStatus") == "true") {
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
+            mp.start();
+        }
+    }
+
     //Button functions
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
-        mp.start();
+        PalySoundIfOn();
     }
     public void sendSMS(View view) {
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
@@ -287,8 +293,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         intent.putExtra("sms_body", message);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
-            mp.start();
+            PalySoundIfOn();
         }
     }
     public void launchGMaps(View view) {
@@ -301,8 +306,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Uri uri = Uri.parse(uriString);
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
         startActivity(intent);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
-        mp.start();
+        PalySoundIfOn();
     }
     public void shareLocationButton(View view) {
         //Commented code needs storage permission //TODO - check how to share image without storage permissions
@@ -322,8 +326,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //        } else {
 //            //if drawable empty
 //        }
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
-        mp.start();
+        PalySoundIfOn();
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
@@ -341,13 +344,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), getString(R.string.crazy_clicking), Toast.LENGTH_SHORT).show();
         }
         mLastRefreshClickTime = SystemClock.elapsedRealtime();
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
-        mp.start();
+        PalySoundIfOn();
       }
 
     public void copyLocationToClipboard(View view) {
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.s1);
-        mp.start();
+        PalySoundIfOn();
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
