@@ -1,4 +1,6 @@
 package com.minrax.findmesos;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.widget.EditText;
 import android.content.SharedPreferences;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
-    public class Settings extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -122,5 +126,12 @@ import androidx.appcompat.app.AppCompatActivity;
             //Add map to message with location On / OFF
             ToggleButton mapAddedBut = findViewById(R.id.addMapOnOff);
             mapAddedBut.setChecked(Boolean.parseBoolean(getPreferenceValue("addMap")));
+        }
+
+        public void requestTorchPermissionIfAbsent(View view) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //Request permission
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
         }
     }

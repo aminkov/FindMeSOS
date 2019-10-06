@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraManager;
 import android.location.LocationProvider;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -39,6 +41,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+
+import java.security.Policy;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
@@ -315,15 +319,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void shareLocationButton(View view) {
         //Commented code needs storage permission
         PalySoundIfOn();
-        final String mapAdded;
-        if (getPreferenceValue("addMap") == "") {mapAdded = "false";} else {mapAdded = getPreferenceValue("addMap");}
-        if (mapAdded == "true") {
+        final boolean mapAdded;
+        if (getPreferenceValue("addMap") == "") {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
+        if (mapAdded) {
+            Toast.makeText(this, String.valueOf(mapAdded), Toast.LENGTH_SHORT).show();
             //request file permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //Request permission
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
-            //Toast.makeText(this, "Map will be added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Map will be added", Toast.LENGTH_SHORT).show();
             //add image to sharing message
             ImageView mapView = findViewById(R.id.mapview);
             if (null != mapView.getDrawable()) {
@@ -347,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             }
         } else {
-            //Toast.makeText(this, "*** Map will NOT be added ***", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "*** Map will NOT be added ***", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
@@ -410,5 +415,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         });
         // Access the RequestQueue through your singleton class.
         localRequestQueue.add(jReq);
-        }
+    }
+//    public void sosLight(View view) {
+//        //checking if flashlight is available on the device
+//        boolean isFlashAvailable = getApplicationContext().getPackageManager()
+//                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+//        if (!isFlashAvailable) {
+//            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
+//        }
+//        //getting the camera manager and camera id
+//        CameraManager myCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+//        String cameraId = myCameraManager.getCameraIdList()[0];
+//        String sosString = "111000111";
+//        Policy.Parameters params;
+//        for (int i=0; i<sosString.length(); i++) {
+//            if(sosString.charAt(i) == "1") {
+//                params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+//            } else {
+//                params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+//            }
+//            }
+//        }
+//    }
 }

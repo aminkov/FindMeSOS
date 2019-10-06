@@ -38,7 +38,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:gravity="start"
                     android:text="@string/smsnumber_settings"
                     android:textColor="#ffbf00"
@@ -161,7 +160,7 @@
             android:gravity="center|center_vertical">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
+                    android:layout_height="25dp"
                     android:gravity="center"
                     android:text="Map type:"
                     android:textColor="#ffbf00"
@@ -192,7 +191,7 @@
                     android:id="@+id/mapzoomtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="Map ZOOM:"
                     android:textColor="#ffbf00"
@@ -222,8 +221,8 @@
             android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="Button sound ON / OFF:"
                     android:textColor="#ffbf00"
@@ -253,7 +252,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Add map image when sharing location (the app will ask for files permission):"
                     android:textColor="#ffbf00"
@@ -270,6 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:background="@drawable/toggle_selector"
+                    android:onClick="requestTorchPermissionIfAbsent"
                     android:checked="false"
                     android:text="Add map when sending location?"
                     android:textOff="OFF"
@@ -280,7 +279,7 @@
             android:id="@+id/lastRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:gravity="center">
                 <ImageButton
                     android:layout_weight="1"
