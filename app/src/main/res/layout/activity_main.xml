@@ -202,9 +202,10 @@
             android:gravity="center">
 
             <ToggleButton
-                android:id="@+id/addMapOnOff"
+                android:id="@+id/sosLightOnOff"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/toggle_selector"
                 android:checked="false"
                 android:onClick="sosLight"

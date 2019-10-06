@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
+import android.widget.ToggleButton;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -416,25 +418,51 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Access the RequestQueue through your singleton class.
         localRequestQueue.add(jReq);
     }
-//    public void sosLight(View view) {
-//        //checking if flashlight is available on the device
-//        boolean isFlashAvailable = getApplicationContext().getPackageManager()
-//                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-//        if (!isFlashAvailable) {
-//            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
-//        }
-//        //getting the camera manager and camera id
-//        CameraManager myCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-//        String cameraId = myCameraManager.getCameraIdList()[0];
-//        String sosString = "111000111";
-//        Policy.Parameters params;
-//        for (int i=0; i<sosString.length(); i++) {
-//            if(sosString.charAt(i) == "1") {
-//                params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
-//            } else {
-//                params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-//            }
-//            }
-//        }
-//    }
+    public void sosLight(View view) throws InterruptedException {
+        //checking if flashlight is available on the device
+        boolean isFlashAvailable = getApplicationContext().getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        if (!isFlashAvailable) {
+            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
+        } else {
+
+                boolean isFlashLightOn = false;
+                String sosString = "000111000";
+                ToggleButton sosToggleBut = findViewById(R.id.sosLightOnOff);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //Request permission
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+                }
+                Camera camera = Camera.open();
+                Camera.Parameters params = camera.getParameters();
+
+                isFlashLightOn = sosToggleBut.isChecked();
+
+//                while (isFlashLightOn) {
+                    for (int i=0; i<sosString.length(); i++) {
+                        if(sosString.charAt(i) == '1') {
+                                params.setFlashMode(params.FLASH_MODE_TORCH);
+                                camera.setParameters(params);
+                                camera.startPreview();
+                                Thread.sleep(400);
+                                params.setFlashMode(params.FLASH_MODE_OFF);
+                                camera.setParameters(params);
+                                camera.stopPreview();
+                                Thread.sleep(300);
+                        } else {
+                                params.setFlashMode(params.FLASH_MODE_TORCH);
+                                camera.setParameters(params);
+                                camera.startPreview();
+                                Thread.sleep(50);
+                                params.setFlashMode(params.FLASH_MODE_OFF);
+                                camera.setParameters(params);
+                                camera.stopPreview();
+                                Thread.sleep(300);
+                                }
+                        }
+                    Thread.sleep(1000);
+//                }
+            }
+    }
+
 }
