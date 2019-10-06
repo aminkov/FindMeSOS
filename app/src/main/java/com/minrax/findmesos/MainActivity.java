@@ -10,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.LocationProvider;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
@@ -19,6 +22,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -309,30 +313,48 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         PalySoundIfOn();
     }
     public void shareLocationButton(View view) {
-        //Commented code needs storage permission //TODO - check how to share image without storage permissions
-//        ImageView mapView = findViewById(R.id.mapview);
-//        if (null!=mapView.getDrawable()) {
-//            Drawable mDrawable = mapView.getDrawable();
-//            Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
-//            String path = MediaStore.Images.Media.insertImage(getContentResolver(),
-//                    mBitmap, "Location", null);
-//            Intent i = new Intent(Intent.ACTION_SEND);
-//            i.setType("image/*");
-//            i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
-//            i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
-//            i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-//            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
-//            startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
-//        } else {
-//            //if drawable empty
-//        }
+        //Commented code needs storage permission
         PalySoundIfOn();
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
-        i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-        i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
-        startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+        final String mapAdded;
+        if (getPreferenceValue("addMap") == "") {mapAdded = "false";} else {mapAdded = getPreferenceValue("addMap");}
+        if (mapAdded == "true") {
+            //request file permission
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //Request permission
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+            //Toast.makeText(this, "Map will be added", Toast.LENGTH_SHORT).show();
+            //add image to sharing message
+            ImageView mapView = findViewById(R.id.mapview);
+            if (null != mapView.getDrawable()) {
+                Drawable mDrawable = mapView.getDrawable();
+                Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
+                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Location", null);
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("image/*");
+                i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
+                i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+                startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+            } else {
+                Toast.makeText(this, "*** There is no map, it will NOT be added ***", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
+                i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
+                startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+            }
+        } else {
+            //Toast.makeText(this, "*** Map will NOT be added ***", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("text/plain");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
+            i.putExtra(Intent.EXTRA_SUBJECT, "My location");
+            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+            startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
+        }
     }
 
     public void refreshLocationButton(View view) {
@@ -390,4 +412,3 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         localRequestQueue.add(jReq);
         }
 }
-

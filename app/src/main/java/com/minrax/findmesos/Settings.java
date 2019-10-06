@@ -80,6 +80,11 @@ import androidx.appcompat.app.AppCompatActivity;
             ToggleButton sound = findViewById(R.id.soundonoff);
             String soundon = String.valueOf(sound.isChecked());
             writeToPreference("soundStatus", soundon);
+
+            //Add Map to message with location
+            ToggleButton mapAddedBut = findViewById(R.id.addMapOnOff);
+            String mapAdded = String.valueOf(mapAddedBut.isChecked());
+            writeToPreference("addMap", mapAdded);
         }
 
         private void loadSavedSettings() {
@@ -113,5 +118,9 @@ import androidx.appcompat.app.AppCompatActivity;
             //Sound On / OFF
             ToggleButton sound = findViewById(R.id.soundonoff);
             sound.setChecked(Boolean.parseBoolean(getPreferenceValue("soundStatus")));
+
+            //Add map to message with location On / OFF
+            ToggleButton mapAddedBut = findViewById(R.id.addMapOnOff);
+            mapAddedBut.setChecked(Boolean.parseBoolean(getPreferenceValue("addMap")));
         }
     }
