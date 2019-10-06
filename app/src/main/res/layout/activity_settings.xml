@@ -7,11 +7,11 @@
 
 <TableLayout
     android:layout_width="match_parent"
-    android:layout_height="35dp"
+    android:layout_height="0dp"
     android:background="@android:color/black"
     android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:shrinkColumns="0"
     android:stretchColumns="1"
     >
@@ -24,27 +24,12 @@
                 <ImageView
                     android:id="@+id/logo"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="50dp"
                     android:contentDescription="@string/logo_find_me_sos"
                     android:gravity="center"
                     android:src="@drawable/l2" />
         </TableRow>
-        <TableRow
-            android:id="@+id/firstRow"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="center">
 
-                <TextView
-                    android:id="@+id/settingstitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:text="@string/settings"
-                    android:textAlignment="center"
-                    android:textColor="#ffbf00"
-                    android:textSize="24sp"
-                    app:fontFamily="sans-serif-smallcaps" />
-        </TableRow>
         <TableRow
             android:id="@+id/secondRow"
             android:layout_width="match_parent"
@@ -53,7 +38,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:gravity="start"
                     android:text="@string/smsnumber_settings"
@@ -112,7 +97,7 @@
             android:gravity="center">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:text="@string/mail_address_to_send_mails_to"
                     android:gravity="start"
@@ -187,7 +172,7 @@
             >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="27dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Map type:"
@@ -217,13 +202,12 @@
             android:id="@+id/tenthRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|center_vertical"
             >
 
                 <TextView
                     android:id="@+id/mapzoomtitle"
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Map ZOOM:"
@@ -234,13 +218,13 @@
         <TableRow
             android:id="@+id/eleventhRow"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="20dp"
             android:gravity="center|center_vertical">
 
                 <SeekBar
                     android:id="@+id/mapZoomSlider"
                     android:layout_width="fill_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="25dp"
                     android:max="20"
                     android:min="5"
                     android:progress="16"
@@ -253,11 +237,10 @@
             android:id="@+id/twelvehtRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center|center_vertical"
             >
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                    android:layout_height="27dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="Button sound ON / OFF:"
@@ -284,10 +267,43 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/fourteehtRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Add map to message ON / OFF:"
+                    android:textColor="#ffbf00"
+                    android:textSize="18sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/fifteenthRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+                <ToggleButton
+                    android:id="@+id/addMapToMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="true"
+                    android:text="Add map when sending location?"
+                    android:textOff="OFF"
+                    android:textOn="ON" />
+        </TableRow>
+
+        <TableRow
             android:id="@+id/lastRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:gravity="center">
 
                 <ImageButton
