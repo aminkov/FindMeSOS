@@ -14,11 +14,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
-import android.hardware.camera2.CameraManager;
 import android.location.LocationProvider;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
 import android.location.Location;
@@ -27,12 +27,13 @@ import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
 import android.widget.ToggleButton;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -43,8 +44,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
-import java.security.Policy;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
@@ -418,51 +417,123 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // Access the RequestQueue through your singleton class.
         localRequestQueue.add(jReq);
     }
-    public void sosLight(View view) throws InterruptedException {
-        //checking if flashlight is available on the device
-        boolean isFlashAvailable = getApplicationContext().getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        if (!isFlashAvailable) {
-            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
-        } else {
 
-                boolean isFlashLightOn = false;
-                String sosString = "000111000";
-                ToggleButton sosToggleBut = findViewById(R.id.sosLightOnOff);
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    //Request permission
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-                }
-                Camera camera = Camera.open();
-                Camera.Parameters params = camera.getParameters();
+    //All of the SOS light functions start here
 
-                isFlashLightOn = sosToggleBut.isChecked();
-
-//                while (isFlashLightOn) {
-                    for (int i=0; i<sosString.length(); i++) {
-                        if(sosString.charAt(i) == '1') {
-                                params.setFlashMode(params.FLASH_MODE_TORCH);
-                                camera.setParameters(params);
-                                camera.startPreview();
-                                Thread.sleep(400);
-                                params.setFlashMode(params.FLASH_MODE_OFF);
-                                camera.setParameters(params);
-                                camera.stopPreview();
-                                Thread.sleep(300);
-                        } else {
-                                params.setFlashMode(params.FLASH_MODE_TORCH);
-                                camera.setParameters(params);
-                                camera.startPreview();
-                                Thread.sleep(50);
-                                params.setFlashMode(params.FLASH_MODE_OFF);
-                                camera.setParameters(params);
-                                camera.stopPreview();
-                                Thread.sleep(300);
-                                }
-                        }
-                    Thread.sleep(1000);
+//    public void sosButtonClick(View view) {
+//        if(checkPermissionsAndFlashlightAvailability()) {
+//            ToggleButton sosButton = findViewById(R.id.sosLightOnOff);
+//            sosButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                    if (isChecked) {
+//                        try {
+//                            sosLightOn();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else {
+//                        sosLightOff();
+//                    }
 //                }
+//            });
+//        }
+//    }
+
+    public void sosButtonClick(View view) {
+        try {
+            sosLightOn();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean checkPermissionsAndFlashlightAvailability() {
+        //checking if flashlight is available on the device
+        if (!getApplicationContext().getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            //check permissions
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                //Request permission if not granted already
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
             }
+            return true;
+        }
+    }
+
+    private void sosLightOff() {
+        Camera camera = Camera.open();
+        Camera.Parameters params = camera.getParameters();
+        camera.setParameters(params);
+        camera.stopPreview();
+        camera.release();
+    }
+
+
+    protected void sosLightOn() throws InterruptedException {
+
+        //Start SOS algorithm
+        String sosString = "000111000";
+        Camera camera = Camera.open();
+        Camera.Parameters params = camera.getParameters();
+            for (int i=0; i<sosString.length(); i++) {
+                if(sosString.charAt(i) == '1') {
+                        params.setFlashMode(params.FLASH_MODE_TORCH);
+                        camera.setParameters(params);
+                        camera.startPreview();
+                        Thread.sleep(400);
+                        params.setFlashMode(params.FLASH_MODE_OFF);
+                        camera.setParameters(params);
+                        camera.stopPreview();
+                        Thread.sleep(300);
+                } else {
+                        params.setFlashMode(params.FLASH_MODE_TORCH);
+                        camera.setParameters(params);
+                        camera.startPreview();
+                        Thread.sleep(50);
+                        params.setFlashMode(params.FLASH_MODE_OFF);
+                        camera.setParameters(params);
+                        camera.stopPreview();
+                        Thread.sleep(300);
+                }
+            }
+        Thread.sleep(1000);
+    }
+
+    private abstract class sosLight extends AsyncTask<String, Void, Void> {
+
+        protected void sosLightOn() throws InterruptedException {
+
+            //Start SOS algorithm
+            String sosString = "000111000";
+            Camera camera = Camera.open();
+            Camera.Parameters params = camera.getParameters();
+            for (int i=0; i<sosString.length(); i++) {
+                if(sosString.charAt(i) == '1') {
+                    params.setFlashMode(params.FLASH_MODE_TORCH);
+                    camera.setParameters(params);
+                    camera.startPreview();
+                    Thread.sleep(400);
+                    params.setFlashMode(params.FLASH_MODE_OFF);
+                    camera.setParameters(params);
+                    camera.stopPreview();
+                    Thread.sleep(300);
+                } else {
+                    params.setFlashMode(params.FLASH_MODE_TORCH);
+                    camera.setParameters(params);
+                    camera.startPreview();
+                    Thread.sleep(50);
+                    params.setFlashMode(params.FLASH_MODE_OFF);
+                    camera.setParameters(params);
+                    camera.stopPreview();
+                    Thread.sleep(300);
+                }
+            }
+            Thread.sleep(1000);
+        }
     }
 
 }

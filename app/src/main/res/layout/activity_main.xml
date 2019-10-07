@@ -198,19 +198,32 @@
     </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:gravity="center">
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sostemp"
+                android:onClick="sosButtonClick"
+                android:background="@null"
+                app:srcCompat="@drawable/sos_ligh_on"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="20dp"
+
+                />
             <ToggleButton
                 android:id="@+id/sosLightOnOff"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/toggle_selector"
+                android:background="@drawable/sos_toggle_selector"
                 android:checked="false"
-                android:onClick="sosLight"
-                android:textOff="SOS Light OFF"
-                android:textOn="SOS Light ON" />
+                android:visibility="invisible"
+                android:scaleType="fitCenter"
+                android:onClick="sosButtonClick"
+                android:textOff="OFF"
+                android:textOn="ON" />
         </LinearLayout>
     </TableLayout>
 </ScrollView>
