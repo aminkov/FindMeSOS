@@ -27,13 +27,10 @@ import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.location.LocationListener;
-import android.widget.ToggleButton;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Check if permission is granted
+        // Check if GPS permission is granted
         while (!checkPermissionsNew()) {
             checkPermissionsNew();
         }
@@ -100,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     protected boolean checkPermissionsNew() {
         boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //Request permission
+            //Request GPS permission
             isPermission = false;
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
@@ -320,7 +317,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         PalySoundIfOn();
     }
     public void shareLocationButton(View view) {
-        //Commented code needs storage permission
         PalySoundIfOn();
         final boolean mapAdded;
         if (getPreferenceValue("addMap") == "") {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
@@ -424,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     //*****************************
 
 //    public void sosButtonClick(View view) {
-//        if(checkPermissionsAndFlashlightAvailability()) {
+//        if(checkFlashlightAvailability()) {
 //            ToggleButton sosButton = findViewById(R.id.sosLightOnOff);
 //            sosButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -444,36 +440,34 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //    }
 
     public void sosButtonClick(View view) {
-        try {
-            sosLightOn();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            checkFlashlightAvailability();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //Request permission if not granted already
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
+        } else {
+            try {
+                sosLightOn();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private boolean checkPermissionsAndFlashlightAvailability() {
+    private void checkFlashlightAvailability() {
         //checking if flashlight is available on the device
         if (!getApplicationContext().getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
             Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
-            return false;
-        } else {
-            //check permissions
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                //Request permission if not granted already
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-            }
-            return true;
         }
     }
 
-    private void sosLightOff() {
-        Camera camera = Camera.open();
-        Camera.Parameters params = camera.getParameters();
-        camera.setParameters(params);
-        camera.stopPreview();
-        camera.release();
-    }
+//    private void sosLightOff() {
+//        Camera camera = Camera.open();
+//        Camera.Parameters params = camera.getParameters();
+//        camera.setParameters(params);
+//        camera.stopPreview();
+//        camera.release();
+//    }
 
 
     protected void sosLightOn() throws InterruptedException {
