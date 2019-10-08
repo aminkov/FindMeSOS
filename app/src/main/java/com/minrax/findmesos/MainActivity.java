@@ -282,7 +282,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
     private void PalySoundIfOn() {
-        if (getPreferenceValue("soundStatus") == "true") {
+        final boolean soundStatus;
+        if (getPreferenceValue("soundStatus") == "") {soundStatus = Boolean.parseBoolean("false");} else {soundStatus = Boolean.parseBoolean(getPreferenceValue("soundStatus"));}
+        if (soundStatus) {
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
             mp.start();
         }
@@ -418,7 +420,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         localRequestQueue.add(jReq);
     }
 
-    //All of the SOS light functions start here
+    //******* All of the SOS light functions start here
+    //*****************************
 
 //    public void sosButtonClick(View view) {
 //        if(checkPermissionsAndFlashlightAvailability()) {
