@@ -24,8 +24,8 @@ public class Settings extends AppCompatActivity {
         }
 
         public void goToMainApp(View view) {
+            playSoundIfOn();
             Intent intent = new Intent(Settings.this, MainActivity.class);
-            PalySoundIfOn();
             startActivity(intent);
             saveSettingsValues();
         }
@@ -35,7 +35,7 @@ public class Settings extends AppCompatActivity {
             return settings.getString(key, "");
         }
 
-        private void PalySoundIfOn() {
+        private void playSoundIfOn() {
             if (getPreferenceValue("soundStatus") == "true") {
                 final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
                 mp.start();

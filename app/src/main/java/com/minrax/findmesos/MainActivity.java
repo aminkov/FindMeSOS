@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
     }
 
-    private void PalySoundIfOn() {
+    private void playSoundIfOn() {
         final boolean soundStatus;
         if (getPreferenceValue("soundStatus") == "") {soundStatus = Boolean.parseBoolean("false");} else {soundStatus = Boolean.parseBoolean(getPreferenceValue("soundStatus"));}
         if (soundStatus) {
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void goToSettings(View view) {
         Intent intent = new Intent(MainActivity.this, Settings.class);
         startActivity(intent);
-        PalySoundIfOn();
+        playSoundIfOn();
     }
     public void sendSMS(View view) {
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
@@ -301,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         intent.putExtra("sms_body", message);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
-            PalySoundIfOn();
+            playSoundIfOn();
         }
     }
     public void launchGMaps(View view) {
@@ -314,10 +314,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Uri uri = Uri.parse(uriString);
         Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri);
         startActivity(intent);
-        PalySoundIfOn();
+        playSoundIfOn();
     }
     public void shareLocationButton(View view) {
-        PalySoundIfOn();
+        playSoundIfOn();
         final boolean mapAdded;
         if (getPreferenceValue("addMap") == "") {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
         if (mapAdded) {
@@ -370,11 +370,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), getString(R.string.crazy_clicking), Toast.LENGTH_SHORT).show();
         }
         mLastRefreshClickTime = SystemClock.elapsedRealtime();
-        PalySoundIfOn();
+        playSoundIfOn();
       }
 
     public void copyLocationToClipboard(View view) {
-        PalySoundIfOn();
+        playSoundIfOn();
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
@@ -440,6 +440,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 //    }
 
     public void sosButtonClick(View view) {
+            playSoundIfOn();
             checkFlashlightAvailability();
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             //Request permission if not granted already
