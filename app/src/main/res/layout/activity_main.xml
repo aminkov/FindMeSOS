@@ -53,18 +53,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         >
         <TextView
             android:id="@+id/textview3"
             android:layout_width="0dp"
             android:layout_weight="0.8"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="left"
             android:text="@string/latitude"
             android:textColor="#ffd700"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingLeft="2dp"/>
         <TextView
             android:id="@+id/textview1"
             android:layout_width="0dp"
@@ -79,7 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:gravity="center"
+            android:gravity="left"
             android:text="@string/longitude"
             android:textColor="#ffd700"
             android:textSize="16sp"
@@ -97,23 +98,24 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp">
+            android:layout_height="40dp">
             <TextView
                 android:id="@+id/tvalttitmap"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:gravity="end|center_vertical"
+                android:layout_weight="0.9"
+                android:gravity="left|center_vertical"
                 android:textColor="#ffd700"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:text="@string/elevation_map"/>
+                android:text="@string/elevation_map"
+                android:paddingLeft="2dp"/>
             <TextView
                 android:id="@+id/tvaltvalmap"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:gravity="start|center_vertical"
+                android:gravity="left|center_vertical"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -121,10 +123,10 @@
                 android:id="@+id/tvalttitgps"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
-                android:gravity="end|center_vertical"
+                android:layout_weight="0.9"
+                android:gravity="left|center_vertical"
                 android:textColor="#ffd700"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:text="@string/elevation_gps"/>
             <TextView
@@ -132,7 +134,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:gravity="start|center_vertical"
+                android:gravity="left|center_vertical"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
                 android:textStyle="bold" />
