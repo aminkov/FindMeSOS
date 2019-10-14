@@ -141,9 +141,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="1dp">
         <ImageButton
             android:layout_weight="1"
             android:id="@+id/refreshLoc"
@@ -153,7 +153,8 @@
             android:background="@null"
             app:srcCompat="@drawable/refresh_pressed_unpressed"
             android:scaleType="fitCenter"
-            android:paddingLeft="20dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="15dp"
             />
         <ImageButton
             android:layout_width="wrap_content"
@@ -164,15 +165,16 @@
             android:background="@null"
             app:srcCompat="@drawable/copy_pressed_unpressed"
             android:scaleType="fitCenter"
-            android:paddingRight="20dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
             />
     </LinearLayout>
 
         <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center">
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp">
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +184,8 @@
                 android:background="@null"
                 app:srcCompat="@drawable/sms_pressed_unpressed"
                 android:scaleType="fitCenter"
-                android:paddingLeft="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
                 />
             <ImageButton
                 android:layout_width="wrap_content"
@@ -193,7 +196,8 @@
                 android:background="@null"
                 app:srcCompat="@drawable/share_pressed_unpressed"
                 android:scaleType="fitCenter"
-                android:paddingRight="20dp"
+                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
                 />
     </LinearLayout>
         <LinearLayout

@@ -26,7 +26,6 @@
                     android:contentDescription="@string/logo_find_me_sos"
                     android:gravity="center"
                     android:src="@drawable/l2"
-                    android:scaleType="fitXY"
                     />
         </TableRow>
 
