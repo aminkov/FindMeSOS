@@ -6,8 +6,8 @@ android {
         applicationId "com.minrax.findmesos"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1117
-        versionName "1.1.17"
+        versionCode 1118
+        versionName "1.1.18"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
