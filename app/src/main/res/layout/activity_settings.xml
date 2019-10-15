@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-            android:layout_marginTop="5dp">
+           >
                 <EditText
                     android:id="@+id/phonenumber1"
                     android:layout_width="match_parent"
@@ -82,8 +82,7 @@
             android:id="@+id/thirdthirdRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            >
+            android:gravity="center">
         </TableRow>
 
         <TableRow
@@ -104,8 +103,7 @@
             android:id="@+id/fifthRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="5dp">
+            android:gravity="center">
                 <EditText
                     android:id="@+id/sendtoemail1"
                     android:layout_width="match_parent"
@@ -169,17 +167,19 @@
         <TableRow
             android:id="@+id/ninthRow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:gravity="center">
                 <ToggleButton
                     android:id="@+id/maptypeswitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/toggle_selector"
                     android:checked="false"
                     android:text="Map settings"
                     android:textOff="Map"
                     android:textOn="Satellite" />
+                </RelativeLayout>
         </TableRow>
 
         <TableRow
@@ -190,7 +190,6 @@
                     android:id="@+id/mapzoomtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:gravity="center"
                     android:text="Map ZOOM:"
                     android:textColor="#ffbf00"
@@ -231,17 +230,19 @@
         <TableRow
             android:id="@+id/thirteenthRow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:gravity="center">
                 <ToggleButton
                     android:id="@+id/soundonoff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/toggle_selector"
                     android:checked="true"
                     android:text="Sound?"
                     android:textOff="OFF"
                     android:textOn="ON" />
+                </RelativeLayout>
         </TableRow>
 
         <TableRow
@@ -260,18 +261,20 @@
         <TableRow
             android:id="@+id/fifteenthRow"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:gravity="center">
                 <ToggleButton
                     android:id="@+id/addMapOnOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/toggle_selector"
                     android:onClick="requestTorchPermissionIfAbsent"
                     android:checked="false"
                     android:text="Add map when sending location?"
                     android:textOff="OFF"
                     android:textOn="ON" />
+                </RelativeLayout>
         </TableRow>
 
         <TableRow

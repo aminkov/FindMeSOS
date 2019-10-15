@@ -16,11 +16,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="top">
+        android:layout_height="60dp">
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="290dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:clickable="false"
@@ -40,7 +39,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="wrap_content"
         android:gravity="center">
         <ImageView
             android:id="@+id/mapview"
@@ -140,68 +139,69 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="1dp">
-        <ImageButton
-            android:layout_weight="1"
-            android:id="@+id/refreshLoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="refreshLocationButton"
-            android:background="@null"
-            app:srcCompat="@drawable/refresh_pressed_unpressed"
-            android:scaleType="fitCenter"
-            android:paddingRight="7dp"
 
-            />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/copy"
-            android:layout_weight="1"
-            android:onClick="copyLocationToClipboard"
-            android:background="@null"
-            app:srcCompat="@drawable/copy_pressed_unpressed"
-            android:scaleType="fitCenter"
-            android:paddingLeft="7dp"
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="210dp">
 
-            />
-    </LinearLayout>
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:layout_gravity="center"
-            android:layout_marginTop="20dp">
+        <TableRow
+            android:id="@+id/zeroRow"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:padding="8dp">
+            <ImageButton
+                android:layout_weight="0.5"
+                android:id="@+id/refreshLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="refreshLocationButton"
+                android:background="@null"
+                app:srcCompat="@drawable/refresh_pressed_unpressed"
+                android:scaleType="fitCenter" />
             <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text"
-                android:layout_weight="1"
-                android:onClick="sendSMS"
+                android:layout_height="match_parent"
+                android:id="@+id/copy"
+                android:layout_weight="0.5"
+                android:onClick="copyLocationToClipboard"
                 android:background="@null"
-                app:srcCompat="@drawable/sms_pressed_unpressed"
-                android:scaleType="fitCenter"
-                android:paddingRight="7dp"
-                />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/email"
-                android:layout_weight="1"
-                android:onClick="shareLocationButton"
-                android:background="@null"
-                app:srcCompat="@drawable/share_pressed_unpressed"
-                android:scaleType="fitCenter"
-                android:paddingLeft="7dp"
-                />
-    </LinearLayout>
+                app:srcCompat="@drawable/copy_pressed_unpressed"
+                android:scaleType="fitCenter" />
+        </TableRow>
+
+
+            <TableRow
+                android:id="@+id/firstRow"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:padding="8dp">
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/text"
+                    android:layout_weight="0.5"
+                    android:onClick="sendSMS"
+                    android:background="@null"
+                    app:srcCompat="@drawable/sms_pressed_unpressed"
+                    android:scaleType="fitCenter" />
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/email"
+                    android:layout_weight="0.5"
+                    android:onClick="shareLocationButton"
+                    android:background="@null"
+                    app:srcCompat="@drawable/share_pressed_unpressed"
+                    android:scaleType="fitCenter" />
+            </TableRow>
+        </TableLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:gravity="center"
             android:layout_marginTop="15dp">
 
@@ -214,8 +214,7 @@
                 android:onClick="sosButtonClick"
                 android:scaleType="fitCenter"
                 android:padding="10dp"
-                app:srcCompat="@drawable/sos_ligh_on"
-                />
+                app:srcCompat="@drawable/sos_ligh_on" />
 
             <ToggleButton
                 android:id="@+id/sosLightOnOff"
