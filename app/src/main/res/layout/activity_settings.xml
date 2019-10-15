@@ -47,8 +47,7 @@
                     android:id="@+id/thirdfirstRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp">
+                    android:gravity="center">
                         <EditText
                             android:id="@+id/phonenumber1"
                             android:layout_width="match_parent"
@@ -104,8 +103,7 @@
                     android:id="@+id/fifthRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp">
+                    android:gravity="center">
                         <EditText
                             android:id="@+id/sendtoemail1"
                             android:layout_width="match_parent"
@@ -194,7 +192,6 @@
                             android:id="@+id/mapzoomtitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="Map ZOOM:"
                             android:textColor="#ffbf00"
@@ -204,9 +201,9 @@
                 <TableRow
                     android:id="@+id/eleventhRow"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:gravity="center|center_vertical">
+                    android:gravity="center">
                         <SeekBar
+                            android:layout_margin="5dp"
                             android:id="@+id/mapZoomSlider"
                             android:layout_width="fill_parent"
                             android:layout_height="25dp"
@@ -222,10 +219,10 @@
                     android:id="@+id/twelvehtRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
-                            android:layout_marginTop="5dp"
                             android:gravity="center"
                             android:text="Button sound ON / OFF:"
                             android:textColor="#ffbf00"

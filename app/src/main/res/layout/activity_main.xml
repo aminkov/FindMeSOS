@@ -105,7 +105,7 @@
                 android:layout_weight="0.9"
                 android:gravity="left|center_vertical"
                 android:textColor="#ffd700"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:text="@string/elevation_map"
                 android:paddingLeft="2dp"/>
@@ -125,7 +125,7 @@
                 android:layout_weight="0.9"
                 android:gravity="left|center_vertical"
                 android:textColor="#ffd700"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:text="@string/elevation_gps"/>
             <TextView
