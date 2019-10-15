@@ -2,10 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:drawable="@drawable/toggle_on"
-        android:state_checked="true"
-        android:scaleType="centerInside"/>
+        android:state_checked="true" />
     <item
         android:drawable="@drawable/toggle_off"
-        android:state_checked="false"
-        android:scaleType="centerInside"/>
+        android:state_checked="false" />
 </selector>

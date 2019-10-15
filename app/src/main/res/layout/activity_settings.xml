@@ -5,294 +5,299 @@
     android:fillViewport="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@android:color/black"
-    android:orientation="vertical"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:shrinkColumns="0"
-    android:stretchColumns="1">
-        <TableRow
-            android:id="@+id/zeroRow"
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:gravity="center">
-                <ImageView
-                    android:id="@+id/logo"
+            android:layout_height="0dp"
+            android:background="@android:color/black"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:shrinkColumns="0"
+            android:stretchColumns="1">
+                <TableRow
+                    android:id="@+id/zeroRow"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:contentDescription="@string/logo_find_me_sos"
-                    android:gravity="center"
-                    android:src="@drawable/l2"
-                    />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/secondRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="start"
-                    android:text="@string/smsnumber_settings"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
-
-        </TableRow>
-        <TableRow
-        android:id="@+id/thirdfirstRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-           >
-                <EditText
-                    android:id="@+id/phonenumber1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#ffbf00"
-                    android:ems="0"
-                    android:hint="@string/_359875875487"
-                    android:inputType="phone"
-                    android:textSize="18sp"
-                    android:importantForAutofill="no" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/thirdsecondRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-                <EditText
-                    android:id="@+id/phonenumber2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="0"
-                    android:inputType="phone"
-                    android:background="#ffbf00"
-                    android:hint="@string/number2"
-                    android:textSize="18sp"
-                    android:importantForAutofill="no" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/thirdthirdRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/fourthRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/mail_address_to_send_mails_to"
-                    android:gravity="start"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
+                    android:layout_height="55dp"
+                    android:gravity="center">
+                        <ImageView
+                            android:id="@+id/logo"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:contentDescription="@string/logo_find_me_sos"
+                            android:gravity="center"
+                            android:src="@drawable/l2"
+                            />
                 </TableRow>
 
-        <TableRow
-            android:id="@+id/fifthRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-                <EditText
-                    android:id="@+id/sendtoemail1"
+                <TableRow
+                    android:id="@+id/secondRow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="0"
-                    android:inputType="textEmailAddress"
-                    android:background="#ffbf00"
-                    android:hint="@string/emailfield"
-                    android:textSize="18sp"
-                    android:importantForAutofill="no" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/sixthRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/custom_sms_message_field"
-            android:gravity="start"
-            android:textColor="#ffbf00"
-            android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/seventhRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-                <EditText
-                android:id="@+id/smsMessage"
-                android:inputType="textMultiLine"
-                android:lines="6"
-                android:minLines="3"
-                android:gravity="top|start"
-                android:maxLines="10"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:scrollbars="vertical"
-                android:hint="@string/sample_sms_message_hint"
-                android:background="#ffbf00"
-                android:textSize="18sp" android:importantForAutofill="no" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/eightRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="Map type:"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/ninthRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-                <RelativeLayout
                     android:gravity="center">
-                <ToggleButton
-                    android:id="@+id/maptypeswitch"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/toggle_selector"
-                    android:checked="false"
-                    android:text="Map settings"
-                    android:textOff="Map"
-                    android:textOn="Satellite" />
-                </RelativeLayout>
-        </TableRow>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="start"
+                            android:text="@string/smsnumber_settings"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
 
-        <TableRow
-            android:id="@+id/tenthRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/mapzoomtitle"
-                    android:layout_width="wrap_content"
+                </TableRow>
+                <TableRow
+                    android:id="@+id/thirdfirstRow"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Map ZOOM:"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
-        </TableRow>
+                    android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/phonenumber1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#ffbf00"
+                            android:ems="0"
+                            android:hint="@string/_359875875487"
+                            android:inputType="phone"
+                            android:textSize="18sp"
+                            android:importantForAutofill="no" />
+                </TableRow>
 
-        <TableRow
-            android:id="@+id/eleventhRow"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:gravity="center|center_vertical">
-                <SeekBar
-                    android:id="@+id/mapZoomSlider"
-                    android:layout_width="fill_parent"
-                    android:layout_height="25dp"
-                    android:max="20"
-                    android:min="5"
-                    android:progress="16"
-                    android:progressDrawable="@drawable/custom_progress"
-                    android:background="#ffbf00"
-                    android:thumb="@mipmap/ic_launcher_round"/>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/twelvehtRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="Button sound ON / OFF:"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/thirteenthRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:gravity="center">
-                <ToggleButton
-                    android:id="@+id/soundonoff"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/toggle_selector"
-                    android:checked="true"
-                    android:text="Sound?"
-                    android:textOff="OFF"
-                    android:textOn="ON" />
-                </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/fourteehtRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Add map image when sharing location (the app will ask for files permission):"
-                    android:textColor="#ffbf00"
-                    android:textSize="18sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/fifteenthRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:gravity="center">
-                <ToggleButton
-                    android:id="@+id/addMapOnOff"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/toggle_selector"
-                    android:onClick="requestTorchPermissionIfAbsent"
-                    android:checked="false"
-                    android:text="Add map when sending location?"
-                    android:textOff="OFF"
-                    android:textOn="ON" />
-                </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/lastRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center">
-                <ImageButton
-                    android:layout_weight="1"
-                    android:id="@+id/savesettings"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:id="@+id/thirdsecondRow"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    app:srcCompat="@drawable/save_pressed_unpressed"
-                    android:scaleType="fitCenter"
-                    android:onClick="goToMainApp" />
-        </TableRow>
+                    android:gravity="center">
+                        <EditText
+                            android:id="@+id/phonenumber2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="0"
+                            android:inputType="phone"
+                            android:background="#ffbf00"
+                            android:hint="@string/number2"
+                            android:textSize="18sp"
+                            android:importantForAutofill="no" />
+                </TableRow>
 
-</TableLayout>
+                <TableRow
+                    android:id="@+id/thirdthirdRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    >
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/fourthRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/mail_address_to_send_mails_to"
+                            android:gravity="start"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/fifthRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp">
+                        <EditText
+                            android:id="@+id/sendtoemail1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="0"
+                            android:inputType="textEmailAddress"
+                            android:background="#ffbf00"
+                            android:hint="@string/emailfield"
+                            android:textSize="18sp"
+                            android:importantForAutofill="no" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/sixthRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/custom_sms_message_field"
+                            android:gravity="start"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/seventhRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                        <EditText
+                            android:id="@+id/smsMessage"
+                            android:inputType="textMultiLine"
+                            android:lines="6"
+                            android:minLines="3"
+                            android:gravity="top|start"
+                            android:maxLines="10"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:scrollbars="vertical"
+                            android:hint="@string/sample_sms_message_hint"
+                            android:background="#ffbf00"
+                            android:textSize="18sp" android:importantForAutofill="no" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/eightRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:gravity="center"
+                            android:text="Map type:"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/ninthRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                        <LinearLayout
+                                android:gravity="center">
+                        <ToggleButton
+                            android:id="@+id/maptypeswitch"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/toggle_selector"
+                            android:checked="false"
+                            android:text="Map settings"
+                            android:textOff="Map"
+                            android:textOn="Satellite" />
+                        </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tenthRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/mapzoomtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="Map ZOOM:"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/eleventhRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center|center_vertical">
+                        <SeekBar
+                            android:id="@+id/mapZoomSlider"
+                            android:layout_width="fill_parent"
+                            android:layout_height="25dp"
+                            android:max="20"
+                            android:min="5"
+                            android:progress="16"
+                            android:progressDrawable="@drawable/custom_progress"
+                            android:background="#ffbf00"
+                            android:thumb="@mipmap/ic_launcher_round"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/twelvehtRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center"
+                            android:text="Button sound ON / OFF:"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/thirteenthRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:gravity="center">
+                        <ToggleButton
+                            android:id="@+id/soundonoff"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/toggle_selector"
+                            android:checked="true"
+                            android:text="Sound?"
+                            android:textOff="OFF"
+                            android:textOn="ON" />
+                        </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/fourteehtRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Add map image when sharing location (the app will ask for files permission):"
+                            android:textColor="#ffbf00"
+                            android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/fifteenthRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                        <LinearLayout
+                                android:gravity="center">
+                        <ToggleButton
+                            android:id="@+id/addMapOnOff"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/toggle_selector"
+                            android:onClick="requestTorchPermissionIfAbsent"
+                            android:checked="false"
+                            android:text="Add map when sending location?"
+                            android:textOff="OFF"
+                            android:textOn="ON" />
+                        </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/lastRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center">
+                        <ImageButton
+                            android:layout_weight="1"
+                            android:id="@+id/savesettings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            app:srcCompat="@drawable/save_pressed_unpressed"
+                            android:scaleType="fitCenter"
+                            android:onClick="goToMainApp" />
+                </TableRow>
+
+        </TableLayout>
 </ScrollView>
