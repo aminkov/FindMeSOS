@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,6 +42,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import java.io.UnsupportedEncodingException;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
@@ -49,9 +51,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private LocationManager locManager;
     private static final long LOCATION_REFRESH_TIME = 3000;
     private static final long LOCATION_REFRESH_DISTANCE = 5;
-    private static final String APIKEY = BuildConfig.FindMeSOS_ApiKey;
+    private static final String ENCODEDAPIKEY = BuildConfig.FindMeSOS_EncodedApiKey;
     private static long mLastRefreshClickTime;
-
 
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         setLocationMapThroughGoogleAPI();
     }
     //All other methods go here
+
+    private String decodeApiKey(String key) {
+        byte[] data = Base64.decode(key, Base64.DEFAULT);
+        String decodedKey = null;
+        try {
+            decodedKey = new String(data, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return decodedKey;
+    }
+
     private void checkAndPromptIfGPSIsDisabled() {
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             alert.show();
         }
     }
+
     protected boolean checkPermissionsNew() {
         boolean isPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -105,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
         return isPermission;
     }
+
     protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
@@ -112,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
             latitudeField.setText(formatLatitude(location.getLatitude()));
             longitudeField.setText(formatLongitude(location.getLongitude()));
-
 
             TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
@@ -127,9 +141,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         getElevationGoogleAPI();
     }
+
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
-
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             //TODO think what to do here and if you need it at all...
         } else {
@@ -165,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         SharedPreferences settings = getSharedPreferences("Settings",0);
         return settings.getString(key,"");
     }
+
     private String formatLatitude(double latitude) {
         //returns formatted longitude with the following format: N 40°42'46.02132"
         StringBuilder builder = new StringBuilder();
@@ -183,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         builder.append("\"");
         return builder.toString().substring(0, 12);
     }
+
     private String formatLongitude(double longitude) {
         //returns formatted longitude with the following format:  W 74°0'21.38868"
         StringBuilder builder = new StringBuilder();
@@ -201,14 +217,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         builder.append("\"");
         return builder.toString().substring(0, 12);
     }
+
     @Override
     public void onLocationChanged(Location location) {
-        //Toast.makeText(getApplicationContext(), "Location just updated...", Toast.LENGTH_LONG).show();
         latitudeField.setText(formatLatitude(location.getLatitude()));
         longitudeField.setText(formatLongitude(location.getLongitude()));
     }
+
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        //Toast.makeText(getApplicationContext(), "Status change happening...", Toast.LENGTH_LONG).show();
         /* This is called when the GPS status alters */
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
@@ -218,21 +234,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 break;
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
                 Log.d("Location", "Status Changed: Temporarily Unavailable");
-//                Toast.makeText(this, "Status Changed: Temporarily Unavailable",
-//                        Toast.LENGTH_SHORT).show();
+
                 break;
             case LocationProvider.AVAILABLE:
                 Log.d("Location", "Yuupee...:  Status Changed: Location Available");
-//                Toast.makeText(this, "Status Changed: Available",
-//                        Toast.LENGTH_SHORT).show();
                 break;
         }
     }
+
     protected void onResume() {
         super.onResume();
         //Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
         setLocation();
     }
+
     @Override
     protected void onPause() {
         /* Remove the locationlistener updates when Activity is paused */
@@ -240,16 +255,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         //Toast.makeText(getApplicationContext(), getString(R.string.pause_location), Toast.LENGTH_LONG).show();
         locManager.removeUpdates(this);
     }
+
     public void onProviderEnabled(String provider) {
         Toast.makeText(this, getString(R.string.on_provider_enabled_method) +" "+ provider,
                 Toast.LENGTH_SHORT).show();
         //setLocation();
     }
+
     public void onProviderDisabled(String provider) {
         Toast.makeText(this, getString(R.string.dissable_provider) +" "+ provider,
                 Toast.LENGTH_SHORT).show();
         locManager.removeUpdates(this);
     }
+
     private void setLocationMapThroughGoogleAPI() {
         if(checkIfInternetConnection()) {
             Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -262,10 +280,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             Toast.makeText(getApplicationContext(), "No connection to the Internet, map will not show...", Toast.LENGTH_LONG).show();
         }
     }
+
     private boolean checkIfInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
+
     private String createGoogleMapsAPIURL() {
         String MAP_SIZE = "380x280";
         Integer ZOOM;
@@ -275,7 +295,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         final String MAP_MARKER_COLOR = "Red";
         if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+APIKEY;
+        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
     }
 
     private void playSoundIfOn() {
@@ -293,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         startActivity(intent);
         playSoundIfOn();
     }
+
     public void sendSMS(View view) {
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
         Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -304,6 +325,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             playSoundIfOn();
         }
     }
+
     public void launchGMaps(View view) {
         //opens Google Maps with current lat and long
         String label = "My location";
@@ -388,8 +410,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             setLocation();
         }
     }
+
     private void getElevationGoogleAPI() {
-        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation()+"&key="+APIKEY;
+        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
         RequestQueue localRequestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -416,28 +439,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         localRequestQueue.add(jReq);
     }
 
-    //******* All of the SOS light functions start here
-    //*****************************
 
-//    public void sosButtonClick(View view) {
-//        if(checkFlashlightAvailability()) {
-//            ToggleButton sosButton = findViewById(R.id.sosLightOnOff);
-//            sosButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//                    if (isChecked) {
-//                        try {
-//                            sosLightOn();
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    } else {
-//                        sosLightOff();
-//                    }
-//                }
-//            });
-//        }
-//    }
+    //******* All of the SOS light functions start here
 
     public void sosButtonClick(View view) {
             playSoundIfOn();
@@ -462,17 +465,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-//    private void sosLightOff() {
-//        Camera camera = Camera.open();
-//        Camera.Parameters params = camera.getParameters();
-//        camera.setParameters(params);
-//        camera.stopPreview();
-//        camera.release();
-//    }
-
-
     protected void sosLightOn() throws InterruptedException {
-
         //Start SOS algorithm
         String sosString = "000111000";
         Camera camera = Camera.open();
@@ -501,10 +494,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Thread.sleep(1000);
     }
 
+
     private abstract class sosLight extends AsyncTask<String, Void, Void> {
 
         protected void sosLightOn() throws InterruptedException {
-
             //Start SOS algorithm
             String sosString = "000111000";
             Camera camera = Camera.open();

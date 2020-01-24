@@ -20,7 +20,7 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'FindMeSOS_ApiKey', FindMeSOS_ApiKey
+        it.buildConfigField 'String', 'FindMeSOS_EncodedApiKey', FindMeSOS_EncodedApiKey
     }
 
 }
