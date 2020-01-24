@@ -274,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             if (location != null) {
                 String URL = createGoogleMapsAPIURL();
                 ImageView mapview = findViewById(R.id.mapview);
-                Picasso.with(this).load(URL).into(mapview);
+                Picasso.get().load(URL).into(mapview);
             }
         } else {
             Toast.makeText(getApplicationContext(), "No connection to the Internet, map will not show...", Toast.LENGTH_LONG).show();
