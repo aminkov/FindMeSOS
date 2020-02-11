@@ -90,11 +90,12 @@ public class Settings extends Lib {
 
             //Map ZOOM field
             SeekBar mapzoom = findViewById(R.id.mapZoomSlider);
-            Integer mapZoomValue;
+            int mapZoomValue;
             if (getPreferenceValue("mapzoom") == "") { mapZoomValue = 16;} else {mapZoomValue = Integer.parseInt(getPreferenceValue("mapzoom"));}
             mapzoom.setProgress(mapZoomValue);
             TextView MapZoomTitleBox = findViewById(R.id.mapzoomtitle);
-            MapZoomTitleBox.setText("Map ZOOM: " + mapZoomValue);
+            String mapZoom = "Map ZOOM: " + mapZoomValue;
+            MapZoomTitleBox.setText(mapZoom);
 
             //Sound On / OFF
             ToggleButton sound = findViewById(R.id.soundonoff);
@@ -111,4 +112,5 @@ public class Settings extends Lib {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         }
+
     }
