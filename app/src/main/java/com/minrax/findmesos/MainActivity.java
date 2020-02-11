@@ -144,9 +144,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
-        if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            //TODO think what to do here and if you need it at all...
-        } else {
+        if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 double lat = location.getLatitude();
@@ -170,9 +168,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 //return latitude and longitude with 5 symbols accuracy in the form: [ -123.12345,123.12345 ]
                 return latstr + "," + lonstr;
                 //return "42.64941,23.37352";
+            } else {
+                return "NULL";
             }
         }
-        return "NULL";
+        checkAndPromptIfGPSIsDisabled();
+        return null;
     }
 
     protected String getPreferenceValue(String key) {
