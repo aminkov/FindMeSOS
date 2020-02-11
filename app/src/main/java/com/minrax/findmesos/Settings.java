@@ -1,9 +1,7 @@
 package com.minrax.findmesos;
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.widget.EditText;
-import android.content.SharedPreferences;
 import android.content.Intent;
 import android.view.View;
 import android.os.Bundle;
@@ -11,7 +9,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
