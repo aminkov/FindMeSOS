@@ -38,7 +38,8 @@
     <string name="go_to_google_maps_button" translatable="false">Go to Google Maps button</string>
     <string name="crazy_clicking">You click like crazy, please, wait for 3 secs before clicking again!</string>
     <string name="app_name">Find Me SOS -Share My Location With A Button Click</string>
-    <string name="appwidget_text">EXAMPLE</string>
+    <string name="appwidget_text">SEND</string>
     <string name="configure">How do you want your location to be sent?</string>
     <string name="add_widget">Add widget</string>
+    <string name="appwidget_send_button_text">1 Click Send</string>
 </resources>

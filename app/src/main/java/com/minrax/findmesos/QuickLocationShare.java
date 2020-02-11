@@ -3,24 +3,34 @@ package com.minrax.findmesos;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Implementation of App Widget functionality.
  * App Widget Configuration implemented in {@link QuickLocationShareConfigureActivity QuickLocationShareConfigureActivity}
  */
+
 public class QuickLocationShare extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = QuickLocationShareConfigureActivity.loadTitlePref(context, appWidgetId);
+//        CharSequence widgetText = QuickLocationShareConfigureActivity.loadTitlePref(context, appWidgetId);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+
+
+
+//        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    private static void widgetButtonClick() {
+        Log.d("WIDGET", "Wow, click is working...");
     }
 
     @Override
