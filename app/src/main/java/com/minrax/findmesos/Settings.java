@@ -112,5 +112,4 @@ public class Settings extends Lib {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
         }
-
     }
