@@ -325,16 +325,13 @@ public class MainActivity extends Lib implements LocationListener {
     }
     public void shareLocationButton(View view) {
         playSoundIfOn();
-//        final boolean mapAdded;
-//        if (readABooleanPreference("addMap")) {mapAdded = false;} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
         if (readABooleanPreference("addMap")) {
-            Toast.makeText(this, String.valueOf(readABooleanPreference("addMap")), Toast.LENGTH_SHORT).show();
             //request file permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //Request permission
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
-            Toast.makeText(this, "Map will be added", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Map image will be added to message", Toast.LENGTH_SHORT).show();
             //add image to sharing message
             ImageView mapView = findViewById(R.id.mapview);
             if (null != mapView.getDrawable()) {
@@ -349,7 +346,7 @@ public class MainActivity extends Lib implements LocationListener {
                 i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             } else {
-                Toast.makeText(this, "*** There is no map, it will NOT be added ***", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "*** Map image is NULL, and it shouldn't be...***", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
@@ -358,7 +355,7 @@ public class MainActivity extends Lib implements LocationListener {
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             }
         } else {
-            Toast.makeText(this, "*** Map will NOT be added ***", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "*** Map image is OFF, it will NOT be added to message***", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
@@ -425,8 +422,6 @@ public class MainActivity extends Lib implements LocationListener {
         localRequestQueue.add(jReq);
     }
 
-    //******* All of the SOS light functions start here
-
     public void sosButtonClick(View view) {
             playSoundIfOn();
             if(checkFlashlightAvailability()){
@@ -459,9 +454,7 @@ public class MainActivity extends Lib implements LocationListener {
             for (int i=0; i<sosString.length(); i++) {
                 if(sosString.charAt(i) == '1') {
                         params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-
                         camera.setParameters(params);
-
                         camera.startPreview();
                         Thread.sleep(400);
                         params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -470,9 +463,7 @@ public class MainActivity extends Lib implements LocationListener {
                         Thread.sleep(300);
                 } else {
                         params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-
                         camera.setParameters(params);
-
                         camera.startPreview();
                         Thread.sleep(50);
                         params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
@@ -483,5 +474,4 @@ public class MainActivity extends Lib implements LocationListener {
             }
         Thread.sleep(1000);
     }
-
 }
