@@ -444,17 +444,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void sosButtonClick(View view) {
             playSoundIfOn();
             if(checkFlashlightAvailability()){
-            checkFlashlightAvailability();
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                //Request permission if not granted already
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
-            } else {
-                try {
-                    sosLightOn();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //Request permission if not granted already
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
+                } else {
+                    try {
+                        sosLightOn();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
         } else {
                 Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
             }
