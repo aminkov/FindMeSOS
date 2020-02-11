@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         /* This is called when the GPS status alters */
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
-                Log.d("Lovstion", "Status Changed: Out of Service");
+                Log.d("Location", "Status Changed: Out of Service");
                 Toast.makeText(this, "Status Changed: Out of Service",
                         Toast.LENGTH_SHORT).show();
                 break;
@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void onProviderEnabled(String provider) {
         Toast.makeText(this, getString(R.string.on_provider_enabled_method) +" "+ provider,
                 Toast.LENGTH_SHORT).show();
-        //setLocation();
     }
 
     public void onProviderDisabled(String provider) {
@@ -444,24 +443,30 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     public void sosButtonClick(View view) {
             playSoundIfOn();
+            if(checkFlashlightAvailability()){
             checkFlashlightAvailability();
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            //Request permission if not granted already
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
-        } else {
-            try {
-                sosLightOn();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                //Request permission if not granted already
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
+            } else {
+                try {
+                    sosLightOn();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        } else {
+                Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
+            }
     }
 
-    private void checkFlashlightAvailability() {
+    private boolean checkFlashlightAvailability() {
         //checking if flashlight is available on the device
         if (!getApplicationContext().getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-            Toast.makeText(getApplicationContext(), "There is no Flashlight available on this device!", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -473,7 +478,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             for (int i=0; i<sosString.length(); i++) {
                 if(sosString.charAt(i) == '1') {
                         params.setFlashMode(params.FLASH_MODE_TORCH);
+
                         camera.setParameters(params);
+
                         camera.startPreview();
                         Thread.sleep(400);
                         params.setFlashMode(params.FLASH_MODE_OFF);
@@ -482,7 +489,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         Thread.sleep(300);
                 } else {
                         params.setFlashMode(params.FLASH_MODE_TORCH);
+
                         camera.setParameters(params);
+
                         camera.startPreview();
                         Thread.sleep(50);
                         params.setFlashMode(params.FLASH_MODE_OFF);
@@ -492,39 +501,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 }
             }
         Thread.sleep(1000);
-    }
-
-
-    private abstract class sosLight extends AsyncTask<String, Void, Void> {
-
-        protected void sosLightOn() throws InterruptedException {
-            //Start SOS algorithm
-            String sosString = "000111000";
-            Camera camera = Camera.open();
-            Camera.Parameters params = camera.getParameters();
-            for (int i=0; i<sosString.length(); i++) {
-                if(sosString.charAt(i) == '1') {
-                    params.setFlashMode(params.FLASH_MODE_TORCH);
-                    camera.setParameters(params);
-                    camera.startPreview();
-                    Thread.sleep(400);
-                    params.setFlashMode(params.FLASH_MODE_OFF);
-                    camera.setParameters(params);
-                    camera.stopPreview();
-                    Thread.sleep(300);
-                } else {
-                    params.setFlashMode(params.FLASH_MODE_TORCH);
-                    camera.setParameters(params);
-                    camera.startPreview();
-                    Thread.sleep(50);
-                    params.setFlashMode(params.FLASH_MODE_OFF);
-                    camera.setParameters(params);
-                    camera.stopPreview();
-                    Thread.sleep(300);
-                }
-            }
-            Thread.sleep(1000);
-        }
     }
 
 }
