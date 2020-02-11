@@ -126,7 +126,8 @@ public class MainActivity extends Lib implements LocationListener {
 
             TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
-           elevationTextView2.setText(a+" m");
+            String aa = a + " m";
+            elevationTextView2.setText(aa);
 
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_SHORT).show();
@@ -222,7 +223,7 @@ public class MainActivity extends Lib implements LocationListener {
         /* This is called when the GPS status alters */
         switch (status) {
             case LocationProvider.OUT_OF_SERVICE:
-                Log.d("Location", "Status Changed: Out of Service");
+                Log.d("Location", "Status Changed:  Out of Service");
                 Toast.makeText(this, "Status Changed: Out of Service",
                         Toast.LENGTH_SHORT).show();
                 break;
@@ -406,7 +407,8 @@ public class MainActivity extends Lib implements LocationListener {
                     JSONArray jArr = response.getJSONArray("results");
                     double elevation = jArr.getJSONObject(0).getDouble("elevation");
                     int roundedElevation = (int) elevation;
-                    elevationTextView.setText(roundedElevation+" m");
+                    String finalElevationString = roundedElevation+" m";
+                    elevationTextView.setText(finalElevationString);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     elevationTextView.setText("JSONArray is doing dirty tricks again...");
@@ -422,7 +424,6 @@ public class MainActivity extends Lib implements LocationListener {
         // Access the RequestQueue through your singleton class.
         localRequestQueue.add(jReq);
     }
-
 
     //******* All of the SOS light functions start here
 

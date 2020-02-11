@@ -6,12 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Lib extends AppCompatActivity {
 
-
-    protected String getPreferenceValue(String key) {
-        SharedPreferences settings = getSharedPreferences("Settings",0);
-        return settings.getString(key,"");
-    }
-
     public void playSoundIfOn() {
         if (readABooleanPreference("soundStatus")) {
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
@@ -19,14 +13,19 @@ public class Lib extends AppCompatActivity {
         }
     }
 
+    protected String getPreferenceValue(String key) {
+        SharedPreferences settings = getSharedPreferences("SettingsNew",0);
+        return settings.getString(key,"");
+    }
+
     public void writeToPreference(String key, String thePreference) {
-        SharedPreferences.Editor editor = this.getSharedPreferences("Settings", 0).edit();
+        SharedPreferences.Editor editor = this.getSharedPreferences("SettingsNew", 0).edit();
         editor.putString(key, thePreference);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean readABooleanPreference(String key) {
-        SharedPreferences settings = getSharedPreferences("Settings",0);
+        SharedPreferences settings = getSharedPreferences("SettingsNew",0);
         if (settings.contains(key)) {
             return (settings.getBoolean(key, false));
         } else {
@@ -35,9 +34,9 @@ public class Lib extends AppCompatActivity {
     }
 
     public void writeABooleanPreference(String key, Boolean thePreference) {
-        SharedPreferences.Editor editor = this.getSharedPreferences("Settings", 0).edit();
+        SharedPreferences.Editor editor = this.getSharedPreferences("SettingsNew", 0).edit();
         editor.putBoolean(key, thePreference);
-        editor.commit();
+        editor.apply();
     }
 
 }
