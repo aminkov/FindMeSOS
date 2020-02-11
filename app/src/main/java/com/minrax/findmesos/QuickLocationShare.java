@@ -3,7 +3,7 @@ package com.minrax.findmesos;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -21,16 +21,10 @@ public class QuickLocationShare extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
 
-
-
 //        views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    private static void widgetButtonClick() {
-        Log.d("WIDGET", "Wow, click is working...");
     }
 
     @Override
@@ -58,5 +52,16 @@ public class QuickLocationShare extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+//    @Override
+//    public void onReceive(Context context, Intent intent)
+//    {
+//        super.onReceive(context, intent);
+//
+//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
+//        // find TextView here by id and update it.
+//
+//        Toast.makeText(context, "Clicked!!", Toast.LENGTH_SHORT).show();
+//    }
 }
 
