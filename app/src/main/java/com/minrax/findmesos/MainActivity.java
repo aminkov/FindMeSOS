@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 return "NULL";
             }
         }
-        checkAndPromptIfGPSIsDisabled();
         return null;
     }
 
@@ -288,19 +287,19 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private String createGoogleMapsAPIURL() {
         String MAP_SIZE = "380x280";
-        Integer ZOOM;
-        if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
+        int ZOOM;
+        if (getPreferenceValue("mapzoom").equals("")) { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
         final String MAPTYPE;
         final String SCALE;
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         final String MAP_MARKER_COLOR = "Red";
-        if (getPreferenceValue("terrainon") == "true") {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
+        if (getPreferenceValue("terrainon").equals("")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
     }
 
     private void playSoundIfOn() {
         final boolean soundStatus;
-        if (getPreferenceValue("soundStatus") == "") {soundStatus = Boolean.parseBoolean("false");} else {soundStatus = Boolean.parseBoolean(getPreferenceValue("soundStatus"));}
+        if (getPreferenceValue("soundStatus").equals(null)) {soundStatus = Boolean.parseBoolean("false");} else {soundStatus = Boolean.parseBoolean(getPreferenceValue("soundStatus"));}
         if (soundStatus) {
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
             mp.start();
@@ -341,7 +340,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     public void shareLocationButton(View view) {
         playSoundIfOn();
         final boolean mapAdded;
-        if (getPreferenceValue("addMap") == "") {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
+        if (getPreferenceValue("addMap").equals(null)) {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
         if (mapAdded) {
             Toast.makeText(this, String.valueOf(mapAdded), Toast.LENGTH_SHORT).show();
             //request file permission
@@ -462,12 +461,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private boolean checkFlashlightAvailability() {
         //checking if flashlight is available on the device
-        if (!getApplicationContext().getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
-            return false;
-        } else {
-            return true;
-        }
+        return getApplicationContext().getPackageManager()
+                .hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
 
     protected void sosLightOn() throws InterruptedException {
@@ -477,24 +472,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         Camera.Parameters params = camera.getParameters();
             for (int i=0; i<sosString.length(); i++) {
                 if(sosString.charAt(i) == '1') {
-                        params.setFlashMode(params.FLASH_MODE_TORCH);
+                        params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 
                         camera.setParameters(params);
 
                         camera.startPreview();
                         Thread.sleep(400);
-                        params.setFlashMode(params.FLASH_MODE_OFF);
+                        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                         camera.setParameters(params);
                         camera.stopPreview();
                         Thread.sleep(300);
                 } else {
-                        params.setFlashMode(params.FLASH_MODE_TORCH);
+                        params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 
                         camera.setParameters(params);
 
                         camera.startPreview();
                         Thread.sleep(50);
-                        params.setFlashMode(params.FLASH_MODE_OFF);
+                        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                         camera.setParameters(params);
                         camera.stopPreview();
                         Thread.sleep(300);
