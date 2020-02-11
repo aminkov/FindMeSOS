@@ -173,8 +173,6 @@ public class MainActivity extends Lib implements LocationListener {
         }
     }
 
-
-
     private String formatLatitude(double latitude) {
         //returns formatted longitude with the following format: N 40°42'46.02132"
         StringBuilder builder = new StringBuilder();
