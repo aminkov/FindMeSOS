@@ -171,8 +171,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             } else {
                 return "NULL";
             }
+        } else {
+            return null;
         }
-        return null;
     }
 
     protected String getPreferenceValue(String key) {
