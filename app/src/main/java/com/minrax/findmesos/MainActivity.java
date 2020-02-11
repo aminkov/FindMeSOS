@@ -1,5 +1,4 @@
 package com.minrax.findmesos;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
@@ -8,17 +7,14 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.location.LocationProvider;
-import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Context;
 import android.location.Location;
@@ -44,7 +40,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import java.io.UnsupportedEncodingException;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends Lib implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
     private TextView latitudeField;
     private TextView longitudeField;
@@ -176,10 +172,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
 
-    protected String getPreferenceValue(String key) {
-        SharedPreferences settings = getSharedPreferences("Settings",0);
-        return settings.getString(key,"");
-    }
+
 
     private String formatLatitude(double latitude) {
         //returns formatted longitude with the following format: N 40°42'46.02132"
@@ -289,22 +282,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private String createGoogleMapsAPIURL() {
         String MAP_SIZE = "380x280";
         int ZOOM;
-        if (getPreferenceValue("mapzoom").equals("")) { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
+        if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
         final String MAPTYPE;
         final String SCALE;
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         final String MAP_MARKER_COLOR = "Red";
-        if (getPreferenceValue("terrainon").equals("")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
+        if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
         return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
-    }
-
-    private void playSoundIfOn() {
-        final boolean soundStatus;
-        if (getPreferenceValue("soundStatus").equals(null)) {soundStatus = Boolean.parseBoolean("false");} else {soundStatus = Boolean.parseBoolean(getPreferenceValue("soundStatus"));}
-        if (soundStatus) {
-            final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
-            mp.start();
-        }
     }
 
     //Button functions
@@ -340,10 +324,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
     public void shareLocationButton(View view) {
         playSoundIfOn();
-        final boolean mapAdded;
-        if (getPreferenceValue("addMap").equals(null)) {mapAdded = Boolean.parseBoolean("false");} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
-        if (mapAdded) {
-            Toast.makeText(this, String.valueOf(mapAdded), Toast.LENGTH_SHORT).show();
+//        final boolean mapAdded;
+//        if (readABooleanPreference("addMap")) {mapAdded = false;} else {mapAdded = Boolean.parseBoolean(getPreferenceValue("addMap"));}
+        if (readABooleanPreference("addMap")) {
+            Toast.makeText(this, String.valueOf(readABooleanPreference("addMap")), Toast.LENGTH_SHORT).show();
             //request file permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 //Request permission

@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class Settings extends AppCompatActivity {
+public class Settings extends Lib {
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -30,35 +30,14 @@ public class Settings extends AppCompatActivity {
             saveSettingsValues();
         }
 
-        private String getPreferenceValue(String key) {
-            SharedPreferences settings = this.getSharedPreferences("Settings", 0);
-            return settings.getString(key, "");
-        }
-
-        private void playSoundIfOn() {
-            if (getPreferenceValue("soundStatus") == "true") {
-                final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
-                mp.start();
-            }
-        }
-
-        private void writeToPreference(String key, String thePreference) {
-            SharedPreferences.Editor editor = this.getSharedPreferences("Settings", 0).edit();
-            editor.putString(key, thePreference);
-            editor.commit();
-        }
-
         private void saveSettingsValues() {
             //saving default phone numbers
             EditText phone1 = findViewById(R.id.phonenumber1);
             EditText phone2 = findViewById(R.id.phonenumber2);
-            //EditText phone3 = findViewById(R.id.phonenumber3);
             String strphone1 = phone1.getText().toString();
             String strphone2 = phone2.getText().toString();
-            //String strphone3 = phone3.getText().toString();
             writeToPreference("p1", strphone1);
             writeToPreference("p2", strphone2);
-            //writeToPreference("p3", strphone3);
 
             //saving default e-mail address
             EditText email1 = findViewById(R.id.sendtoemail1);
@@ -72,8 +51,8 @@ public class Settings extends AppCompatActivity {
 
             //Saving map type
             ToggleButton maptype = findViewById(R.id.maptypeswitch);
-            String terrainon = String.valueOf(maptype.isChecked());
-            writeToPreference("terrainon", terrainon);
+            Boolean terrainon = maptype.isChecked();
+            writeABooleanPreference("terrainon", terrainon);
 
             //Saving Map ZOOM value
             SeekBar mapzoom = findViewById(R.id.mapZoomSlider);
@@ -82,22 +61,20 @@ public class Settings extends AppCompatActivity {
 
             //Sound On / OFF
             ToggleButton sound = findViewById(R.id.soundonoff);
-            String soundon = String.valueOf(sound.isChecked());
-            writeToPreference("soundStatus", soundon);
+            Boolean soundon = sound.isChecked();
+            writeABooleanPreference("soundStatus", soundon);
 
             //Add Map to message with location
             ToggleButton mapAddedBut = findViewById(R.id.addMapOnOff);
-            String mapAdded = String.valueOf(mapAddedBut.isChecked());
-            writeToPreference("addMap", mapAdded);
+            Boolean mapAdded = mapAddedBut.isChecked();
+            writeABooleanPreference("addMap", mapAdded);
         }
 
         private void loadSavedSettings() {
             EditText phone1 = findViewById(R.id.phonenumber1);
             EditText phone2 = findViewById(R.id.phonenumber2);
-            //EditText phone3 = findViewById(R.id.phonenumber3);
             phone1.setText(getPreferenceValue("p1"));
             phone2.setText(getPreferenceValue("p2"));
-            //phone3.setText(getPreferenceValue("p3"));
 
             //E-mail field
             EditText email1 = findViewById(R.id.sendtoemail1);
@@ -109,7 +86,7 @@ public class Settings extends AppCompatActivity {
 
             //Map type switch
             ToggleButton maptype = findViewById(R.id.maptypeswitch);
-            maptype.setChecked(Boolean.parseBoolean(getPreferenceValue("terrainon")));
+            maptype.setChecked(readABooleanPreference("terrainon"));
 
             //Map ZOOM field
             SeekBar mapzoom = findViewById(R.id.mapZoomSlider);
@@ -121,11 +98,11 @@ public class Settings extends AppCompatActivity {
 
             //Sound On / OFF
             ToggleButton sound = findViewById(R.id.soundonoff);
-            sound.setChecked(Boolean.parseBoolean(getPreferenceValue("soundStatus")));
+            sound.setChecked(readABooleanPreference("soundStatus"));
 
             //Add map to message with location On / OFF
             ToggleButton mapAddedBut = findViewById(R.id.addMapOnOff);
-            mapAddedBut.setChecked(Boolean.parseBoolean(getPreferenceValue("addMap")));
+            mapAddedBut.setChecked(readABooleanPreference("addMap"));
         }
 
         public void requestTorchPermissionIfAbsent(View view) {
