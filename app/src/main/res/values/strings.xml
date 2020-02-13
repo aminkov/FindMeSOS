@@ -41,7 +41,6 @@
     <string name="appwidget_text">SEND</string>
     <string name="configure">How do you want your location to be sent?</string>
     <string name="add_widget">Add widget</string>
-    <string name="appwidget_send_button_text">1 Click Send</string>
     <string name="opening_sms_app">Opening the SMS sending app...</string>
     <string name="widget_location_too_old">Your location is too old, open the App and refresh it!</string>
 </resources>

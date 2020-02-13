@@ -34,4 +34,8 @@
     <string name="elevation_gps">надморска височина(gps):</string>
     <string name="elevation_map">надморска височина(карта):</string>
     <string name="crazy_clicking">Кликаш много лудо, изчаквай поне 3 секунди между кликовете...</string>
+    <string name="configure">Как искате да изпратите локацията си:</string>
+    <string name="appwidget_text">Джаджа</string>
+    <string name="add_widget">Добавяне на джаджа на началния екран.</string>
+    <string name="opening_sms_app">Отваряне на СМС приложението...</string>
 </resources>
