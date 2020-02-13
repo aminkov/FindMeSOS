@@ -50,8 +50,11 @@ public class QuickLocationShare extends AppWidgetProvider {
             Toast.makeText(context, R.string.widget_location_too_old, Toast.LENGTH_LONG).show();
             views.setTextViewText(R.id.widget_lat_value, "not refreshed");
             views.setTextViewText(R.id.widget_lon_value, "not refreshed");
+//            Intent intent1 = new Intent(context, MainActivity.class);
+//            startActivity(intent, R.id.activity_main.xml);
         }
         Intent intent = new Intent(Intent.ACTION_SENDTO);
+
         intent.setData(Uri.parse("smsto:"+p1));
         // This ensures only SMS apps respond
         intent.putExtra("sms_body", message);
@@ -87,4 +90,3 @@ public class QuickLocationShare extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 }
-
