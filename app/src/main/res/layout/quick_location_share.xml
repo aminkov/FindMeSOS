@@ -10,10 +10,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/lat">
         <TextView
-            android:gravity="center"
+            android:gravity="start|center_vertical"
+            android:layout_marginLeft="2dp"
             android:id="@+id/widget_lat"
             android:layout_width="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:layout_height="wrap_content"
             android:textColor="#ffd700"
             android:textSize="16sp"
@@ -28,8 +29,7 @@
             android:layout_height="wrap_content"
             android:text="54,67.787"
             android:textColor="#ffd700"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -39,10 +39,11 @@
         android:gravity="center"
         android:id="@+id/lon">
         <TextView
-            android:gravity="center"
+            android:gravity="start|center_vertical"
+            android:layout_marginLeft="2dp"
             android:id="@+id/widget_lon"
             android:layout_width="0dp"
-            android:layout_weight="8"
+            android:layout_weight="7"
             android:layout_height="wrap_content"
             android:text="Lon:"
             android:textColor="#ffd700"
@@ -56,8 +57,7 @@
             android:layout_height="wrap_content"
             android:text="43,34.567"
             android:textColor="#ffd700"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout

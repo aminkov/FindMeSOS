@@ -1,9 +1,14 @@
 package com.minrax.findmesos;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.SystemClock;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -14,14 +19,49 @@ import android.widget.Toast;
 
 public class QuickLocationShare extends AppWidgetProvider {
 
+    static long locsaveTime;
+
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+        String lat, lon, rawLocation, p1, message;
 
 //        CharSequence widgetText = QuickLocationShareConfigureActivity.loadTitlePref(context, appWidgetId);
-        // Construct the RemoteViews object
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
 
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
+        SharedPreferences settings = context.getSharedPreferences("SettingsNew",0);
+        locsaveTime=Long.parseLong(settings.getString("timeLatLon","0"));
+
+        lat = settings.getString("latitude","not found");
+        lon = settings.getString("longitude","not found");
+        rawLocation = settings.getString("rawLocation", "no raw location");
+        p1 = settings.getString("p1", "");
+        message = settings.getString("smsMessage","not found") + " https://www.google.com/maps/place/"+ rawLocation;
+
+
+        Log.d("widget", "Yuupee...:  Lat is:"+lat);
+        Log.d("widget", "Yuupee...:  Lon is:"+lon);
+        Log.d("widget", "Yuupee...:  time is:"+locsaveTime);
+        Log.d("widget", "Yuupee...:  time is:"+rawLocation);
+
+        views.setTextViewText(R.id.widget_lat_value, lat);
+        views.setTextViewText(R.id.widget_lon_value, lon);
+
+        if (locsaveTime+(60000*10) < SystemClock.elapsedRealtime()) {
+            Toast.makeText(context, R.string.widget_location_too_old, Toast.LENGTH_LONG).show();
+            views.setTextViewText(R.id.widget_lat_value, "not refreshed");
+            views.setTextViewText(R.id.widget_lon_value, "not refreshed");
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:"+p1));
+        // This ensures only SMS apps respond
+        intent.putExtra("sms_body", message);
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            Toast.makeText(context, R.string.opening_sms_app, Toast.LENGTH_SHORT).show();
+            PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            views.setOnClickPendingIntent(R.id.sostemp, configPendingIntent);
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -52,16 +92,5 @@ public class QuickLocationShare extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
-
-//    @Override
-//    public void onReceive(Context context, Intent intent)
-//    {
-//        super.onReceive(context, intent);
-//
-//        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
-//        // find TextView here by id and update it.
-//
-//        Toast.makeText(context, "Clicked!!", Toast.LENGTH_SHORT).show();
-//    }
 }
 

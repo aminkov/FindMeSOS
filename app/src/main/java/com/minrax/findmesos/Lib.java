@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Lib extends AppCompatActivity {
 
+
     public void playSoundIfOn() {
         if (readABooleanPreference("soundStatus")) {
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
@@ -13,7 +14,7 @@ public class Lib extends AppCompatActivity {
         }
     }
 
-    protected String getPreferenceValue(String key) {
+    public String getPreferenceValue(String key) {
         SharedPreferences settings = getSharedPreferences("SettingsNew",0);
         return settings.getString(key,"");
     }

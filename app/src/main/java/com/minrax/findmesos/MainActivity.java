@@ -123,8 +123,17 @@ public class MainActivity extends Lib implements LocationListener {
 //        // Initialize the location fields
         if (location != null) {
             Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
-            latitudeField.setText(formatLatitude(location.getLatitude()));
-            longitudeField.setText(formatLongitude(location.getLongitude()));
+            String lat = formatLatitude(location.getLatitude());
+            latitudeField.setText(lat);
+            String lon = formatLongitude(location.getLongitude());
+            longitudeField.setText(lon);
+
+            //saving location in preferences for widget use
+            writeToPreference("latitude", lat);
+            writeToPreference("longitude", lon);
+            writeToPreference("timeLatLon", String.valueOf(SystemClock.elapsedRealtime()));
+            writeToPreference("rawLocation", returnRawLocation());
+
 
             TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
@@ -264,7 +273,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     private void setLocationMapThroughGoogleAPI() {
         if(checkIfInternetConnection()) {
-            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 String URL = createGoogleMapsAPIURL();
                 ImageView mapview = findViewById(R.id.mapview);
@@ -379,7 +388,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     public void copyLocationToClipboard(View view) {
         playSoundIfOn();
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
