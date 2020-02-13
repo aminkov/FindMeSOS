@@ -2,6 +2,7 @@ package com.minrax.findmesos;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -116,6 +117,7 @@ public class MainActivity extends Lib implements LocationListener {
         return isPermission;
     }
 
+    @SuppressLint("MissingPermission")
     protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
@@ -142,7 +144,7 @@ public class MainActivity extends Lib implements LocationListener {
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
         if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 double lat = location.getLatitude();
                 double lon = location.getLongitude();
