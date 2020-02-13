@@ -42,11 +42,13 @@ public class QuickLocationShare extends AppWidgetProvider {
         Log.d("widget", "Yuupee...:  Lon is:"+lon);
         Log.d("widget", "Yuupee...:  time is:"+locsaveTime);
         Log.d("widget", "Yuupee...:  time is:"+rawLocation);
+        Log.d("widget", "Yuupee...:  p1 is:"+p1);
+        Log.d("widget", "Yuupee...:  message is:"+message);
 
         views.setTextViewText(R.id.widget_lat_value, lat);
         views.setTextViewText(R.id.widget_lon_value, lon);
 
-        if (locsaveTime+(60000*10) < SystemClock.elapsedRealtime()) {
+        if (locsaveTime+(60000*15) < SystemClock.elapsedRealtime()) {
             Toast.makeText(context, R.string.widget_location_too_old, Toast.LENGTH_LONG).show();
             views.setTextViewText(R.id.widget_lat_value, "not refreshed");
             views.setTextViewText(R.id.widget_lon_value, "not refreshed");
