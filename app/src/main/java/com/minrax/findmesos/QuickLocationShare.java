@@ -25,7 +25,7 @@ public class QuickLocationShare extends AppWidgetProvider {
                                 int appWidgetId) {
         String lat, lon, rawLocation, p1, message;
 
-//        CharSequence widgetText = QuickLocationShareConfigureActivity.loadTitlePref(context, appWidgetId);
+//        CharSequence spinnerChoice = QuickLocationShareConfigureActivity.loadTitlePref(context, appWidgetId);
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.quick_location_share);
 
@@ -37,7 +37,6 @@ public class QuickLocationShare extends AppWidgetProvider {
         rawLocation = settings.getString("rawLocation", "no raw location");
         p1 = settings.getString("p1", "");
         message = settings.getString("smsMessage","not found") + " https://www.google.com/maps/place/"+ rawLocation;
-
 
         Log.d("widget", "Yuupee...:  Lat is:"+lat);
         Log.d("widget", "Yuupee...:  Lon is:"+lon);
@@ -52,7 +51,6 @@ public class QuickLocationShare extends AppWidgetProvider {
             views.setTextViewText(R.id.widget_lat_value, "not refreshed");
             views.setTextViewText(R.id.widget_lon_value, "not refreshed");
         }
-
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:"+p1));
         // This ensures only SMS apps respond
@@ -62,7 +60,6 @@ public class QuickLocationShare extends AppWidgetProvider {
             PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             views.setOnClickPendingIntent(R.id.sostemp, configPendingIntent);
         }
-
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -74,7 +71,6 @@ public class QuickLocationShare extends AppWidgetProvider {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
-
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
@@ -82,12 +78,10 @@ public class QuickLocationShare extends AppWidgetProvider {
             QuickLocationShareConfigureActivity.deleteTitlePref(context, appWidgetId);
         }
     }
-
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
     }
-
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 /**
  * The configuration screen for the {@link QuickLocationShare QuickLocationShare} AppWidget.
@@ -17,14 +18,14 @@ public class QuickLocationShareConfigureActivity extends Activity {
     private static final String PREFS_NAME = "com.minrax.findmesos.QuickLocationShare";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    EditText mAppWidgetText;
+    Spinner wSpinner;
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = QuickLocationShareConfigureActivity.this;
 
             // When the button is clicked, store the string locally
-            String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
+            String spinnerChoice = wSpinner.getSelectedItem().toString();
+            saveTitlePref(context, mAppWidgetId, spinnerChoice);
 
             // It is the responsibility of the configuration activity to update the app widget
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -76,7 +77,7 @@ public class QuickLocationShareConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.quick_location_share_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+        wSpinner = findViewById(R.id.widget_spinner);
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
@@ -93,7 +94,7 @@ public class QuickLocationShareConfigureActivity extends Activity {
             return;
         }
 
-        mAppWidgetText.setText(loadTitlePref(QuickLocationShareConfigureActivity.this, mAppWidgetId));
+//        wSpinner.setText(loadTitlePref(QuickLocationShareConfigureActivity.this, mAppWidgetId));
     }
 }
 

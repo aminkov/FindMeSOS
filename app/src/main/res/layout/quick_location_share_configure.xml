@@ -11,11 +11,12 @@
         android:layout_marginBottom="8dp"
         android:text="@string/configure" />
 
-    <EditText
-        android:id="@+id/appwidget_text"
+    <Spinner
+        android:id="@+id/widget_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:entries="@array/widget_config"
+        android:prompt="@string/settings" />
 
     <Button
         android:id="@+id/add_button"
