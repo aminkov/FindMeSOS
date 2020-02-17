@@ -128,12 +128,7 @@ public class MainActivity extends Lib implements LocationListener {
             String lon = formatLongitude(location.getLongitude());
             longitudeField.setText(lon);
 
-            //saving location in preferences for widget use
-            writeToPreference("latitude", lat);
-            writeToPreference("longitude", lon);
-            writeToPreference("timeLatLon", String.valueOf(SystemClock.elapsedRealtime()));
-            writeToPreference("rawLocation", returnRawLocation());
-
+            writeLocationToPreferences(lat, lon);
 
             TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
@@ -148,6 +143,14 @@ public class MainActivity extends Lib implements LocationListener {
         //request location updates if permission Ok
         locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         getElevationGoogleAPI();
+    }
+
+    public void writeLocationToPreferences(String lat, String lon) {
+        //saving location in preferences for widget use
+        writeToPreference("latitude", lat);
+        writeToPreference("longitude", lon);
+        writeToPreference("timeLatLon", String.valueOf(SystemClock.elapsedRealtime()));
+        writeToPreference("rawLocation", returnRawLocation());
     }
 
     protected String returnRawLocation() {

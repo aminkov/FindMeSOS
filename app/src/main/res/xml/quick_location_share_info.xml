@@ -3,7 +3,7 @@
     android:configure="com.minrax.findmesos.QuickLocationShareConfigureActivity"
     android:initialKeyguardLayout="@layout/quick_location_share"
     android:initialLayout="@layout/quick_location_share"
-    android:minWidth="110dp"
+    android:minWidth="180dp"
     android:minHeight="40dp"
     android:previewImage="@drawable/findmesos_widget_preview"
     android:resizeMode="horizontal|vertical"

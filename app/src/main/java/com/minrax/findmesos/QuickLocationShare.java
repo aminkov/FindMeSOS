@@ -51,7 +51,7 @@ public class QuickLocationShare extends AppWidgetProvider {
         if (locsaveTime+(60000*15) < SystemClock.elapsedRealtime()) {
             Toast.makeText(context, R.string.widget_location_too_old, Toast.LENGTH_LONG).show();
             views.setTextViewText(R.id.widget_lat_value, "not refreshed");
-            views.setTextViewText(R.id.widget_lon_value, "not refreshed");
+            views.setTextViewText(R.id.widget_lon_value, "open app to refresh");
 //            Intent intent1 = new Intent(context, MainActivity.class);
 //            startActivity(intent, R.id.activity_main.xml);
         }
