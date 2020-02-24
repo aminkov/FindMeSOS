@@ -150,7 +150,7 @@ public class MainActivity extends Lib implements LocationListener {
         }
     }
 
-//    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission")
     protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
