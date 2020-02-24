@@ -53,14 +53,13 @@ public class MainActivity extends Lib implements LocationListener {
     private static long mLastRefreshClickTime;
     private static final int GPS_PERMISSION_CODE = 121;
 
-
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Check if GPS permission is granted
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        checkRequestGPSPermission();
+        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, GPS_PERMISSION_CODE);
     }
 
     //All other methods go here
@@ -70,7 +69,6 @@ public class MainActivity extends Lib implements LocationListener {
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
         // Get the location manager
-//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check if GPS is enabled and prompt user to enable if it's not
         checkAndPromptIfGPSIsDisabled();
         //if all OK, set location
@@ -78,41 +76,31 @@ public class MainActivity extends Lib implements LocationListener {
         setLocationMapThroughGoogleAPI();
     }
 
-    protected void checkRequestGPSPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //Request GPS permission
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_PERMISSION_CODE);
+    public void checkPermission(String permission, int requestCode)
+    {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
+            // Requesting the permission
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults)
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
-        super
-                .onRequestPermissionsResult(requestCode,
-                        permissions,
-                        grantResults);
-
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == GPS_PERMISSION_CODE) {
-
             // Checking whether user granted the permission or not.
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 // Showing the toast message
-                Toast.makeText(MainActivity.this,
-                        "GPS Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show();
-                        doEverything();
-            }
-            else {
-                Toast.makeText(MainActivity.this,
-                        "GPS Permission Denied",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(MainActivity.this, "GPS Permission Granted", Toast.LENGTH_SHORT).show();
+                doEverything();
+            } else {
+                Toast.makeText(MainActivity.this, "GPS Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -162,19 +150,20 @@ public class MainActivity extends Lib implements LocationListener {
         }
     }
 
-    @SuppressLint("MissingPermission")
+//    @SuppressLint("MissingPermission")
     protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        // Initialize the location fields
         if (location != null) {
             Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
             String lat = formatLatitude(location.getLatitude());
-            latitudeField.setText(lat);
             String lon = formatLongitude(location.getLongitude());
-            longitudeField.setText(lon);
 
-            writeLocationToPreferences(lat, lon);
-
+            if (!lat.equals("") || !lon.equals("")) {
+                latitudeField.setText(lat);
+                longitudeField.setText(lon);
+                writeLocationToPreferences(lat, lon);
+            }
             TextView elevationTextView2 = findViewById(R.id.tvaltvalgps);
             int a = (int) location.getAltitude();
             String aa = a + " m";
@@ -297,7 +286,7 @@ public class MainActivity extends Lib implements LocationListener {
     protected void onResume() {
         super.onResume();
         //Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
-        checkRequestGPSPermission();
+        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, GPS_PERMISSION_CODE);
     }
 
     @Override
