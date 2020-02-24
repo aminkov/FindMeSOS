@@ -1,4 +1,5 @@
 package com.minrax.findmesos;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
@@ -50,27 +51,83 @@ public class MainActivity extends Lib implements LocationListener {
     private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String ENCODEDAPIKEY = BuildConfig.FindMeSOS_EncodedApiKey;
     private static long mLastRefreshClickTime;
+    private static final int GPS_PERMISSION_CODE = 121;
+
 
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Check if GPS permission is granted
-        while (!checkPermissionsNew()) {
-            checkPermissionsNew();
-        }
+        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        checkRequestGPSPermission();
+    }
+
+    //All other methods go here
+
+    void doEverything() {
         //Initialize location fields
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
         // Get the location manager
-        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //Check if GPS is enabled and prompt user to enable if it's not
         checkAndPromptIfGPSIsDisabled();
         //if all OK, set location
         setLocation();
         setLocationMapThroughGoogleAPI();
     }
-    //All other methods go here
+
+    protected void checkRequestGPSPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //Request GPS permission
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, GPS_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults)
+    {
+        super
+                .onRequestPermissionsResult(requestCode,
+                        permissions,
+                        grantResults);
+
+        if (requestCode == GPS_PERMISSION_CODE) {
+
+            // Checking whether user granted the permission or not.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // Showing the toast message
+                Toast.makeText(MainActivity.this,
+                        "GPS Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+                        doEverything();
+            }
+            else {
+                Toast.makeText(MainActivity.this,
+                        "GPS Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    protected boolean checkPermissionsNew() {
+        boolean isPermission;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //Request GPS permission
+            isPermission = false;
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            isPermission = true;
+        }
+        return isPermission;
+    }
 
     private String decodeApiKey(String key) {
         byte[] data = Base64.decode(key, Base64.DEFAULT);
@@ -90,31 +147,19 @@ public class MainActivity extends Lib implements LocationListener {
             builder.setMessage(R.string.gps_not_found_message); // Want to enable?
             builder.setCancelable(true);
             builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, final int id) {
-                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                            dialog.dismiss();
-                        }
-                    });
+                public void onClick(final DialogInterface dialog, final int id) {
+                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    dialog.dismiss();
+                }
+            });
             builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, final int id) {
-                            dialog.dismiss();
-                        }
-                    });
+                public void onClick(final DialogInterface dialog, final int id) {
+                    dialog.dismiss();
+                }
+            });
             final AlertDialog alert = builder.create();
             alert.show();
         }
-    }
-
-    protected boolean checkPermissionsNew() {
-        boolean isPermission;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //Request GPS permission
-            isPermission = false;
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            isPermission = true;
-        }
-        return isPermission;
     }
 
     @SuppressLint("MissingPermission")
@@ -252,7 +297,7 @@ public class MainActivity extends Lib implements LocationListener {
     protected void onResume() {
         super.onResume();
         //Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
-        setLocation();
+        checkRequestGPSPermission();
     }
 
     @Override
