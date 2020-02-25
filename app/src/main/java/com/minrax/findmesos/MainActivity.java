@@ -183,6 +183,7 @@ public class MainActivity extends Lib implements LocationListener {
             longitudeField.setText(getString(R.string.loc_not_available_field));
         }
         //request location updates if permission Ok
+//        locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         getElevationGoogleAPI();
     }
