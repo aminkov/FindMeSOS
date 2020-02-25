@@ -183,7 +183,7 @@ public class MainActivity extends Lib implements LocationListener {
             longitudeField.setText(getString(R.string.loc_not_available_field));
         }
         //request location updates if permission Ok
-        locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         getElevationGoogleAPI();
     }
 
@@ -467,7 +467,7 @@ public class MainActivity extends Lib implements LocationListener {
             @Override
             public void onErrorResponse(VolleyError error) {
                 TextView elevationTextView = findViewById(R.id.tvaltvalmap);
-                elevationTextView.setText("Error event, no response ");
+                elevationTextView.setText("Error event, no response");
             }
         });
         // Access the RequestQueue through your singleton class.
