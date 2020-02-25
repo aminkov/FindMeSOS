@@ -57,18 +57,17 @@ public class MainActivity extends Lib implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Check if GPS permission is granted
+        //Initialize loc manager
         locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Check if GPS permission is granted
         checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, GPS_PERMISSION_CODE);
     }
 
     //All other methods go here
-
     void doEverything() {
         //Initialize location fields
         latitudeField = findViewById(R.id.textview1);
         longitudeField = findViewById(R.id.textview2);
-        // Get the location manager
         //Check if GPS is enabled and prompt user to enable if it's not
         checkAndPromptIfGPSIsDisabled();
         //if all OK, set location
@@ -83,7 +82,8 @@ public class MainActivity extends Lib implements LocationListener {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
         }
         else {
-            Toast.makeText(MainActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
+            doEverything();
         }
     }
 
@@ -95,26 +95,34 @@ public class MainActivity extends Lib implements LocationListener {
             // Checking whether user granted the permission or not.
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 // Showing the toast message
                 Toast.makeText(MainActivity.this, "GPS Permission Granted", Toast.LENGTH_SHORT).show();
                 doEverything();
             } else {
-                Toast.makeText(MainActivity.this, "GPS Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "GPS Permission was Denied...", Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.gps_permission_needed); // GPS not found
+                builder.setMessage(R.string.gps_permission_needed_message); // Want to enable?
+                builder.setCancelable(true);
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                Uri.fromParts("package", getPackageName(), null));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                final AlertDialog alert = builder.create();
+                alert.show();
             }
         }
-    }
-
-    protected boolean checkPermissionsNew() {
-        boolean isPermission;
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //Request GPS permission
-            isPermission = false;
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            isPermission = true;
-        }
-        return isPermission;
     }
 
     private String decodeApiKey(String key) {
@@ -153,7 +161,7 @@ public class MainActivity extends Lib implements LocationListener {
     @SuppressLint("MissingPermission")
     protected void setLocation() {
         Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        // Initialize the location fields
+        // Initialize the location fields
         if (location != null) {
             Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
             String lat = formatLatitude(location.getLatitude());
@@ -285,8 +293,10 @@ public class MainActivity extends Lib implements LocationListener {
 
     protected void onResume() {
         super.onResume();
-        //Toast.makeText(getApplicationContext(), getString(R.string.resume_location), Toast.LENGTH_LONG).show();
-        checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, GPS_PERMISSION_CODE);
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Requesting the permission
+            doEverything();
+        }
     }
 
     @Override
@@ -303,8 +313,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     public void onProviderDisabled(String provider) {
-        Toast.makeText(this, getString(R.string.dissable_provider) +" "+ provider,
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.dissable_provider) +" "+ provider, Toast.LENGTH_SHORT).show();
         locManager.removeUpdates(this);
     }
 
@@ -377,8 +386,7 @@ public class MainActivity extends Lib implements LocationListener {
                 //Request permission
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
             }
-//            Toast.makeText(this, "Map image will be added to message", Toast.LENGTH_SHORT).show();
-            //add image to sharing message
+            //add image to sharing message if option enabled in settings
             ImageView mapView = findViewById(R.id.mapview);
             if (null != mapView.getDrawable()) {
                 Drawable mDrawable = mapView.getDrawable();
@@ -413,9 +421,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     public void refreshLocationButton(View view) {
         if (SystemClock.elapsedRealtime() - mLastRefreshClickTime > REFRESH_BUTTON_CLICK_INTERVAL) {
-            checkAndPromptIfGPSIsDisabled();
-            setLocation();
-            setLocationMapThroughGoogleAPI();
+            doEverything();
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.crazy_clicking), Toast.LENGTH_SHORT).show();
         }

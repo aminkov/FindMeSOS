@@ -43,4 +43,6 @@
     <string name="add_widget">Add widget</string>
     <string name="opening_sms_app">Opening the SMS sending app...</string>
     <string name="widget_location_too_old">Your location is too old, open the App and refresh it!</string>
+    <string name="gps_permission_needed">GPS permission needed!</string>
+    <string name="gps_permission_needed_message">The app can not work without GPS permission, this is it\'s core function. Do you want to enable?</string>
 </resources>
