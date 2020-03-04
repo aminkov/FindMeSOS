@@ -138,7 +138,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     private void checkAndPromptIfGPSIsDisabled() {
-        Log.d("debug", "checkAndPromptIfGPSIsDisabled executing...");
+        Log.d("debug", "checkAndPromptIfGPSIsDisabled executing....");
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.gps_not_found_title); // GPS not found
