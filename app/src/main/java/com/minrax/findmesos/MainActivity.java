@@ -52,6 +52,7 @@ public class MainActivity extends Lib implements LocationListener {
     private static final String ENCODEDAPIKEY = BuildConfig.FindMeSOS_EncodedApiKey;
     private static long mLastRefreshClickTime;
     private static final int GPS_PERMISSION_CODE = 121;
+    private static Location location;
 
     //On create method goes here
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class MainActivity extends Lib implements LocationListener {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Showing the toast message
-                Toast.makeText(MainActivity.this, "GPS Permission Granted", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "GPS Permission Granted", Toast.LENGTH_SHORT).show();
                 doEverything();
             } else {
                 Toast.makeText(MainActivity.this, "GPS Permission was Denied...", Toast.LENGTH_SHORT).show();
@@ -111,6 +112,7 @@ public class MainActivity extends Lib implements LocationListener {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         dialog.dismiss();
+                        finish();
                     }
                 });
                 builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -160,7 +162,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     @SuppressLint("MissingPermission")
     protected void setLocation() {
-        Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         // Initialize the location fields
         if (location != null) {
             Toast.makeText(getApplicationContext(), getString(R.string.loc_provider_initialized), Toast.LENGTH_SHORT).show();
@@ -183,7 +185,6 @@ public class MainActivity extends Lib implements LocationListener {
             longitudeField.setText(getString(R.string.loc_not_available_field));
         }
         //request location updates if permission Ok
-//        locManager.requestLocationUpdates(locManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
         getElevationGoogleAPI();
     }
@@ -196,10 +197,11 @@ public class MainActivity extends Lib implements LocationListener {
         writeToPreference("rawLocation", returnRawLocation());
     }
 
+    @SuppressLint("MissingPermission")
     protected String returnRawLocation() {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
         if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 double lat = location.getLatitude();
                 double lon = location.getLongitude();
@@ -318,9 +320,10 @@ public class MainActivity extends Lib implements LocationListener {
         locManager.removeUpdates(this);
     }
 
+    @SuppressLint("MissingPermission")
     private void setLocationMapThroughGoogleAPI() {
         if(checkIfInternetConnection()) {
-            @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 String URL = createGoogleMapsAPIURL();
                 ImageView mapview = findViewById(R.id.mapview);
@@ -356,6 +359,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     public void sendSMS(View view) {
+
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:"+getPreferenceValue("p1")));
@@ -430,9 +434,10 @@ public class MainActivity extends Lib implements LocationListener {
         playSoundIfOn();
       }
 
+    @SuppressLint("MissingPermission")
     public void copyLocationToClipboard(View view) {
         playSoundIfOn();
-        @SuppressLint("MissingPermission") Location location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
             String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
