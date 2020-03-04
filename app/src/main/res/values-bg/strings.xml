@@ -16,7 +16,7 @@
     <string name="dissable_provider">Деактивиран GPS</string>
     <string name="loc_provider_initialized">Определяне на местоположението...</string>
     <string name="loc_not_available_field">Локацията не е налична...</string>
-    <string name="oops_loc_not_available_msg">Опа, изглежда локацията не работи...</string>
+    <string name="oops_loc_not_available_msg">Опа, локацията не e намерена, опитайте да опресните...</string>
     <string name="loc_copies_msg">Готово :) Локацията е копирана...</string>
     <string name="_359875875487">+359875875487</string>
     <string name="mail_address_to_send_mails_to">E-mail по подразбиране за пращане на локация</string>

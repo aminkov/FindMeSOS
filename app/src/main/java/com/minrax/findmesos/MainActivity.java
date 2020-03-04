@@ -76,8 +76,7 @@ public class MainActivity extends Lib implements LocationListener {
         setLocationMapThroughGoogleAPI();
     }
 
-    public void checkPermission(String permission, int requestCode)
-    {
+    public void checkPermission(String permission, int requestCode) {
         if (ContextCompat.checkSelfPermission(MainActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
             // Requesting the permission
             ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
@@ -139,6 +138,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     private void checkAndPromptIfGPSIsDisabled() {
+        Log.d("debug", "checkAndPromptIfGPSIsDisabled executing...");
         if (!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.gps_not_found_title); // GPS not found
@@ -178,11 +178,12 @@ public class MainActivity extends Lib implements LocationListener {
             int a = (int) location.getAltitude();
             String aa = a + " m";
             elevationTextView2.setText(aa);
-
         } else {
             Toast.makeText(getApplicationContext(), getString(R.string.oops_loc_not_available_msg), Toast.LENGTH_SHORT).show();
             latitudeField.setText(getString(R.string.loc_not_available_field));
             longitudeField.setText(getString(R.string.loc_not_available_field));
+            //trying again to get the latest location
+            location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
         //request location updates if permission Ok
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
@@ -295,10 +296,11 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     protected void onResume() {
+        Log.d("debug", "onResume: resuming app...");
         super.onResume();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Requesting the permission
-            doEverything();
+            setLocation();
+            setLocationMapThroughGoogleAPI();
         }
     }
 
@@ -306,7 +308,6 @@ public class MainActivity extends Lib implements LocationListener {
     protected void onPause() {
         /* Remove the locationlistener updates when Activity is paused */
         super.onPause();
-        //Toast.makeText(getApplicationContext(), getString(R.string.pause_location), Toast.LENGTH_LONG).show();
         locManager.removeUpdates(this);
     }
 
@@ -359,7 +360,6 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     public void sendSMS(View view) {
-
         String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:"+getPreferenceValue("p1")));

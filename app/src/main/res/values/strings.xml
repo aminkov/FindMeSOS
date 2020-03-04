@@ -23,7 +23,7 @@
     <string name="dissable_provider">Disabled location provider</string>
     <string name="loc_provider_initialized">Location provider initialized, loading latest location...</string>
     <string name="loc_not_available_field">Location not available, check GPS</string>
-    <string name="oops_loc_not_available_msg">Oops, seems location is not available...</string>
+    <string name="oops_loc_not_available_msg">Location not found, try refreshing...</string>
     <string name="loc_copies_msg">Location copied to clipboard...</string>
     <string name="sharing_intent_title">Share with:</string>
     <string name="resume_location">Resuming location...</string>
