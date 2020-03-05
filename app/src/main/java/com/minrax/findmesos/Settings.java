@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 
 public class Settings extends Lib {
 
-    long version;
+        long version;
 
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class Settings extends Lib {
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
-            versionName.setText("v."+String.valueOf(version));
+            versionName.setText("v."+ version);
         }
 
         public void goToMainApp(View view) {
