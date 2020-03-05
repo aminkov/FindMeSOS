@@ -1,5 +1,6 @@
 package com.minrax.findmesos;
 import android.Manifest;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.widget.EditText;
 import android.content.Intent;
@@ -8,16 +9,26 @@ import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class Settings extends Lib {
 
+    long version;
+
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_settings);
             loadSavedSettings();
+            //showing version
+            TextView versionName = findViewById(R.id.version);
+            try {
+                PackageInfo pInfo = getApplicationContext().getPackageManager().getPackageInfo(getPackageName(), 0);
+                version = pInfo.versionCode;
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            versionName.setText("v."+String.valueOf(version));
         }
 
         public void goToMainApp(View view) {

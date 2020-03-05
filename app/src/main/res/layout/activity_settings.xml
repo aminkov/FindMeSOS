@@ -27,6 +27,14 @@
                             android:gravity="center"
                             android:src="@drawable/l2"
                             />
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="20dp"
+                            android:id="@+id/version"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                 </TableRow>
 
                 <TableRow
