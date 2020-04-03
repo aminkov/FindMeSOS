@@ -46,7 +46,7 @@ public class MainActivity extends Lib implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
     private TextView latitudeField;
     private TextView longitudeField;
-    private LocationManager locManager;
+    private static LocationManager locManager;
     private static final long LOCATION_REFRESH_TIME = 3000;
     private static final long LOCATION_REFRESH_DISTANCE = 5;
     private static final String ENCODEDAPIKEY = BuildConfig.FindMeSOS_EncodedApiKey;
