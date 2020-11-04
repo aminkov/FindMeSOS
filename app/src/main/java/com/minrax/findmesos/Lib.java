@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Lib extends AppCompatActivity {
 
-
     public void playSoundIfOn() {
         if (readABooleanPreference("soundStatus")) {
             final MediaPlayer mp = MediaPlayer.create(this, R.raw.s3);
