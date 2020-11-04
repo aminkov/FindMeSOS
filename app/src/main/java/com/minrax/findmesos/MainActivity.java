@@ -162,6 +162,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     @SuppressLint("MissingPermission")
     protected void setLocation() {
+        Log.d("setLoc", "get location....");
         location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         // Initialize the location fields
         if (location != null) {
@@ -195,11 +196,11 @@ public class MainActivity extends Lib implements LocationListener {
         writeToPreference("latitude", lat);
         writeToPreference("longitude", lon);
         writeToPreference("timeLatLon", String.valueOf(SystemClock.elapsedRealtime()));
-        writeToPreference("rawLocation", returnRawLocation());
+        writeToPreference("rawLocation", returnRawLocation(5));
     }
 
     @SuppressLint("MissingPermission")
-    protected String returnRawLocation() {
+    protected String returnRawLocation(int decSymbols) {
         //Returns Latitude and Longitude in string format, accuracy of up to 5 digits after the comma, and separated by "43.38352,23.45767", used by the send SMS, copy and other functions.
         if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -209,20 +210,20 @@ public class MainActivity extends Lib implements LocationListener {
                 //get coordinates after the decimal pointer:  -123.[ 123456789012 ]
                 String latstrright = String.valueOf(lat).substring(String.valueOf(lat).indexOf(".") + 1);
                 String lonstrright = String.valueOf(lon).substring(String.valueOf(lon).indexOf(".") + 1);
-                //shorten the decimal part to 5 symbols and lose the rest - [ 12345.... ]
-                if (latstrright.length() > 5) {
-                    latstrright = latstrright.substring(0, 5);
+                //shorten the decimal part to "decSymbols" number of symbols and lose the rest - [if decSymbols=5 - 12345.... ]
+                if (latstrright.length() > decSymbols) {
+                    latstrright = latstrright.substring(0, decSymbols);
                 }
-                if (lonstrright.length() > 5) {
-                    lonstrright = lonstrright.substring(0, 5);
+                if (lonstrright.length() > decSymbols) {
+                    lonstrright = lonstrright.substring(0, decSymbols);
                 }
                 //get the coordinates before the decimal delimiter: [ -123 ].123456789012
                 String latstrleft = String.valueOf(lat).substring(0, String.valueOf(lat).indexOf("."));
                 String lonstrleft = String.valueOf(lon).substring(0, String.valueOf(lon).indexOf("."));
-                //combine left and right parts and get coordinates with accuracy of up to 5 symbols: [ -123 ] + [ 12345 ] = -123.12345
+                //combine left and right parts and get coordinates with accuracy of up to "decSymbols" symbols: [ -123 ] + [ 12345 ] = -123.12345
                 String lonstr = lonstrleft + "." + lonstrright;
                 String latstr = latstrleft + "." + latstrright;
-                //return latitude and longitude with 5 symbols accuracy in the form: [ -123.12345,123.12345 ]
+                //return latitude and longitude with "decSymbols" symbols accuracy in the form: [ -123.12345,123.12345 ]
                 return latstr + "," + lonstr;
                 //return "42.64941,23.37352";
             } else {
@@ -326,7 +327,7 @@ public class MainActivity extends Lib implements LocationListener {
         if(checkIfInternetConnection()) {
             location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
-                String URL = createGoogleMapsAPIURL();
+                String URL = createMapboxMapsAPIURL();
                 ImageView mapview = findViewById(R.id.mapview);
                 Picasso.get().load(URL).into(mapview);
             }
@@ -349,7 +350,20 @@ public class MainActivity extends Lib implements LocationListener {
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
         final String MAP_MARKER_COLOR = "Red";
         if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation()+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
+        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation(5)+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
+    }
+
+    private String createMapboxMapsAPIURL() {
+        String MAP_SIZE = "380x280";
+        int ZOOM;
+        if (getPreferenceValue("mapzoom") == "") { ZOOM = 13;} else {ZOOM = (Integer.parseInt(getPreferenceValue("mapzoom")) - 3);}
+        final String MAPTYPE;
+        final String SCALE;
+        final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
+        final String MAP_MARKER_COLOR = "Red";
+        if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite-v9";} else {MAPTYPE = "outdoors-v11";}
+        final String[] coordinates = returnRawLocation(4).split(",");
+        return "https://api.mapbox.com/styles/v1/mapbox/"+MAPTYPE+"/static/pin-l-l+3bb("+coordinates[1]+","+coordinates[0]+")/"+coordinates[1]+","+coordinates[0]+","+ZOOM+",0,0/"+MAP_SIZE+"?access_token="+decodeApiKey(ENCODEDAPIKEY);
     }
 
     //Button functions
@@ -360,7 +374,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     public void sendSMS(View view) {
-        String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation();
+        String message = getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation(5);
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("smsto:"+getPreferenceValue("p1")));
         // This ensures only SMS apps respond
@@ -374,8 +388,8 @@ public class MainActivity extends Lib implements LocationListener {
     public void launchGMaps(View view) {
         //opens Google Maps with current lat and long
         String label = "My location";
-        String uriBegin = "geo:" + returnRawLocation();
-        String query = returnRawLocation() + "(" + label + ")";
+        String uriBegin = "geo:" + returnRawLocation(5);
+        String query = returnRawLocation(5) + "(" + label + ")";
         String encodedQuery = Uri.encode(query);
         String uriString = uriBegin + "?q=" + encodedQuery + "&z=16";
         Uri uri = Uri.parse(uriString);
@@ -402,7 +416,7 @@ public class MainActivity extends Lib implements LocationListener {
                 i.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
                 i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
                 i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation(5));
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             } else {
 //                Toast.makeText(this, "*** Map image is NULL, and it shouldn't be...***", Toast.LENGTH_SHORT).show();
@@ -410,7 +424,7 @@ public class MainActivity extends Lib implements LocationListener {
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
                 i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation());
+                i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/"+ returnRawLocation(5));
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             }
         } else {
@@ -419,7 +433,7 @@ public class MainActivity extends Lib implements LocationListener {
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
             i.putExtra(Intent.EXTRA_SUBJECT, "My location");
-            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation());
+            i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation(5));
             startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
         }
     }
@@ -439,7 +453,7 @@ public class MainActivity extends Lib implements LocationListener {
         playSoundIfOn();
         location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (location != null) {
-            String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation();
+            String coordinates = "https://www.google.com/maps/place/"+ returnRawLocation(5);
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("My location", coordinates);
             clipboard.setPrimaryClip(clip);
@@ -452,7 +466,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     private void getElevationGoogleAPI() {
-        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation()+"&key="+decodeApiKey(ENCODEDAPIKEY);
+        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
         RequestQueue localRequestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
             @Override
