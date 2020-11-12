@@ -32,11 +32,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:noHistory="true"
             android:name=".Settings"
             android:label="Settings"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
+            android:noHistory="true"
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
