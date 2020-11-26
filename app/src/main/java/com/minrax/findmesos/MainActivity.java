@@ -1,12 +1,11 @@
 package com.minrax.findmesos;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,13 +13,13 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -29,18 +28,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.location.LocationListener;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import java.io.UnsupportedEncodingException;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends Lib implements LocationListener {
     private static final long REFRESH_BUTTON_CLICK_INTERVAL = 2000;
@@ -73,7 +78,7 @@ public class MainActivity extends Lib implements LocationListener {
         checkAndPromptIfGPSIsDisabled();
         //if all OK, set location
         setLocation();
-        setLocationMapThroughGoogleAPI();
+        setLocationMapThroughMapboxAPI();
     }
 
     public void checkPermission(String permission, int requestCode) {
@@ -129,11 +134,7 @@ public class MainActivity extends Lib implements LocationListener {
     private String decodeApiKey(String key) {
         byte[] data = Base64.decode(key, Base64.DEFAULT);
         String decodedKey = null;
-        try {
-            decodedKey = new String(data, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        decodedKey = new String(data, StandardCharsets.UTF_8);
         return decodedKey;
     }
 
@@ -301,7 +302,7 @@ public class MainActivity extends Lib implements LocationListener {
         super.onResume();
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setLocation();
-            setLocationMapThroughGoogleAPI();
+            setLocationMapThroughMapboxAPI();
         }
     }
 
@@ -323,7 +324,7 @@ public class MainActivity extends Lib implements LocationListener {
     }
 
     @SuppressLint("MissingPermission")
-    private void setLocationMapThroughGoogleAPI() {
+    private void setLocationMapThroughMapboxAPI() {
         if(checkIfInternetConnection()) {
             location = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
@@ -341,17 +342,17 @@ public class MainActivity extends Lib implements LocationListener {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-    private String createGoogleMapsAPIURL() {
-        String MAP_SIZE = "380x280";
-        int ZOOM;
-        if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
-        final String MAPTYPE;
-        final String SCALE;
-        final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
-        final String MAP_MARKER_COLOR = "Red";
-        if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
-        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation(5)+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
-    }
+//    private String createGoogleMapsAPIURL() {
+//        String MAP_SIZE = "380x280";
+//        int ZOOM;
+//        if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
+//        final String MAPTYPE;
+//        final String SCALE;
+//        final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
+//        final String MAP_MARKER_COLOR = "Red";
+//        if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
+//        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation(5)+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
+//    }
 
     private String createMapboxMapsAPIURL() {
         String MAP_SIZE = "380x280";

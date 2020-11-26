@@ -18,7 +18,7 @@ android {
 
         defaultConfig {
             applicationId "com.minrax.findmesos"
-            minSdkVersion 15
+            minSdkVersion 19
             targetSdkVersion 29
             versionName "Ladybug"
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
