@@ -189,7 +189,7 @@ public class MainActivity extends Lib implements LocationListener {
         }
         //request location updates if permission Ok
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME, LOCATION_REFRESH_DISTANCE, this);
-        getElevationGoogleAPI();
+        getElevationFromAPI();
     }
 
     public void writeLocationToPreferences(String lat, String lon) {
@@ -466,8 +466,37 @@ public class MainActivity extends Lib implements LocationListener {
         }
     }
 
-    private void getElevationGoogleAPI() {
-        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
+//    private void getElevationGoogleAPI() {
+//        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
+//        RequestQueue localRequestQueue = Volley.newRequestQueue(this);
+//        JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
+//                try {
+//                    JSONArray jArr = response.getJSONArray("results");
+//                    double elevation = jArr.getJSONObject(0).getDouble("elevation");
+//                    int roundedElevation = (int) elevation;
+//                    String finalElevationString = roundedElevation+" m";
+//                    elevationTextView.setText(finalElevationString);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    elevationTextView.setText("JSONArray is doing dirty tricks again...");
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
+//                elevationTextView.setText("Error event, no response");
+//            }
+//        });
+//        // Access the RequestQueue through your singleton class.
+//        localRequestQueue.add(jReq);
+//    }
+
+    private void getElevationFromAPI() {
+        final String elevationURL = "https://elevation-api.io/api/elevation?points=("+returnRawLocation(5)+")&key=wPcew15Vuecbc8b0-21xdGi-ZK7a85";
         RequestQueue localRequestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
             @Override
