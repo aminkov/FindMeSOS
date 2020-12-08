@@ -20,7 +20,7 @@ android {
             applicationId "com.minrax.findmesos"
             minSdkVersion 19
             targetSdkVersion 29
-            versionName "Ladybug"
+            versionName "Grasshopper"
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             versionCode code
         }
