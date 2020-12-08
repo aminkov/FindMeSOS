@@ -1,7 +1,7 @@
 <resources>
     <string name="yes">YES</string>
     <string name="gps_not_found_message">Do you want to enable GPS?</string>
-    <string name="gps_not_found_title">Seems GPS is disabled...</string>
+    <string name="gps_not_found_title">Seems GPS is disabled…</string>
     <string name="no">NO</string>
     <string name="refresh">Refresh</string>
     <string name="latitude">Latitude:</string>
@@ -14,20 +14,20 @@
     <string name="smsnumber_settings">Phone number(s) to send SMSes to:</string>
     <string name="_359875875487">+359875875487</string>
     <string name="number3">Third number</string>
-    <string name="number2">Second number...</string>
+    <string name="number2">Second number…</string>
     <string name="emailfield">mail@something.com</string>
     <string name="mail_address_to_send_mails_to">E-mail address to send mails to:</string>
     <string name="custom_sms_message_field">Custom SMS message to be added when sending coordinates:</string>
     <string name="sample_sms_message_hint">Eexample: SOS, this is my location:                               /or/                                   See where I am now:</string>
     <string name="save_settings_button_text">Save SETTINGS and go to Main APP</string>
     <string name="dissable_provider">Disabled location provider</string>
-    <string name="loc_provider_initialized">Location provider initialized, loading latest location...</string>
+    <string name="loc_provider_initialized">Location provider initialized, loading latest location…</string>
     <string name="loc_not_available_field">Location not available, check GPS</string>
-    <string name="oops_loc_not_available_msg">Location not found, try refreshing...</string>
-    <string name="loc_copies_msg">Location copied to clipboard...</string>
+    <string name="oops_loc_not_available_msg">Location not found, try refreshing…</string>
+    <string name="loc_copies_msg">Location copied to clipboard…</string>
     <string name="sharing_intent_title">Share with:</string>
-    <string name="resume_location">Resuming location...</string>
-    <string name="pause_location">Pausing location...</string>
+    <string name="resume_location">Resuming location…</string>
+    <string name="pause_location">Pausing location…</string>
     <string name="on_provider_enabled_method">Enabled new location provider</string>
     <string name="elevation_map">"Elevation(Map): "</string>
     <string name="elevation_gps">"Elevation(GPS): "</string>
@@ -41,8 +41,13 @@
     <string name="appwidget_text">SEND</string>
     <string name="configure">How do you want your location to be sent?</string>
     <string name="add_widget">Add widget</string>
-    <string name="opening_sms_app">Opening the SMS sending app...</string>
-    <string name="widget_location_too_old">Your location is too old, open the App and refresh it!</string>
-    <string name="gps_permission_needed">GPS permission needed!</string>
-    <string name="gps_permission_needed_message">The app can not work without GPS permission, this is it\'s core function. Do you want to enable?</string>
+    <string name="opening_sms_app">Opening the SMS sending app…</string>
+    <string name="widget_location_too_old" translatable="false">Your location is too old, open the App and refresh it!</string>
+    <string name="gps_permission_needed" translatable="false">GPS permission needed!</string>
+    <string name="gps_permission_needed_message" translatable="false">The app can not work without GPS permission, this is it\'s core function. Do you want to enable?</string>
+    <string name="refresh_location_button" translatable="false">refresh location button</string>
+    <string name="copy_location_button" translatable="false">copy location button</string>
+    <string name="send_location_via_sms_button" translatable="false">send location via smsm button</string>
+    <string name="share_location_button" translatable="false">share location button</string>
+    <string name="sos_signal_button" translatable="false">SOS signal button</string>
 </resources>

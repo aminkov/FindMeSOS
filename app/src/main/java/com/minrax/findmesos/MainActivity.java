@@ -87,7 +87,6 @@ public class MainActivity extends Lib implements LocationListener {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] { permission }, requestCode);
         }
         else {
-//            Toast.makeText(MainActivity.this, "Permission already granted", Toast.LENGTH_SHORT).show();
             doEverything();
         }
     }
@@ -133,7 +132,7 @@ public class MainActivity extends Lib implements LocationListener {
 
     private String decodeApiKey(String key) {
         byte[] data = Base64.decode(key, Base64.DEFAULT);
-        String decodedKey = null;
+        String decodedKey;
         decodedKey = new String(data, StandardCharsets.UTF_8);
         return decodedKey;
     }
@@ -342,22 +341,10 @@ public class MainActivity extends Lib implements LocationListener {
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 
-//    private String createGoogleMapsAPIURL() {
-//        String MAP_SIZE = "380x280";
-//        int ZOOM;
-//        if (getPreferenceValue("mapzoom") == "") { ZOOM = 16;} else {ZOOM = Integer.parseInt(getPreferenceValue("mapzoom"));}
-//        final String MAPTYPE;
-//        final String SCALE;
-//        final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
-//        final String MAP_MARKER_COLOR = "Red";
-//        if (readABooleanPreference("terrainon")) {MAPTYPE = "satellite"; SCALE="4"; ZOOM=ZOOM+1;} else {MAPTYPE = "roadmap"; SCALE="1";}
-//        return "https://maps.googleapis.com/maps/api/staticmap?center="+returnRawLocation(5)+"&maptype="+MAPTYPE+"&scale="+SCALE+"&zoom="+ZOOM+"&format="+IMAGE_FORMAT+"&size="+MAP_SIZE+"&maptype="+MAPTYPE+"&markers=color:"+MAP_MARKER_COLOR+"%7Clabel:L%7C"+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
-//    }
-
     private String createMapboxMapsAPIURL() {
         String MAP_SIZE = "380x280";
         int ZOOM;
-        if (getPreferenceValue("mapzoom") == "") { ZOOM = 13;} else {ZOOM = (Integer.parseInt(getPreferenceValue("mapzoom")) - 3);}
+        if (getPreferenceValue("mapzoom").equals("")) { ZOOM = 13;} else {ZOOM = (Integer.parseInt(getPreferenceValue("mapzoom")) - 3);}
         final String MAPTYPE;
         final String SCALE;
         final String IMAGE_FORMAT = "jpg-baseline";   //available formats are: png8, png32, gif, jpg, jpg-baseline
@@ -398,6 +385,7 @@ public class MainActivity extends Lib implements LocationListener {
         startActivity(intent);
         playSoundIfOn();
     }
+
     public void shareLocationButton(View view) {
         playSoundIfOn();
         if (readABooleanPreference("addMap")) {
@@ -420,7 +408,6 @@ public class MainActivity extends Lib implements LocationListener {
                 i.putExtra(Intent.EXTRA_TEXT, getPreferenceValue("smsMessage") + " https://www.google.com/maps/place/" + returnRawLocation(5));
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             } else {
-//                Toast.makeText(this, "*** Map image is NULL, and it shouldn't be...***", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_EMAIL  , new String[]{getPreferenceValue("e1")});
@@ -429,7 +416,6 @@ public class MainActivity extends Lib implements LocationListener {
                 startActivity(Intent.createChooser(i, getString(R.string.sharing_intent_title)));
             }
         } else {
-//            Toast.makeText(this, "*** Map image is OFF, it will NOT be added to message***", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{getPreferenceValue("e1")});
@@ -447,7 +433,7 @@ public class MainActivity extends Lib implements LocationListener {
         }
         mLastRefreshClickTime = SystemClock.elapsedRealtime();
         playSoundIfOn();
-      }
+    }
 
     @SuppressLint("MissingPermission")
     public void copyLocationToClipboard(View view) {
@@ -466,37 +452,8 @@ public class MainActivity extends Lib implements LocationListener {
         }
     }
 
-//    private void getElevationGoogleAPI() {
-//        final String elevationURL = "https://maps.googleapis.com/maps/api/elevation/json?locations="+returnRawLocation(5)+"&key="+decodeApiKey(ENCODEDAPIKEY);
-//        RequestQueue localRequestQueue = Volley.newRequestQueue(this);
-//        JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
-//                try {
-//                    JSONArray jArr = response.getJSONArray("results");
-//                    double elevation = jArr.getJSONObject(0).getDouble("elevation");
-//                    int roundedElevation = (int) elevation;
-//                    String finalElevationString = roundedElevation+" m";
-//                    elevationTextView.setText(finalElevationString);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    elevationTextView.setText("JSONArray is doing dirty tricks again...");
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                TextView elevationTextView = findViewById(R.id.tvaltvalmap);
-//                elevationTextView.setText("Error event, no response");
-//            }
-//        });
-//        // Access the RequestQueue through your singleton class.
-//        localRequestQueue.add(jReq);
-//    }
-
     private void getElevationFromAPI() {
-        final String elevationURL = "https://elevation-api.io/api/elevation?points=("+returnRawLocation(5)+")&key=wPcew15Vuecbc8b0-21xdGi-ZK7a85";
+        final String elevationURL = "https://api.opentopodata.org/v1/eudem25m?locations="+returnRawLocation(5);
         RequestQueue localRequestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jReq = new JsonObjectRequest(Request.Method.GET, elevationURL, null, new Response.Listener<JSONObject>() {
             @Override

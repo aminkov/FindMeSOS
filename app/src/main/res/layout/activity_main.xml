@@ -59,12 +59,11 @@
             android:layout_width="0dp"
             android:layout_weight="0.8"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:text="@string/latitude"
             android:textColor="#ffd700"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingLeft="2dp"/>
+            android:paddingStart="2dp"/>
         <TextView
             android:id="@+id/textview1"
             android:layout_width="0dp"
@@ -72,18 +71,18 @@
             android:layout_weight="1"
             android:gravity="start"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="15sp"
+             />
         <TextView
             android:id="@+id/textview5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:gravity="left"
+            android:gravity="start"
             android:text="@string/longitude"
             android:textColor="#ffd700"
             android:textSize="16sp"
-            android:textStyle="bold" />
+             />
         <TextView
             android:id="@+id/textview2"
             android:layout_width="0dp"
@@ -91,8 +90,8 @@
             android:layout_weight="1"
             android:gravity="start"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="15sp"
+             />
     </LinearLayout>
 
         <LinearLayout
@@ -103,27 +102,26 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:textColor="#ffd700"
                 android:textSize="13sp"
-                android:textStyle="bold"
                 android:text="@string/elevation_map"
-                android:paddingLeft="2dp"/>
+                android:paddingStart="2dp"/>
             <TextView
                 android:id="@+id/tvaltvalmap"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                />
             <TextView
                 android:id="@+id/tvalttitgps"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:textColor="#ffd700"
                 android:textSize="13sp"
                 android:textStyle="bold"
@@ -133,10 +131,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                />
         </LinearLayout>
 
 
@@ -158,7 +156,8 @@
                 android:onClick="refreshLocationButton"
                 android:background="@null"
                 app:srcCompat="@drawable/refresh_pressed_unpressed"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/refresh_location_button" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -167,7 +166,8 @@
                 android:onClick="copyLocationToClipboard"
                 android:background="@null"
                 app:srcCompat="@drawable/copy_pressed_unpressed"
-                android:scaleType="fitCenter" />
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/copy_location_button" />
         </TableRow>
 
 
@@ -186,7 +186,8 @@
                     android:onClick="sendSMS"
                     android:background="@null"
                     app:srcCompat="@drawable/sms_pressed_unpressed"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/send_location_via_sms_button" />
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -195,7 +196,8 @@
                     android:onClick="shareLocationButton"
                     android:background="@null"
                     app:srcCompat="@drawable/share_pressed_unpressed"
-                    android:scaleType="fitCenter" />
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/share_location_button" />
             </TableRow>
         </TableLayout>
 
@@ -207,14 +209,15 @@
 
             <ImageButton
                 android:id="@+id/sostemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="80dp"
                 android:background="@drawable/rectangle_button"
                 android:fadingEdge="horizontal|vertical"
                 android:onClick="sosButtonClick"
                 android:scaleType="fitCenter"
                 android:padding="10dp"
-                app:srcCompat="@drawable/sos_ligh_on" />
+                app:srcCompat="@drawable/sos_ligh_on"
+                android:contentDescription="@string/sos_signal_button" />
 
             <ToggleButton
                 android:id="@+id/sosLightOnOff"
